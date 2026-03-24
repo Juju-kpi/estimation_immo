@@ -1,4 +1,4 @@
-import { estimatePrice } from "../../lib/estimate"; // chemin relatif correct
+import { estimatePrice } from "../../../lib/estimate";
 
 export async function POST(req) {
   const body = await req.json();
