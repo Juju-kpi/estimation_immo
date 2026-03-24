@@ -13,7 +13,7 @@ export default function Navbar() {
       
       {/* LOGO */}
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <img src="/logo.png" alt="logo" style={{ height: 100 }} />
+        <img src="/logo.png" alt="logo" style={{ height: 120 }} />
         <span style={{ fontWeight: 600, fontSize: 22, color: "#333" }}>
         </span>
       </div>
