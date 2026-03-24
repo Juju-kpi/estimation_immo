@@ -8,12 +8,12 @@ export default function Navbar() {
       backgroundColor: "#ffffff",
       boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
       borderRadius: 8,
-      margin: "20px"
+      margin: "10px"
     }}>
       
       {/* LOGO */}
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <img src="/logo.png" alt="logo" style={{ height: 80 }} />
+        <img src="/logo.png" alt="logo" style={{ height: 100 }} />
         <span style={{ fontWeight: 600, fontSize: 22, color: "#333" }}>
         </span>
       </div>
@@ -23,6 +23,7 @@ export default function Navbar() {
         <a href="/" style={linkStyle}>Accueil</a>
         <a href="/estimation" style={linkStyle}>Estimation</a>
         <a href="#" style={linkStyle}>Contact</a>
+        <a href="#" style={linkStyle}>Connexion</a>
       </div>
     </nav>
   );
