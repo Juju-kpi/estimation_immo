@@ -20,11 +20,13 @@ export default function Estimation() {
       {step === 1 && (
         <div>
           <p>Type de bien</p>
-          <select onChange={(e) => setData({...data, type: e.target.value})}>
+          <select onChange={(e) => setData({ ...data, type: e.target.value })}>
             <option>Appartement</option>
             <option>Maison</option>
           </select>
-          <button className="btn" onClick={next}>Suivant</button>
+          <button className="btn" onClick={next}>
+            Suivant
+          </button>
         </div>
       )}
 
@@ -33,9 +35,11 @@ export default function Estimation() {
           <p>Surface</p>
           <input
             type="number"
-            onChange={(e) => setData({...data, surface: e.target.value})}
+            onChange={(e) => setData({ ...data, surface: e.target.value })}
           />
-          <button className="btn" onClick={next}>Suivant</button>
+          <button className="btn" onClick={next}>
+            Suivant
+          </button>
         </div>
       )}
 
@@ -43,9 +47,11 @@ export default function Estimation() {
         <div>
           <p>Ville</p>
           <input
-            onChange={(e) => setData({...data, city: e.target.value})}
+            onChange={(e) => setData({ ...data, city: e.target.value })}
           />
-          <button className="btn" onClick={next}>Suivant</button>
+          <button className="btn" onClick={next}>
+            Suivant
+          </button>
         </div>
       )}
 
@@ -53,24 +59,21 @@ export default function Estimation() {
         <div>
           <p>Email</p>
           <input
-            onChange={(e) => setData({...data, email: e.target.value})}
-          />
-	
-	  <div>
-          <p>Télephone</p>
-          <input
-            onChange={(e) => setData({...data, telephone: e.target.value})}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
           />
 
+          <p>Téléphone</p>
+          <input
+            onChange={(e) => setData({ ...data, telephone: e.target.value })}
+          />
 
           <button
             className="btn"
             onClick={async () => {
               const res = await fetch("/api/estimate", {
                 method: "POST",
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
               });
-
               const result = await res.json();
               alert(`Estimation: ${result.price} €`);
             }}
