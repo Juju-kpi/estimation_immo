@@ -9,27 +9,25 @@ export default function Estimation() {
 
   const next = () => setStep(step + 1);
 
+  const handleSubmit = async () => {
+    await fetch("/api/lead", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    // active le toast sur la homepage
+    if (typeof window !== "undefined") {
+      localStorage.setItem("showSuccessToast", "true");
+    }
+
+    router.push("/");
+  };
+
   return (
-    <div style={{
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      background: "#f5f5f5"
-    }}>
-      <div style={{
-        background: "#fff",
-        padding: 40,
-        borderRadius: 12,
-        width: 500,
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
-      }}>
+    <div style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f5f5" }}>
+      <div style={{ background: "#fff", padding: 40, borderRadius: 12, width: 500, boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
+        <h1 style={{ textAlign: "center", marginBottom: 30 }}>Estimation immobilière</h1>
 
-        <h1 style={{ textAlign: "center", marginBottom: 30 }}>
-          Estimation immobilière
-        </h1>
-
-        {/* STEP 1 : Adresse */}
         {step === 1 && (
           <>
             <h2>Quelle est l’adresse du logement ?</h2>
@@ -38,13 +36,9 @@ export default function Estimation() {
               style={inputStyle}
               onChange={(e) => setData({ ...data, address: e.target.value })}
             />
-
-            <button style={buttonStyle} onClick={next}>
-              Continuer
-            </button>
+            <button style={buttonStyle} onClick={next}>Continuer</button>
           </>
         )}
-
         {/* STEP 2 : Type */}
         {step === 2 && (
           <>
@@ -124,34 +118,14 @@ export default function Estimation() {
         )}
 
         {/* STEP 5 : Contact */}
-        {step === 5 && (
+         {step === 5 && (
           <>
             <h2>Vos coordonnées</h2>
+            <input placeholder="Nom" style={inputStyle} onChange={(e) => setData({ ...data, name: e.target.value })} />
+            <input placeholder="Email" style={inputStyle} onChange={(e) => setData({ ...data, email: e.target.value })} />
+            <input placeholder="Téléphone" style={inputStyle} onChange={(e) => setData({ ...data, phone: e.target.value })} />
 
-            <input placeholder="Nom" style={inputStyle}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
-            />
-
-            <input placeholder="Email" style={inputStyle}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
-            />
-
-            <input placeholder="Téléphone" style={inputStyle}
-              onChange={(e) => setData({ ...data, phone: e.target.value })}
-            />
-
-            <button
-              style={buttonStyle}
-              onClick={async () => {
-                await fetch("/api/lead", {
-                method: "POST",
-                body: JSON.stringify(data),
-                            });
-  router.push("/?success=true");
-          }}
-            >
-              Envoyer
-            </button>
+            <button style={buttonStyle} onClick={handleSubmit}>Envoyer</button>
           </>
         )}
       </div>
@@ -159,26 +133,9 @@ export default function Estimation() {
   );
 }
 
-/* 🎨 Styles */
-const inputStyle = {
-  width: "100%",
-  padding: 12,
-  marginTop: 10,
-  marginBottom: 20,
-  borderRadius: 8,
-  border: "1px solid #ddd"
-};
-
-const buttonStyle = {
-  width: "100%",
-  padding: 15,
-  background: "#0070f3",
-  color: "white",
-  border: "none",
-  borderRadius: 8,
-  cursor: "pointer",
-  fontSize: 16
-};
+/* Styles */
+const inputStyle = { width: "100%", padding: 12, marginTop: 10, marginBottom: 20, borderRadius: 8, border: "1px solid #ddd" };
+const buttonStyle = { width: "100%", padding: 15, background: "#0070f3", color: "white", border: "none", borderRadius: 8, cursor: "pointer", fontSize: 16 };
 
 const gridStyle = {
   display: "flex",
