@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const router = useRouter();
 export default function Estimation() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [data, setData] = useState({});
 
