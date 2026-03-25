@@ -5,25 +5,24 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const params = useSearchParams();
-  const success = params.get("success");
-
+  const [success, setSuccess] = useState(null);
   const [showMessage, setShowMessage] = useState(true);
 
+  // On lit searchParams uniquement côté client après rendu
   useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => {
-        setShowMessage(false);
-      }, 3000); // disparaît après 3s
+    const s = params.get("success");
+    if (s) setSuccess(s);
 
+    if (s) {
+      const timer = setTimeout(() => setShowMessage(false), 3000);
       return () => clearTimeout(timer);
     }
-  }, [success]);
+  }, [params]);
 
   return (
     <main style={{ fontFamily: "'Poppins', sans-serif", color: "#333" }}>
-
       {/* MESSAGE SUCCESS */}
-      {success && (
+      {success && showMessage && (
         <div
           style={{
             opacity: showMessage ? 1 : 0,
@@ -39,7 +38,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero Section */}
 
       {/* Hero Section */}
       <section
