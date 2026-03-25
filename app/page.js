@@ -1,4 +1,3 @@
-"use client";
 
 import HomeClient from "./HomeClient";
 
