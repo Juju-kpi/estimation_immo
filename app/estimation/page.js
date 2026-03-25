@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
+const router = useRouter();
 export default function Estimation() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState({});
@@ -142,12 +144,11 @@ export default function Estimation() {
               style={buttonStyle}
               onClick={async () => {
                 await fetch("/api/lead", {
-                  method: "POST",
-                  body: JSON.stringify(data),
-                });
-
-                alert("Merci ! Vos informations ont été envoyées.");
-              }}
+                method: "POST",
+                body: JSON.stringify(data),
+                            });
+  router.push("/?success=true");
+          }}
             >
               Envoyer
             </button>
