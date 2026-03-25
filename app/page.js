@@ -1,8 +1,45 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
 export default function Home() {
+  const params = useSearchParams();
+  const success = params.get("success");
+
+  const [showMessage, setShowMessage] = useState(true);
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 3000); // disparaît après 3s
+
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
+
   return (
     <main style={{ fontFamily: "'Poppins', sans-serif", color: "#333" }}>
+
+      {/* MESSAGE SUCCESS */}
+      {success && (
+        <div
+          style={{
+            opacity: showMessage ? 1 : 0,
+            transition: "opacity 0.5s ease",
+            background: "#d4edda",
+            color: "#155724",
+            padding: 15,
+            textAlign: "center",
+            fontWeight: 500
+          }}
+        >
+          Votre demande a bien été envoyée !
+        </div>
+      )}
+
+      {/* Hero Section */}
 
       {/* Hero Section */}
       <section
