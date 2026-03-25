@@ -3,35 +3,41 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function HomeContent() {
+export default function HomeClient() {
   const params = useSearchParams();
-  const success = params.get("success");
-
+  const [success, setSuccess] = useState(null);
   const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => {
-        setShowMessage(false);
-      }, 3000);
+    const s = params.get("success");
+    if (s) setSuccess(s);
 
+    if (s) {
+      const timer = setTimeout(() => setShowMessage(false), 3000);
       return () => clearTimeout(timer);
     }
-  }, [success]);
+  }, [params]);
 
   return (
-    <main>
+    <main style={{ fontFamily: "'Poppins', sans-serif", color: "#333" }}>
+      {/* MESSAGE SUCCESS */}
       {success && showMessage && (
-        <div style={{
-          background: "#d4edda",
-          padding: 15,
-          textAlign: "center"
-        }}>
+        <div
+          style={{
+            opacity: showMessage ? 1 : 0,
+            transition: "opacity 0.5s ease",
+            background: "#d4edda",
+            color: "#155724",
+            padding: 15,
+            textAlign: "center",
+            fontWeight: 500
+          }}
+        >
           Votre demande a bien été envoyée !
         </div>
       )}
 
-      {/* TON CONTENU EXISTANT */}
+      {/* --- Hero Section et le reste de ton contenu intact --- */}
     </main>
   );
 }
