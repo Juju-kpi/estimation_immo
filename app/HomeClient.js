@@ -48,6 +48,8 @@ export default function HomeClient() {
             alt="Appartement"
             fill
             priority
+            quality={100}
+            sizes="100vw"
             className={`hero-bg ${index === currentImage ? "active" : ""}`}
           />
         ))}
@@ -81,6 +83,7 @@ export default function HomeClient() {
           src="/Marie.jpeg"
           alt="Marie Dupont"
           fill
+          quality={100}
           sizes="250px"
         />
       </div>
@@ -94,6 +97,7 @@ export default function HomeClient() {
           src="/Victor.jpeg"
           alt="Victor Martin"
           fill
+          quality={100}
           sizes="250px"
         />
       </div>
