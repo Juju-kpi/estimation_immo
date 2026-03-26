@@ -9,14 +9,19 @@ export async function POST(req) {
     console.log("LEAD:", body);
 
     await resend.emails.send({
-      from: "onboarding@resend.dev", // temporaire
-      to: "julien.lbc19@gmail.com", //  ton email
+      from: "onboarding@resend.dev", 
+      to: "julien.lbc19@gmail.com", 
       subject: "Nouveau lead immobilier - Julien",
-      html: `
-        <h2>Nouveau lead</h2>
-        <p>Voici les informations :</p>
-        <pre>${JSON.stringify(body, null, 2)}</pre>
-      `,
+    html: `
+  <h2>Nouveau lead immobilier</h2>
+   <p><strong>Voici les informations:</p>
+  <p><strong>Adresse:</strong> ${body.address}</p>
+  <p><strong>Type:</strong> ${body.type}</p>
+  <p><strong>Surface:</strong> ${body.surface} m²</p>
+  <p><strong>Pièces:</strong> ${body.rooms}</p>
+  <p><strong>Email:</strong> ${body.email}</p>
+  <p><strong>Téléphone:</strong> ${body.phone}</p>
+`
     });
 
     return Response.json({ success: true });
