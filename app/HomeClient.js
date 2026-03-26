@@ -19,7 +19,7 @@ export default function HomeClient() {
     if (shouldShow) {
       setShowToast(true);
       localStorage.removeItem("showSuccessToast");
-      setTimeout(() => setShowToast(false), 3000);
+      setTimeout(() => setShowToast(false), 10000);
     }
   }, []);
 
@@ -51,9 +51,6 @@ export default function HomeClient() {
             quality={100}
             sizes="100vw"
             style={{
-    objectFit: "cover",
-    objectPosition: "center"
-  }}
             className={`hero-bg ${index === currentImage ? "active" : ""}`}
           />
         ))}
@@ -88,7 +85,7 @@ export default function HomeClient() {
           alt="Marie Dupont"
           fill
           quality={100}
-          sizes="250px"
+          /*sizes="250px"*/
         />
       </div>
       <h3>Marie Dupont</h3>
