@@ -50,6 +50,10 @@ export default function HomeClient() {
             priority
             quality={100}
             sizes="100vw"
+            style={{
+    objectFit: "cover",
+    objectPosition: "center"
+  }}
             className={`hero-bg ${index === currentImage ? "active" : ""}`}
           />
         ))}
