@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function HomeClient() {
@@ -46,25 +47,40 @@ export default function HomeClient() {
       </section>
 
       {/* SECTION AGENTS (plus humain) */}
-      <section className="agents">
-        <h2>Vos experts immobiliers</h2>
+   
+<section className="agents">
+  <h2>Vos experts immobiliers</h2>
 
-        <div className="agents-grid">
+  <div className="agents-grid">
 
-          <div className="agent-card">
-            <img src="/agent1.jpg" alt="agent" />
-            <h3>Marie Dupont</h3>
-            <p>Spécialiste du marché résidentiel depuis 10 ans.</p>
-          </div>
+    <div className="agent-card">
+      <div className="agent-image">
+        <Image
+          src="/Marie.jpeg"
+          alt="Marie Dupont"
+          fill
+          sizes="250px"
+        />
+      </div>
+      <h3>Marie Dupont</h3>
+      <p>Spécialiste du marché résidentiel depuis 10 ans.</p>
+    </div>
 
-          <div className="agent-card">
-            <img src="/agent2.jpg" alt="agent" />
-            <h3>Thomas Martin</h3>
-            <p>Expert en estimation et investissement immobilier.</p>
-          </div>
+    <div className="agent-card">
+      <div className="agent-image">
+        <Image
+          src="/Victor.jpeg"
+          alt="Victor Martin"
+          fill
+          sizes="250px"
+        />
+      </div>
+      <h3>Victor Martin</h3>
+      <p>Expert en estimation et investissement immobilier.</p>
+    </div>
 
-        </div>
-      </section>
+  </div>
+</section>
 
       {/* AVANTAGES */}
       <section className="benefits">
