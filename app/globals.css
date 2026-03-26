@@ -135,14 +135,18 @@ body {
 
 /* IMAGES CAROUSEL */
 .hero-bg {
+  position: absolute;       /* Important pour empiler les images */
+  inset: 0;                 /* top:0; right:0; bottom:0; left:0; */
   object-fit: cover;
-  image-rendering: auto;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+  object-position: center;
+  opacity: 0;               /* départ invisible */
+  transition: opacity 1s ease-in-out; /* FONDU */
+  z-index: 0;
 }
 
 .hero-bg.active {
-  opacity: 1;
+  opacity: 1;               /* devient visible */
+  z-index: 1;               /* au-dessus des autres images */
 }
 
 /* OVERLAY MODERNE */
