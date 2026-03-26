@@ -128,23 +128,37 @@ body {
 
 /* HERO */
 .hero {
-  height: 90vh;
-  background-image: url('/house.jpg');
-  background-size: cover;
-  background-position: center;
   position: relative;
+  height: 90vh;
+  overflow: hidden;
 }
 
+/* IMAGES CAROUSEL */
+.hero-bg {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: 0;
+}
+
+.hero-bg.active {
+  opacity: 1;
+}
+
+/* OVERLAY MODERNE */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.4),
-    rgba(0,0,0,0.7)
+    rgba(0,0,0,0.3),
+    rgba(0,0,0,0.75)
   );
+  backdrop-filter: blur(2px);
+  z-index: 1;
 }
 
+/* CONTENT */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -156,6 +170,19 @@ body {
   color: white;
   text-align: center;
   padding: 20px;
+  animation: fadeUp 1s ease;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero h1 {
