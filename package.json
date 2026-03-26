@@ -11,6 +11,7 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "resend": "latest"
+    "resend": "latest",
+    "react-icons": "latest"
   }
 }
