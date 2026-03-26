@@ -98,24 +98,24 @@ export default function Estimation() {
         <Field icon={<FaBuilding />} placeholder="Étage" type="number" value={data.floor} onChange={val => setData({...data, floor: val})} error={errors.floor} />
         <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
 
-        {/* Projet de vente avec flèche et style custom */}
-        <div style={{ marginBottom: 20, position: "relative" }}>
-          <div style={styles.fieldContainer}>
-            <FaCalendarAlt style={styles.icon} />
-            <select
-              value={data.project}
-              onChange={e => setData({ ...data, project: e.target.value })}
-              style={{ ...styles.input, cursor: "pointer", appearance: "none", paddingRight: 30 }}
-            >
-              <option value="">Sélectionnez</option>
-              <option value="Court terme">Court terme</option>
-              <option value="Moyen terme">Moyen terme</option>
-              <option value="Long terme">Long terme</option>
-            </select>
-            <div style={styles.selectArrow}>▼</div>
-          </div>
-          {errors.project && <p style={styles.error}>{errors.project}</p>}
-        </div>
+    {/* Projet de vente avec flèche et style custom */}
+<div style={{ marginBottom: 20, position: "relative" }}>
+  <div style={styles.fieldContainer}>
+    <FaCalendarAlt style={styles.icon} />
+    <select
+      value={data.project}
+      onChange={e => setData({ ...data, project: e.target.value })}
+      style={{ ...styles.input, cursor: "pointer", appearance: "none", paddingRight: 30 }}
+    >
+      <option value="">Sélectionnez</option>
+      <option value="Court terme">Court terme</option>
+      <option value="Moyen terme">Moyen terme</option>
+      <option value="Long terme">Long terme</option>
+    </select>
+    <div style={styles.selectArrow}>▼</div>
+  </div>
+  {errors.project && <p style={styles.error}>{errors.project}</p>}
+</div>
 
         <Field icon={<FaUser />} placeholder="Nom et prénom" value={data.name} onChange={val => setData({...data, name: val})} error={errors.name} />
         <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
