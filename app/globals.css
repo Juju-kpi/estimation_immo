@@ -129,16 +129,16 @@ body {
 /* HERO */
 .hero {
   position: relative;
-  height: 90vh;
+  /*height: 90vh;*/
   overflow: hidden;
 }
 
 /* IMAGES CAROUSEL */
 .hero-bg {
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.5s ease-in-out;
-  z-index: 0;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .hero-bg.active {
@@ -154,8 +154,8 @@ body {
     rgba(0,0,0,0.3),
     rgba(0,0,0,0.75)
   );
-  backdrop-filter: blur(2px);
   z-index: 1;
+  backdrop-filter: blur(1px) contrast(1.1);
 }
 
 /* CONTENT */
