@@ -2,34 +2,55 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+const images = [
+  "/appart1.jpeg",
+  "/appart2.jpeg",
+  "/appart3.jpeg"
+];
+
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
 
+  // Toast
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const shouldShow = localStorage.getItem("showSuccessToast");
-      if (shouldShow) {
-        setShowToast(true);
-        localStorage.removeItem("showSuccessToast");
-
-        const timer = setTimeout(() => setShowToast(false), 3000);
-        return () => clearTimeout(timer);
-      }
+    const shouldShow = localStorage.getItem("showSuccessToast");
+    if (shouldShow) {
+      setShowToast(true);
+      localStorage.removeItem("showSuccessToast");
+      setTimeout(() => setShowToast(false), 3000);
     }
+  }, []);
+
+  // Carousel auto
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <main className="home">
 
-      {/* TOAST */}
-      {showToast && (
-        <div className="toast">
-          Votre demande a bien été envoyée !
-        </div>
-      )}
+      {showToast && <div className="toast">Votre demande a bien été envoyée !</div>}
 
       {/* HERO */}
       <section className="hero">
+
+        {/* BACKGROUND CAROUSEL */}
+        {images.map((img, index) => (
+          <Image
+            key={index}
+            src={img}
+            alt="Appartement"
+            fill
+            priority
+            className={`hero-bg ${index === currentImage ? "active" : ""}`}
+          />
+        ))}
+
         <div className="hero-overlay" />
 
         <div className="hero-content">
