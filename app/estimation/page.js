@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaMapMarkerAlt, FaBuilding, FaRulerCombined, FaCalendarAlt, FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
 
@@ -16,6 +16,18 @@ export default function Estimation() {
     callConsent: false
   });
   const [errors, setErrors] = useState({});
+  const [suggestions, setSuggestions] = useState([]);
+
+  // Fetch suggestions pour l'adresse via Nominatim
+  const fetchAddressSuggestions = async (query) => {
+    if (!query || query.length < 3) {
+      setSuggestions([]);
+      return;
+    }
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+    const json = await res.json();
+    setSuggestions(json.slice(0,5)); // top 5
+  };
 
   const handleSubmit = async () => {
     const newErrors = {};
@@ -48,10 +60,63 @@ export default function Estimation() {
         <h1 style={styles.title}>Estimation immobilière</h1>
         <p style={styles.subtitle}>Toutes vos données sont confidentielles et sécurisées.</p>
 
-        <Field icon={<FaMapMarkerAlt />} placeholder="Adresse du logement" value={data.address} onChange={val => setData({...data, address: val})} error={errors.address} />
+        {/* Adresse avec autocomplete Nominatim amélioré */}
+<div style={{ marginBottom: 20, position: "relative" }}>
+  <div style={styles.fieldContainer}>
+    <FaMapMarkerAlt style={styles.icon} />
+    <input
+      type="text"
+      placeholder="Adresse du logement"
+      value={data.address}
+      onChange={e => {
+        setData({ ...data, address: e.target.value });
+        fetchAddressSuggestions(e.target.value);
+      }}
+      style={styles.input}
+    />
+  </div>
+
+  {suggestions.length > 0 && (
+    <ul style={styles.suggestions}>
+      {suggestions.map(s => (
+        <li
+          key={s.place_id}
+          onClick={() => {
+            setData({ ...data, address: s.display_name });
+            setSuggestions([]);
+          }}
+          style={styles.suggestionItem}
+        >
+          {s.display_name}
+        </li>
+      ))}
+    </ul>
+  )}
+  {errors.address && <p style={styles.error}>{errors.address}</p>}
+</div>
+
         <Field icon={<FaBuilding />} placeholder="Étage" type="number" value={data.floor} onChange={val => setData({...data, floor: val})} error={errors.floor} />
         <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
-        <Field icon={<FaCalendarAlt />} placeholder="Projet de vente" type="select" options={["Court terme", "Moyen terme", "Long terme"]} value={data.project} onChange={val => setData({...data, project: val})} error={errors.project} />
+
+        {/* Projet de vente avec flèche et style custom */}
+        <div style={{ marginBottom: 20, position: "relative" }}>
+          <div style={styles.fieldContainer}>
+            <FaCalendarAlt style={styles.icon} />
+            <select
+              value={data.project}
+              onChange={e => setData({ ...data, project: e.target.value })}
+              style={{ ...styles.input, cursor: "pointer", appearance: "none", paddingRight: 30 }}
+            >
+              <option value="">Sélectionnez</option>
+              <option value="Court terme">Court terme</option>
+              <option value="Moyen terme">Moyen terme</option>
+              <option value="Long terme">Long terme</option>
+            </select>
+            <div style={styles.selectArrow}>▼</div>
+          </div>
+          {errors.project && <p style={styles.error}>{errors.project}</p>}
+        </div>
+
         <Field icon={<FaUser />} placeholder="Nom et prénom" value={data.name} onChange={val => setData({...data, name: val})} error={errors.name} />
         <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
         <Field icon={<FaPhone />} placeholder="Téléphone" value={data.phone} onChange={val => setData({...data, phone: val})} error={errors.phone} />
@@ -69,39 +134,24 @@ export default function Estimation() {
   );
 }
 
-// Champ avec icône et animation focus
-function Field({ icon, placeholder, type="text", options=[], value, onChange, error }) {
+// Champ simple avec icône
+function Field({ icon, placeholder, type="text", value, onChange, error }) {
   return (
-    <div style={{ marginBottom: 20, position: "relative" }}>
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 12,
-        border: "1px solid #ddd",
-        borderRadius: 10,
-        padding: "12px 15px",
-        background: "#fafafa",
-        transition: "0.3s",
-        outline: "none"
-      }} className="field-container">
-        <div style={{ color: "#0070f3", fontSize: 20 }}>{icon}</div>
-        {type === "select" ? (
-          <select value={value} onChange={e => onChange(e.target.value)} style={styles.input}>
-            <option value="">Sélectionnez</option>
-            {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </select>
-        ) : (
-          <input type={type} placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} style={styles.input} />
-        )}
+    <div style={{ marginBottom: 20 }}>
+      <div style={styles.fieldContainer}>
+        <div style={styles.icon}>{icon}</div>
+        <input type={type} placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} style={styles.input} />
       </div>
-      {error && <p style={{ color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" }}>{error}</p>}
-      <style jsx>{`
-        .field-container:focus-within {
-          border-color: #0070f3;
-          box-shadow: 0 0 8px rgba(0,112,243,0.2);
-          background: #fff;
-        }
-      `}</style>
+      {error && <p style={styles.error}>{error}</p>}
+        <style jsx>{`
+  @keyframes fadeSlideIn {
+    0% { opacity: 0; transform: translateY(-5px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  ul li:hover {
+    background-color: #f0f8ff;
+  }
+`}</style>
     </div>
   )
 }
@@ -126,7 +176,20 @@ const styles = {
   },
   title: { textAlign: "center", marginBottom: 10, fontSize: 32 },
   subtitle: { textAlign: "center", color: "#666", marginBottom: 30 },
+  fieldContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    border: "1px solid #ddd",
+    borderRadius: 10,
+    padding: "12px 15px",
+    background: "#fafafa",
+    transition: "0.3s",
+    position: "relative"
+  },
   input: { flex: 1, border: "none", background: "transparent", fontSize: 16, outline: "none" },
+  icon: { color: "#0070f3", fontSize: 20 },
+  error: { color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" },
   checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 20, fontSize: 14, color: "#555" },
   submitBtn: {
     width: "100%",
@@ -138,5 +201,35 @@ const styles = {
     borderRadius: 10,
     cursor: "pointer",
     transition: "0.3s",
+  },
+ suggestions: {
+  position: "absolute",
+  top: "100%",
+  left: 0,
+  right: 0,
+  background: "#fff",
+  border: "1px solid #ddd",
+  borderRadius: 10,
+  maxHeight: 180,
+  overflowY: "auto",
+  zIndex: 1000,
+  marginTop: 5,
+  boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+  animation: "fadeSlideIn 0.2s ease",
+},
+suggestionItem: {
+  padding: "10px 15px",
+  cursor: "pointer",
+  transition: "0.2s",
+  borderBottom: "1px solid #f0f0f0",
+},
+suggestionItemHover: {
+  backgroundColor: "#f0f8ff",
+},
+  selectArrow: {
+    position: "absolute",
+    right: 15,
+    pointerEvents: "none",
+    color: "#0070f3"
   }
 };
