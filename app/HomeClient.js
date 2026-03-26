@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 const images = [
   "/appart1.jpeg",
   "/appart2.jpeg",
-  "/appart3.jpeg"
+  "/appart3.jpeg",
+  "/appart4.jpeg"
 ];
 
 export default function HomeClient() {
