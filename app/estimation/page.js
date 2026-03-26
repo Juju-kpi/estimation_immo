@@ -1,21 +1,46 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaMapMarkerAlt, FaBuilding, FaRulerCombined, FaEnvelope, FaPhone, FaUser } from "react-icons/fa";
 
 export default function Estimation() {
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    address: "",
+    floor: "",
+    surface: "",
+    project: "",
+    name: "",
+    email: "",
+    phone: "",
+    acceptCall: false,
+  });
 
-  const next = () => setStep(step + 1);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!data.address.trim()) newErrors.address = "Veuillez entrer l'adresse";
+    if (!data.floor || isNaN(data.floor) || parseInt(data.floor) < 0) newErrors.floor = "Étage invalide";
+    if (!data.surface || isNaN(data.surface) || parseInt(data.surface) <= 0) newErrors.surface = "Surface invalide";
+    if (!data.name.trim()) newErrors.name = "Nom requis";
+    if (!data.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) newErrors.email = "Email invalide";
+    if (!data.phone.match(/^\+?\d{8,15}$/)) newErrors.phone = "Téléphone invalide";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async () => {
+    if (!validate()) return;
+
     await fetch("/api/lead", {
       method: "POST",
       body: JSON.stringify(data),
     });
 
-    // active le toast sur la homepage
     if (typeof window !== "undefined") {
       localStorage.setItem("showSuccessToast", "true");
     }
@@ -24,131 +49,109 @@ export default function Estimation() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f5f5" }}>
-      <div style={{ background: "#fff", padding: 40, borderRadius: 12, width: 500, boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
-        <h1 style={{ textAlign: "center", marginBottom: 30 }}>Estimation immobilière</h1>
+    <main className="estimation-page">
+      <section className="hero-estimation">
+        <div className="hero-overlay" />
+        <div className="hero-content">
+          <h1>Estimez votre bien immobilier</h1>
+          <p>Une estimation fiable, rapide et confidentielle réalisée par nos experts.</p>
+        </div>
+      </section>
 
-        {step === 1 && (
-          <>
-            <h2>Quelle est l’adresse du logement ?</h2>
+      <section className="form-section">
+        <div className="form-card">
+          <h2>Informations sur votre bien</h2>
+
+          <div className="input-wrapper">
+            <FaMapMarkerAlt className="icon" />
             <input
-              placeholder="Ex: 10 rue de Paris, Lyon"
-              style={inputStyle}
+              placeholder="Adresse complète"
+              value={data.address}
               onChange={(e) => setData({ ...data, address: e.target.value })}
             />
-            <button style={buttonStyle} onClick={next}>Continuer</button>
-          </>
-        )}
-        {/* STEP 2 : Type */}
-        {step === 2 && (
-          <>
-            <h2>Type de bien</h2>
+          </div>
+          {errors.address && <p className="error">{errors.address}</p>}
 
-            <div style={gridStyle}>
-              {["Appartement", "Maison", "Bureau"].map((type) => (
-                <div
-                  key={type}
-                  style={cardStyle}
-                  onClick={() => {
-                    setData({ ...data, type });
-                    next();
-                  }}
-                >
-                  <p>{type}</p>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+          <div className="input-wrapper">
+            <FaBuilding className="icon" />
+            <input
+              placeholder="Étage (si applicable)"
+              value={data.floor}
+              onChange={(e) => setData({ ...data, floor: e.target.value })}
+            />
+          </div>
+          {errors.floor && <p className="error">{errors.floor}</p>}
 
-        {/* STEP 3 : Caractéristiques */}
-        {step === 3 && (
-          <>
-            <h2>Caractéristiques principales</h2>
-
+          <div className="input-wrapper">
+            <FaRulerCombined className="icon" />
             <input
               placeholder="Surface (m²)"
-              style={inputStyle}
+              value={data.surface}
               onChange={(e) => setData({ ...data, surface: e.target.value })}
             />
+          </div>
+          {errors.surface && <p className="error">{errors.surface}</p>}
 
+          <select
+            value={data.project}
+            onChange={(e) => setData({ ...data, project: e.target.value })}
+          >
+            <option value="">Projet de vente</option>
+            <option value="court">Court terme (0-3 mois)</option>
+            <option value="moyen">Moyen terme (3-6 mois)</option>
+            <option value="long">Long terme (+6 mois)</option>
+          </select>
+
+          <h2>Vos coordonnées</h2>
+
+          <div className="input-wrapper">
+            <FaUser className="icon" />
             <input
-              placeholder="Nombre de pièces"
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, rooms: e.target.value })}
+              placeholder="Nom"
+              value={data.name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
             />
+          </div>
+          {errors.name && <p className="error">{errors.name}</p>}
 
-            <select
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, condition: e.target.value })}
-            >
-              <option>État du bien</option>
-              <option>Neuf</option>
-              <option>Excellent</option>
-              <option>Standard</option>
-              <option>À rénover</option>
-            </select>
+          <div className="input-wrapper">
+            <FaEnvelope className="icon" />
+            <input
+              placeholder="Email"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            />
+          </div>
+          {errors.email && <p className="error">{errors.email}</p>}
 
-            <button style={buttonStyle} onClick={next}>
-              Continuer
-            </button>
-          </>
-        )}
+          <div className="input-wrapper">
+            <FaPhone className="icon" />
+            <input
+              placeholder="Téléphone"
+              value={data.phone}
+              onChange={(e) => setData({ ...data, phone: e.target.value })}
+            />
+          </div>
+          {errors.phone && <p className="error">{errors.phone}</p>}
 
-        {/* STEP 4 : Projet */}
-        {step === 4 && (
-          <>
-            <h2>Votre projet</h2>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={data.acceptCall}
+              onChange={(e) => setData({ ...data, acceptCall: e.target.checked })}
+            />
+            J'accepte d'être rappelé par nos experts
+          </label>
 
-            <select
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, project: e.target.value })}
-            >
-              <option>Choisissez</option>
-              <option>Vente immédiate</option>
-              <option>3 à 6 mois</option>
-              <option>+6 mois</option>
-              <option>Pas de projet</option>
-            </select>
+          <p className="confidentiality">
+            🔒 Vos données sont confidentielles et ne seront jamais partagées.
+          </p>
 
-            <button style={buttonStyle} onClick={next}>
-              Continuer
-            </button>
-          </>
-        )}
-
-        {/* STEP 5 : Contact */}
-         {step === 5 && (
-          <>
-            <h2>Vos coordonnées</h2>
-            <input placeholder="Nom" style={inputStyle} onChange={(e) => setData({ ...data, name: e.target.value })} />
-            <input placeholder="Email" style={inputStyle} onChange={(e) => setData({ ...data, email: e.target.value })} />
-            <input placeholder="Téléphone" style={inputStyle} onChange={(e) => setData({ ...data, phone: e.target.value })} />
-
-            <button style={buttonStyle} onClick={handleSubmit}>Envoyer</button>
-          </>
-        )}
-      </div>
-    </div>
+          <button className="primary-btn" onClick={handleSubmit}>
+            Envoyer ma demande
+          </button>
+        </div>
+      </section>
+    </main>
   );
 }
-
-/* Styles */
-const inputStyle = { width: "100%", padding: 12, marginTop: 10, marginBottom: 20, borderRadius: 8, border: "1px solid #ddd" };
-const buttonStyle = { width: "100%", padding: 15, background: "#0070f3", color: "white", border: "none", borderRadius: 8, cursor: "pointer", fontSize: 16 };
-
-const gridStyle = {
-  display: "flex",
-  gap: 20,
-  justifyContent: "center"
-};
-
-const cardStyle = {
-  padding: 20,
-  border: "1px solid #ddd",
-  borderRadius: 10,
-  cursor: "pointer",
-  textAlign: "center",
-  width: 120,
-  transition: "0.2s"
-};
