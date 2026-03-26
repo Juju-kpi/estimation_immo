@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaMapMarkerAlt, FaBuilding, FaRulerCombined, FaEnvelope, FaPhone, FaUser } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBuilding, FaRulerCombined, FaCalendarAlt, FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
 
 export default function Estimation() {
   const router = useRouter();
@@ -13,28 +13,22 @@ export default function Estimation() {
     name: "",
     email: "",
     phone: "",
-    acceptCall: false,
+    callConsent: false
   });
-
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
+  const handleSubmit = async () => {
     const newErrors = {};
-
-    if (!data.address.trim()) newErrors.address = "Veuillez entrer l'adresse";
-    if (!data.floor || isNaN(data.floor) || parseInt(data.floor) < 0) newErrors.floor = "Étage invalide";
-    if (!data.surface || isNaN(data.surface) || parseInt(data.surface) <= 0) newErrors.surface = "Surface invalide";
-    if (!data.name.trim()) newErrors.name = "Nom requis";
-    if (!data.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) newErrors.email = "Email invalide";
-    if (!data.phone.match(/^\+?\d{8,15}$/)) newErrors.phone = "Téléphone invalide";
+    if (!data.address) newErrors.address = "Adresse requise";
+    if (!data.floor || isNaN(data.floor)) newErrors.floor = "Étage valide requis";
+    if (!data.surface || isNaN(data.surface)) newErrors.surface = "Surface valide requise";
+    if (!data.project) newErrors.project = "Choisir un projet";
+    if (!data.name) newErrors.name = "Nom requis";
+    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) newErrors.email = "Email valide requis";
+    if (!data.phone || !/^\+?[0-9\s]{7,15}$/.test(data.phone)) newErrors.phone = "Téléphone valide requis";
 
     setErrors(newErrors);
-
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async () => {
-    if (!validate()) return;
+    if (Object.keys(newErrors).length > 0) return;
 
     await fetch("/api/lead", {
       method: "POST",
@@ -49,109 +43,100 @@ export default function Estimation() {
   };
 
   return (
-    <main className="estimation-page">
-      <section className="hero-estimation">
-        <div className="hero-overlay" />
-        <div className="hero-content">
-          <h1>Estimez votre bien immobilier</h1>
-          <p>Une estimation fiable, rapide et confidentielle réalisée par nos experts.</p>
-        </div>
-      </section>
+    <div style={styles.page}>
+      <div style={styles.container}>
+        <h1 style={styles.title}>Estimation immobilière</h1>
+        <p style={styles.subtitle}>Toutes vos données sont confidentielles et sécurisées.</p>
 
-      <section className="form-section">
-        <div className="form-card">
-          <h2>Informations sur votre bien</h2>
+        <Field icon={<FaMapMarkerAlt />} placeholder="Adresse du logement" value={data.address} onChange={val => setData({...data, address: val})} error={errors.address} />
+        <Field icon={<FaBuilding />} placeholder="Étage" type="number" value={data.floor} onChange={val => setData({...data, floor: val})} error={errors.floor} />
+        <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
+        <Field icon={<FaCalendarAlt />} placeholder="Projet de vente" type="select" options={["Court terme", "Moyen terme", "Long terme"]} value={data.project} onChange={val => setData({...data, project: val})} error={errors.project} />
+        <Field icon={<FaUser />} placeholder="Nom et prénom" value={data.name} onChange={val => setData({...data, name: val})} error={errors.name} />
+        <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
+        <Field icon={<FaPhone />} placeholder="Téléphone" value={data.phone} onChange={val => setData({...data, phone: val})} error={errors.phone} />
 
-          <div className="input-wrapper">
-            <FaMapMarkerAlt className="icon" />
-            <input
-              placeholder="Adresse complète"
-              value={data.address}
-              onChange={(e) => setData({ ...data, address: e.target.value })}
-            />
-          </div>
-          {errors.address && <p className="error">{errors.address}</p>}
+        <label style={styles.checkboxLabel}>
+          <input type="checkbox" checked={data.callConsent} onChange={e => setData({...data, callConsent: e.target.checked})} />
+          J’accepte d’être rappelé par nos experts.
+        </label>
 
-          <div className="input-wrapper">
-            <FaBuilding className="icon" />
-            <input
-              placeholder="Étage (si applicable)"
-              value={data.floor}
-              onChange={(e) => setData({ ...data, floor: e.target.value })}
-            />
-          </div>
-          {errors.floor && <p className="error">{errors.floor}</p>}
-
-          <div className="input-wrapper">
-            <FaRulerCombined className="icon" />
-            <input
-              placeholder="Surface (m²)"
-              value={data.surface}
-              onChange={(e) => setData({ ...data, surface: e.target.value })}
-            />
-          </div>
-          {errors.surface && <p className="error">{errors.surface}</p>}
-
-          <select
-            value={data.project}
-            onChange={(e) => setData({ ...data, project: e.target.value })}
-          >
-            <option value="">Projet de vente</option>
-            <option value="court">Court terme (0-3 mois)</option>
-            <option value="moyen">Moyen terme (3-6 mois)</option>
-            <option value="long">Long terme (+6 mois)</option>
-          </select>
-
-          <h2>Vos coordonnées</h2>
-
-          <div className="input-wrapper">
-            <FaUser className="icon" />
-            <input
-              placeholder="Nom"
-              value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
-            />
-          </div>
-          {errors.name && <p className="error">{errors.name}</p>}
-
-          <div className="input-wrapper">
-            <FaEnvelope className="icon" />
-            <input
-              placeholder="Email"
-              value={data.email}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
-            />
-          </div>
-          {errors.email && <p className="error">{errors.email}</p>}
-
-          <div className="input-wrapper">
-            <FaPhone className="icon" />
-            <input
-              placeholder="Téléphone"
-              value={data.phone}
-              onChange={(e) => setData({ ...data, phone: e.target.value })}
-            />
-          </div>
-          {errors.phone && <p className="error">{errors.phone}</p>}
-
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={data.acceptCall}
-              onChange={(e) => setData({ ...data, acceptCall: e.target.checked })}
-            />
-            J'accepte d'être rappelé par nos experts
-          </label>
-
-          <p className="confidentiality">
-            🔒 Vos données sont confidentielles et ne seront jamais partagées.
-          </p>
-
-          <button className="primary-btn" onClick={handleSubmit}>
-            Envoyer ma demande
-          </button>
-        </div>
-      </section>
-    </main>
+        <button style={styles.submitBtn} onClick={handleSubmit}>
+          Envoyer ma demande
+        </button>
+      </div>
+    </div>
   );
 }
+
+// Champ avec icône et animation focus
+function Field({ icon, placeholder, type="text", options=[], value, onChange, error }) {
+  return (
+    <div style={{ marginBottom: 20, position: "relative" }}>
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        border: "1px solid #ddd",
+        borderRadius: 10,
+        padding: "12px 15px",
+        background: "#fafafa",
+        transition: "0.3s",
+        outline: "none"
+      }} className="field-container">
+        <div style={{ color: "#0070f3", fontSize: 20 }}>{icon}</div>
+        {type === "select" ? (
+          <select value={value} onChange={e => onChange(e.target.value)} style={styles.input}>
+            <option value="">Sélectionnez</option>
+            {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          </select>
+        ) : (
+          <input type={type} placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} style={styles.input} />
+        )}
+      </div>
+      {error && <p style={{ color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" }}>{error}</p>}
+      <style jsx>{`
+        .field-container:focus-within {
+          border-color: #0070f3;
+          box-shadow: 0 0 8px rgba(0,112,243,0.2);
+          background: #fff;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f5f5f5",
+    padding: 20
+  },
+  container: {
+    background: "#fff",
+    padding: 40,
+    borderRadius: 16,
+    width: "100%",
+    maxWidth: 600,
+    boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
+    animation: "fadeUp 0.8s ease"
+  },
+  title: { textAlign: "center", marginBottom: 10, fontSize: 32 },
+  subtitle: { textAlign: "center", color: "#666", marginBottom: 30 },
+  input: { flex: 1, border: "none", background: "transparent", fontSize: 16, outline: "none" },
+  checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 20, fontSize: 14, color: "#555" },
+  submitBtn: {
+    width: "100%",
+    padding: 16,
+    fontSize: 18,
+    background: "#0070f3",
+    color: "white",
+    border: "none",
+    borderRadius: 10,
+    cursor: "pointer",
+    transition: "0.3s",
+  }
+};
