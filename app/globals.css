@@ -157,9 +157,13 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2); /* overlay léger seulement */
   z-index: 2;
   pointer-events: none; /* le clic passe à travers */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15), 
+    rgba(0,0,0,0.25)
+  );
 }
 
 .hero-content {
