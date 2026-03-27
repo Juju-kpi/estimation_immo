@@ -46,7 +46,7 @@ const fetchAddressSuggestions = (query) => {
     }
 
     try {
-      const res = await fetch(`/api/address?q=${encodeURIComponent(query)}`);
+      const res = await fetch(`/api/adress?q=${encodeURIComponent(query)}`);
       const json = await res.json();
       setSuggestions(json.slice(0, 5));
     } catch {
