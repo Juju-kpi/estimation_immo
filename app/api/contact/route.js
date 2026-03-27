@@ -2,15 +2,15 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.resend_contact);
 
 export async function POST(req) {
   try {
     const { name, email, message } = await req.json();
 
     await resend.emails.send({
-      from: "no-reply@tonsite.ch", // ton domaine vérifié Resend
-      to: "ton-email@example.com", // email qui reçoit le message
+      from: "onboarding@resend.dev", // ton domaine vérifié Resend
+      to: "julien.lbc19@gmail.com", // email qui reçoit le message
       subject: `Nouveau message de ${name} - site Julien`,
       html: `
         <p><strong>Nom:</strong> ${name}</p>
