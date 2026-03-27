@@ -130,7 +130,6 @@ body {
 .hero {
   position: relative;
   height: 80vh;
-  overflow: hidden;
 }
 
 /* IMAGES CAROUSEL */
@@ -142,6 +141,8 @@ body {
   opacity: 0;               /* départ invisible */
   transition: opacity 1s ease-in-out; /* FONDU */
   z-index: 0;
+  transform: scale(1.05);
+  filter: brightness(0.9);
 }
 
 .hero-bg.active {
