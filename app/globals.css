@@ -389,3 +389,41 @@ body {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 10px 25px rgba(0, 112, 243, 0.4);
 }
+
+
+.contact-form-section {
+  padding: 80px 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.contact-form-section h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 40px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.contact-link {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
