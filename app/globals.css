@@ -131,6 +131,7 @@ body {
   position: relative;
   min-height: 80vh; /* garde une hauteur correcte */
   overflow: hidden;
+  margin-top: 80px;
 }
 
 .hero-bg {
