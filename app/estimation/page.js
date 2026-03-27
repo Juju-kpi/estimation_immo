@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { FaMapMarkerAlt, FaBuilding, FaRulerCombined, FaCalendarAlt, FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
 
 export default function Estimation() {
   const router = useRouter();
+  const wrapperRef = useRef(null);
   const [data, setData] = useState({
     address: "",
     floor: "",
@@ -18,18 +19,41 @@ export default function Estimation() {
   const [errors, setErrors] = useState({});
   const [suggestions, setSuggestions] = useState([]);
   const [open, setOpen] = useState(false);
+  
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      setSuggestions([]);
+    }
+  };
 
+  document.addEventListener("click", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, []);
   // Fetch suggestions pour l'adresse via Nominatim
-  const fetchAddressSuggestions = async (query) => {
+const debounceRef = useRef(null);
+
+const fetchAddressSuggestions = (query) => {
+  clearTimeout(debounceRef.current);
+
+  debounceRef.current = setTimeout(async () => {
     if (!query || query.length < 3) {
       setSuggestions([]);
       return;
     }
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-    const json = await res.json();
-    setSuggestions(json.slice(0,5)); // top 5
-  };
 
+    try {
+      const res = await fetch(`/api/address?q=${encodeURIComponent(query)}`);
+      const json = await res.json();
+      setSuggestions(json.slice(0, 5));
+    } catch {
+      setSuggestions([]);
+    }
+  }, 300);
+};
   const handleSubmit = async () => {
     const newErrors = {};
     if (!data.address) newErrors.address = "Adresse requise";
@@ -62,7 +86,7 @@ export default function Estimation() {
         <p style={styles.subtitle}>Toutes vos données sont confidentielles et sécurisées.</p>
 
         {/* Adresse avec autocomplete Nominatim amélioré */}
-<div style={{ marginBottom: 20, position: "relative" }}>
+<div  ref={wrapperRef} style={{ marginBottom: 20, position: "relative" }}>
   <div style={styles.fieldContainer}>
     <FaMapMarkerAlt style={styles.icon} />
     <input
@@ -185,8 +209,9 @@ function Field({ icon, placeholder, type="text", value, onChange, error }) {
     100% { opacity: 1; transform: translateY(0); }
   }
   ul li:hover {
-    background-color: #f0f8ff;
-  }
+  background: #f0f7ff;
+  border-left: 3px solid #0070f3;
+}
 `}</style>
         <style jsx>{`
   .dropdownItem:hover {
@@ -301,5 +326,23 @@ check: {
   color: "#0070f3",
   fontWeight: "bold",
   fontSize: 16
+},
+  suggestions: {
+  position: "absolute",
+  top: "110%",
+  left: 0,
+  right: 0,
+  background: "#fff",
+  borderRadius: 12,
+  boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+  overflow: "hidden",
+  zIndex: 1000,
+  animation: "fadeSlideIn 0.2s ease",
+},
+  suggestionItem: {
+  padding: "14px 16px",
+  cursor: "pointer",
+  borderBottom: "1px solid #f5f5f5",
+  transition: "all 0.2s ease",
 }
 };
