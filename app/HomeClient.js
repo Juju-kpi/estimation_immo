@@ -49,8 +49,8 @@ export default function HomeClient() {
             fill
             priority
             quality={100}
-            sizes="(max-width: 768px) 100vw, 1920px"
-             style={{ objectFit: "contain"}}
+            sizes= "100vw"
+            style={{ objectFit: "cover"}}
             className={`hero-bg ${index === currentImage ? "active" : ""}`}
           />
         ))}
