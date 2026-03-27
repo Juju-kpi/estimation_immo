@@ -1,28 +1,28 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 const agents = [
   {
     name: "Marie Dupont",
-    role: "Spécialiste du marché résidentiel",
-    email: "marie.dupont@example.com",
+    role: "Spécialiste du marché résidentiel depuis 10 ans",
+    img: "/Marie.jpeg",
+    email: "marie@example.com",
     phone: "+41 79 123 45 67",
-    photo: "/Marie.jpeg",
   },
   {
     name: "Victor Martin",
     role: "Expert en estimation et investissement immobilier",
-    email: "victor.martin@example.com",
-    phone: "+41 78 987 65 43",
-    photo: "/Victor.jpeg",
+    img: "/Victor.jpeg",
+    email: "victor@example.com",
+    phone: "+41 79 987 65 43",
   },
 ];
 
-export default function Contact() {
+export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [success, setSuccess] = useState(false);
+  const [status, setStatus] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,81 +30,84 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Exemple: POST vers ton API (send email)
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      setSuccess(true);
-      setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setSuccess(false), 5000);
+    setStatus(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
     }
   };
 
   return (
-    <main>
-      <section className="agents">
-        <h2>Vos experts immobiliers</h2>
-        <div className="agents-grid">
-          {agents.map((agent, i) => (
-            <div key={i} className="agent-card">
-              <div className="agent-image">
-                <Image src={agent.photo} alt={agent.name} fill />
-              </div>
-              <h3>{agent.name}</h3>
-              <p>{agent.role}</p>
-              <p>
-                <a href={`mailto:${agent.email}`} className="contact-link">{agent.email}</a><br />
-                <a href={`tel:${agent.phone}`} className="contact-link">{agent.phone}</a>
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+    <main className="contact-page">
+      <div className="contact-container">
+        {/* Colonne Formulaire + Texte */}
+        <div className="contact-form-section">
+          <h1>Contactez nos experts</h1>
+          <p>
+            Nous avons plus de 20 ans d’expérience dans l’immobilier résidentiel et
+            commercial. Nos experts sont là pour répondre à toutes vos questions.
+          </p>
 
-      <section className="contact-form-section">
-        <h2>Contactez-nous</h2>
-        <p>Remplissez le formulaire ci-dessous et nous vous répondrons rapidement.</p>
-
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="input-wrapper">
+          <form onSubmit={handleSubmit} className="contact-form">
             <input
               type="text"
               name="name"
-              placeholder="Votre nom"
+              placeholder="Nom"
               value={formData.name}
               onChange={handleChange}
               required
             />
-          </div>
-          <div className="input-wrapper">
             <input
               type="email"
               name="email"
-              placeholder="Votre email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
               required
             />
-          </div>
-          <div className="input-wrapper">
             <textarea
               name="message"
-              placeholder="Votre message"
+              placeholder="Message"
               value={formData.message}
               onChange={handleChange}
-              required
               rows={6}
-            />
-          </div>
-          <button type="submit" className="primary-btn">Envoyer</button>
-        </form>
+              required
+            ></textarea>
+            <button type="submit" className="primary-btn">Envoyer</button>
+            {status === "success" && <p className="success-msg">Message envoyé avec succès !</p>}
+            {status === "error" && <p className="error-msg">Erreur, veuillez réessayer.</p>}
+          </form>
+        </div>
 
-        {success && <p className="toast">Votre message a bien été envoyé !</p>}
-      </section>
+        {/* Colonne Agents */}
+        <div className="contact-agents-section">
+          {agents.map((agent, idx) => (
+            <div key={idx} className="agent-card">
+              <div className="agent-image">
+                <Image src={agent.img} alt={agent.name} fill />
+              </div>
+              <h3>{agent.name}</h3>
+              <p>{agent.role}</p>
+              <p>
+                <a href={`mailto:${agent.email}`} className="agent-contact">{agent.email}</a><br/>
+                <a href={`tel:${agent.phone}`} className="agent-contact">{agent.phone}</a>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
