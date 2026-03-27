@@ -247,7 +247,7 @@ body {
   width: 260px;
   background: #fff;
   border-radius: 16px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
