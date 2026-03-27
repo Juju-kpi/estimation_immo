@@ -129,44 +129,36 @@ body {
 /* HERO */
 .hero {
   position: relative;
-  height: 80vh;
+  min-height: 80vh; /* garde une hauteur correcte */
+  overflow: hidden;
 }
 
-/* IMAGES CAROUSEL */
 .hero-bg {
-  position: absolute;       /* Important pour empiler les images */
-  inset: 0;                 /* top:0; right:0; bottom:0; left:0; */
-  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  object-fit: cover; /* cover pour remplir, mais pas étirer si les images sont grandes */
   object-position: center;
-  opacity: 0;               /* départ invisible */
-  transition: opacity 1s ease-in-out; /* FONDU */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
   z-index: 0;
-  transform: scale(1.05);
-  filter: brightness(0.9);
 }
 
 .hero-bg.active {
-  opacity: 1;               /* devient visible */
-  z-index: 1;               /* au-dessus des autres images */
+  opacity: 1;
+  z-index: 1;
 }
 
-/* OVERLAY MODERNE */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.3),
-    rgba(0,0,0,0.75)
-  );
-  z-index: 1;
-  backdrop-filter: blur(1px) contrast(1.1);
+  background: rgba(0, 0, 0, 0.2); /* overlay léger seulement */
+  z-index: 2;
+  pointer-events: none; /* le clic passe à travers */
 }
 
-/* CONTENT */
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3; /* toujours au-dessus */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -175,7 +167,6 @@ body {
   color: white;
   text-align: center;
   padding: 20px;
-  animation: fadeUp 1s ease;
 }
 
 /* ANIMATION */
