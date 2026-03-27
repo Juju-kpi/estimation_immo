@@ -7,14 +7,14 @@ export async function GET(req) {
   }
 
   try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&countrycodes=fr&addressdetails=1&limit=5&q=${encodeURIComponent(query)}`,
-      {
-        headers: {
-          "User-Agent": "real-estate-app"
-        }
-      }
-    );
+   const res = await fetch(
+  `https://nominatim.openstreetmap.org/search?format=json&countrycodes=fr&addressdetails=1&limit=5&dedupe=1&accept-language=fr&q=${encodeURIComponent(query)}`,
+  {
+    headers: {
+      "User-Agent": "real-estate-app"
+    }
+  }
+);
 
     const data = await res.json();
     return Response.json(data);
