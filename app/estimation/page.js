@@ -17,6 +17,7 @@ export default function Estimation() {
   });
   const [errors, setErrors] = useState({});
   const [suggestions, setSuggestions] = useState([]);
+  const [open, setOpen] = useState(false);
 
   // Fetch suggestions pour l'adresse via Nominatim
   const fetchAddressSuggestions = async (query) => {
@@ -100,20 +101,55 @@ export default function Estimation() {
 
     {/* Projet de vente avec flèche et style custom */}
 <div style={{ marginBottom: 20, position: "relative" }}>
-  <div style={styles.fieldContainer}>
+  <div
+    style={styles.fieldContainer}
+    onClick={() => setOpen(!open)}
+  >
     <FaCalendarAlt style={styles.icon} />
-    <select
-      value={data.project}
-      onChange={e => setData({ ...data, project: e.target.value })}
-      style={{ ...styles.input, cursor: "pointer", appearance: "none", paddingRight: 30 }}
-    >
-      <option value="">Sélectionnez</option>
-      <option value="Court terme">Court terme</option>
-      <option value="Moyen terme">Moyen terme</option>
-      <option value="Long terme">Long terme</option>
-    </select>
-    <div style={styles.selectArrow}>▼</div>
+
+    <span style={{
+      flex: 1,
+      color: data.project ? "#000" : "#999"
+    }}>
+      {data.project || "Sélectionnez"}
+    </span>
+
+    <div style={{
+      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+      transition: "0.3s",
+      color: "#0070f3"
+    }}>
+      ▼
+    </div>
   </div>
+
+  {/* MENU */}
+  {open && (
+    <div style={styles.dropdown}>
+      {["Court terme", "Moyen terme", "Long terme"].map(option => (
+        <div
+          key={option}
+          style={{
+            ...styles.dropdownItem,
+            background: data.project === option ? "#f0f8ff" : "transparent",
+            color: data.project === option ? "#0070f3" : "#333",
+            fontWeight: data.project === option ? "500" : "400"
+          }}
+          onClick={() => {
+            setData({ ...data, project: option });
+            setOpen(false);
+          }}
+        >
+          <span>{option}</span>
+
+          {data.project === option && (
+            <span style={styles.check}>✓</span>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+
   {errors.project && <p style={styles.error}>{errors.project}</p>}
 </div>
 
@@ -150,6 +186,12 @@ function Field({ icon, placeholder, type="text", value, onChange, error }) {
   }
   ul li:hover {
     background-color: #f0f8ff;
+  }
+`}</style>
+        <style jsx>{`
+  .dropdownItem:hover {
+    background: #f0f8ff;
+    color: #0070f3;
   }
 `}</style>
     </div>
@@ -231,5 +273,33 @@ suggestionItemHover: {
     right: 15,
     pointerEvents: "none",
     color: "#0070f3"
-  }
+  },
+  dropdown: {
+  position: "absolute",
+  top: "105%",
+  left: 0,
+  right: 0,
+  background: "#fff",
+  borderRadius: 12,
+  border: "1px solid #0070f3",
+  boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+  overflow: "hidden",
+  zIndex: 1000,
+},
+
+dropdownItem: {
+  padding: "14px 18px",
+  cursor: "pointer",
+  borderBottom: "1px solid #f0f0f0",
+  transition: "0.2s",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center"
+},
+
+check: {
+  color: "#0070f3",
+  fontWeight: "bold",
+  fontSize: 16
+}
 };
