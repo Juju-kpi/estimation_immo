@@ -3,6 +3,8 @@ body {
   font-family: Arial, sans-serif;
   background: #ffffff;
   color: #111;
+  background: url('/test_appart.jpeg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 input,
