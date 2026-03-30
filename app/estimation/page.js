@@ -117,7 +117,7 @@ const fetchAddressSuggestions = (query) => {
 </div>
 
     {/* TYPE DE BIEN */}
-<div style={{ marginBottom: 20 }}>
+<div style={{ marginBottom: 15 }}>
   <div style={styles.typeContainer}>
     
     {[
@@ -134,7 +134,7 @@ const fetchAddressSuggestions = (query) => {
           background: data.type === item.value ? "#f0f8ff" : "#fff"
         }}
       >
-        <div style={{ fontSize: 17 }}>{item.icon}</div>
+        <div style={{ fontSize: 15 }}>{item.icon}</div>
        <div style={{ fontSize: 13 }}>{item.label}</div>
       </div>
     ))}
@@ -157,7 +157,7 @@ const fetchAddressSuggestions = (query) => {
         <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
 
     {/* Projet de vente avec flèche et style custom */}
-<div style={{ marginBottom: 20, position: "relative" }}>
+<div style={{ marginBottom: 15, position: "relative" }}>
   <div
     style={styles.fieldContainer}
     onClick={() => setOpen(!open)}
@@ -269,7 +269,7 @@ const styles = {
   },
   container: {
     background: "#fff",
-    padding: 20,
+    padding: 18,
     borderRadius: 16,
     width: "100%",
     maxWidth: 1000,
@@ -281,7 +281,7 @@ const styles = {
   gridTemplateColumns: "1fr 1fr",
   gap: 15
 },
-  title: { textAlign: "center", marginBottom: 10, fontSize: 32 },
+  title: { textAlign: "center", marginBottom: 10, fontSize: 30 },
   subtitle: { textAlign: "center", color: "#666", marginBottom: 15 },
   fieldContainer: {
     display: "flex",
@@ -300,8 +300,10 @@ const styles = {
   checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 20, fontSize: 14, color: "#555" },
   submitBtn: {
     width: "50%",
-    padding: 16,
-    fontSize: 16,
+    margin: "0 auto", 
+    display: "block",
+    padding: 13,
+    fontSize: 15,
     background: "#0070f3",
     color: "white",
     border: "none",
