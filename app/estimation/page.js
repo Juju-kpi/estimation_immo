@@ -134,8 +134,8 @@ const fetchAddressSuggestions = (query) => {
           background: data.type === item.value ? "#f0f8ff" : "#fff"
         }}
       >
-        <div style={{ fontSize: 28 }}>{item.icon}</div>
-        <div>{item.label}</div>
+        <div style={{ fontSize: 17 }}>{item.icon}</div>
+       <div style={{ fontSize: 13 }}>{item.label}</div>
       </div>
     ))}
 
@@ -286,22 +286,22 @@ const styles = {
   fieldContainer: {
     display: "flex",
     alignItems: "center",
-    gap: 12,
+    gap: 10,
     border: "1px solid #ddd",
     borderRadius: 10,
-    padding: "12px 15px",
+    padding: "8px 12px",
     background: "#fafafa",
     transition: "0.3s",
     position: "relative"
   },
-  input: { flex: 1, border: "none", background: "transparent", fontSize: 16, outline: "none" },
+  input: { flex: 1, border: "none", background: "transparent", fontSize: 13, outline: "none" },
   icon: { color: "#0070f3", fontSize: 20 },
   error: { color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" },
   checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 20, fontSize: 14, color: "#555" },
   submitBtn: {
-    width: "100%",
+    width: "50%",
     padding: 16,
-    fontSize: 18,
+    fontSize: 16,
     background: "#0070f3",
     color: "white",
     border: "none",
@@ -393,7 +393,7 @@ check: {
 
 typeCard: {
   flex: 1,
-  padding: 15,
+  padding: 10,
   borderRadius: 12,
   textAlign: "center",
   cursor: "pointer",
