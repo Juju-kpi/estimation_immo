@@ -6,7 +6,8 @@ const images = [
   "/appart1.jpeg",
   "/appart2.jpeg",
   "/appart3.jpeg",
-  "/appart4.jpeg"
+  "/appart4.jpeg",
+  "test_appart.jpeg"
 ];
 
 export default function HomeClient() {
@@ -24,13 +25,13 @@ export default function HomeClient() {
   }, []);
 
   // Carousel auto
-  useEffect(() => {
+  /*useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, []); */
 
   return (
     <main className="home">
@@ -40,8 +41,41 @@ export default function HomeClient() {
       {/* HERO */}
       <section className="hero">
 
+  <Image
+    src="/test_appart.jpeg" // ton image
+    alt="Immobilier"
+    fill
+    priority
+    quality={100}
+    sizes="100vw"
+    style={{ objectFit: "cover" }}
+    className="hero-bg active"
+  />
+
+  <div className="hero-overlay" />
+
+  <div className="hero-content">
+    <h1>Une estimation, oui. Mais surtout un accompagnement humain.</h1>
+
+    <p>
+      Nous ne donnons pas qu’un prix — Marie et Victor sont présents
+      pour concrétiser votre projet immobilier dans les meilleures conditions.
+    </p>
+
+    <a href="/estimation">
+      <button className="primary-btn">
+        Obtenir mon estimation
+      </button>
+    </a>
+
+    <p style={{ marginTop: 15, fontSize: 14, opacity: 0.85 }}>
+      Rencontrez nos experts • Gratuit • Sans engagement  • Confidentiel
+    </p>
+  </div>
+</section>
+
         {/* BACKGROUND CAROUSEL */}
-        {images.map((img, index) => (
+      /*  {images.map((img, index) => (
           <Image
             key={index}
             src={img}
@@ -53,7 +87,7 @@ export default function HomeClient() {
             style={{ objectFit: "cover"}}
             className={`hero-bg ${index === currentImage ? "active" : ""}`}
           />
-        ))}
+        ))} 
 
         <div className="hero-overlay" />
 
@@ -70,7 +104,7 @@ export default function HomeClient() {
           </a>
         </div>
       </section>
-
+*/
       {/* SECTION AGENTS (plus humain) */}
    
 <section className="agents">
