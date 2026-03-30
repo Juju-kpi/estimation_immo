@@ -25,13 +25,13 @@ export default function HomeClient() {
   }, []);
 
   // Carousel auto
-  /*useEffect(() => {
+  {/*useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []); */
+  }, []); */}
 
   return (
     <main className="home">
@@ -75,7 +75,7 @@ export default function HomeClient() {
 </section>
 
         {/* BACKGROUND CAROUSEL */}
-      /*  {images.map((img, index) => (
+{/*  {images.map((img, index) => (
           <Image
             key={index}
             src={img}
@@ -104,7 +104,7 @@ export default function HomeClient() {
           </a>
         </div>
       </section>
-*/
+*/}
       {/* SECTION AGENTS (plus humain) */}
    
 <section className="agents">
