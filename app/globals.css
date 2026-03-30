@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #ffffff;
+
   color: #111;
   background: url('/test_appart.jpeg') no-repeat center center fixed;
   background-size: cover;
@@ -38,7 +38,6 @@ button {
 /* FONT */
 body {
   font-family: 'Poppins', sans-serif;
-  background: #ffffff;
   color: #333;
 }
 
@@ -121,7 +120,6 @@ body {
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #fafafa;
 }
 
 /* TOAST */
