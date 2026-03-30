@@ -5,16 +5,16 @@ import { useState } from "react";
 
 const agents = [
   {
-    name: "Marie Dupont",
+    name: "Marie Houlier",
     role: "Spécialiste du marché résidentiel depuis 10 ans",
     img: "/Marie.jpeg",
-    phone: "+41 79 123 45 67",
+    phone: "+33 7 52 04 98 78",
   },
   {
-    name: "Victor Martin",
+    name: "Victor",
     role: "Expert en estimation et investissement immobilier",
     img: "/Victor.jpeg",
-    phone: "+41 79 987 65 43",
+    phone: "+33 6 14 20 66 64",
   },
 ];
 
