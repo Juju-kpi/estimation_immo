@@ -9,6 +9,7 @@ export default function Estimation() {
   const [data, setData] = useState({
     address: "",
     floor: "",
+    type: "",
     surface: "",
     project: "",
     name: "",
@@ -55,29 +56,24 @@ const fetchAddressSuggestions = (query) => {
   }, 300);
 };
   const handleSubmit = async () => {
-    const newErrors = {};
-    if (!data.address) newErrors.address = "Adresse requise";
-    if (!data.floor || isNaN(data.floor)) newErrors.floor = "Étage valide requis";
-    if (!data.surface || isNaN(data.surface)) newErrors.surface = "Surface valide requise";
-    if (!data.project) newErrors.project = "Choisir un projet";
-    if (!data.name) newErrors.name = "Nom requis";
-    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) newErrors.email = "Email valide requis";
-    if (!data.phone || !/^\+?[0-9\s]{7,15}$/.test(data.phone)) newErrors.phone = "Téléphone valide requis";
+  const newErrors = {};
 
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
+  if (!data.address) newErrors.address = "Adresse requise";
+  if (!data.name) newErrors.name = "Nom requis";
+  if (!data.email || !/\S+@\S+\.\S+/.test(data.email))
+    newErrors.email = "Email valide requis";
 
-    await fetch("/api/lead", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+  setErrors(newErrors);
+  if (Object.keys(newErrors).length > 0) return;
 
-    if (typeof window !== "undefined") {
-      localStorage.setItem("showSuccessToast", "true");
-    }
+  await fetch("/api/lead", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 
-    router.push("/");
-  };
+  localStorage.setItem("showSuccessToast", "true");
+  router.push("/");
+};
 
   return (
     <div style={styles.page}>
@@ -120,7 +116,44 @@ const fetchAddressSuggestions = (query) => {
   {errors.address && <p style={styles.error}>{errors.address}</p>}
 </div>
 
-        <Field icon={<FaBuilding />} placeholder="Étage" type="number" value={data.floor} onChange={val => setData({...data, floor: val})} error={errors.floor} />
+    {/* TYPE DE BIEN */}
+<div style={{ marginBottom: 20 }}>
+  <div style={styles.typeContainer}>
+    
+    {[
+      { label: "Appartement", value: "appartement", icon: "🏢" },
+      { label: "Maison", value: "maison", icon: "🏠" },
+      { label: "Local commercial", value: "local", icon: "🏬" }
+    ].map(item => (
+      <div
+        key={item.value}
+        onClick={() => setData({ ...data, type: item.value })}
+        style={{
+          ...styles.typeCard,
+          border: data.type === item.value ? "2px solid #0070f3" : "1px solid #ddd",
+          background: data.type === item.value ? "#f0f8ff" : "#fff"
+        }}
+      >
+        <div style={{ fontSize: 28 }}>{item.icon}</div>
+        <div>{item.label}</div>
+      </div>
+    ))}
+
+  </div>
+</div>
+
+        {data.type === "appartement" && (
+  <Field
+    icon={<FaBuilding />}
+    placeholder="Étage"
+    type="number"
+    value={data.floor}
+    onChange={val => setData({...data, floor: val})}
+    error={errors.floor}
+  />
+)}
+      <div style={styles.grid}>
+      
         <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
 
     {/* Projet de vente avec flèche et style custom */}
@@ -181,9 +214,11 @@ const fetchAddressSuggestions = (query) => {
         <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
         <Field icon={<FaPhone />} placeholder="Téléphone" value={data.phone} onChange={val => setData({...data, phone: val})} error={errors.phone} />
 
+    </div>
+    
         <label style={styles.checkboxLabel}>
           <input type="checkbox" checked={data.callConsent} onChange={e => setData({...data, callConsent: e.target.checked})} />
-          J’accepte d’être rappelé par nos experts.
+          J’accepte d’être rappelé par nos experts, Marie ou Victor.
         </label>
 
         <button style={styles.submitBtn} onClick={handleSubmit}>
@@ -237,10 +272,15 @@ const styles = {
     padding: 40,
     borderRadius: 16,
     width: "100%",
-    maxWidth: 600,
+    maxWidth: 900,
     boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
     animation: "fadeUp 0.8s ease"
   },
+  grid: {
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gap: 20
+},
   title: { textAlign: "center", marginBottom: 10, fontSize: 32 },
   subtitle: { textAlign: "center", color: "#666", marginBottom: 30 },
   fieldContainer: {
@@ -344,5 +384,19 @@ check: {
   cursor: "pointer",
   borderBottom: "1px solid #f5f5f5",
   transition: "all 0.2s ease",
+},
+  typeContainer: {
+  display: "flex",
+  gap: 15,
+  justifyContent: "space-between"
+},
+
+typeCard: {
+  flex: 1,
+  padding: 15,
+  borderRadius: 12,
+  textAlign: "center",
+  cursor: "pointer",
+  transition: "0.2s",
 }
 };
