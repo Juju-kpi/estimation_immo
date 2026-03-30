@@ -49,7 +49,7 @@ const fetchAddressSuggestions = (query) => {
     try {
       const res = await fetch(`/api/adress?q=${encodeURIComponent(query)}`);
       const json = await res.json();
-      setSuggestions(json.slice(0, 5));
+      setSuggestions(json.slice(0, 3));
     } catch {
       setSuggestions([]);
     }
@@ -271,7 +271,7 @@ const styles = {
   },
   container: {
     background: "#fff",
-    padding: 18,
+    padding: 15,
     borderRadius: 16,
     width: "100%",
     maxWidth: 800,
@@ -291,15 +291,15 @@ const styles = {
     gap: 10,
     border: "1px solid #ddd",
     borderRadius: 10,
-    padding: "8px 12px",
+    padding: "8px 10px",
     background: "#fafafa",
     transition: "0.3s",
     position: "relative"
   },
   input: { flex: 1, border: "none", background: "transparent", fontSize: 13, outline: "none" },
-  icon: { color: "#0070f3", fontSize: 20 },
+  icon: { color: "#0070f3", fontSize: 16 },
   error: { color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" },
-  checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 20, fontSize: 14, color: "#555" },
+  checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 15, fontSize: 14, color: "#555" },
   submitBtn: {
     width: "50%",
     margin: "0 auto", 
