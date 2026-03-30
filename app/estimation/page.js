@@ -272,7 +272,7 @@ const styles = {
     padding: 18,
     borderRadius: 16,
     width: "100%",
-    maxWidth: 1000,
+    maxWidth: 800,
     boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
     animation: "fadeUp 0.8s ease"
   },
@@ -281,7 +281,7 @@ const styles = {
   gridTemplateColumns: "1fr 1fr",
   gap: 15
 },
-  title: { textAlign: "center", marginBottom: 10, fontSize: 30 },
+  title: { textAlign: "center", marginBottom: 5, fontSize: 20 },
   subtitle: { textAlign: "center", color: "#666", marginBottom: 15 },
   fieldContainer: {
     display: "flex",
@@ -367,7 +367,7 @@ dropdownItem: {
 check: {
   color: "#0070f3",
   fontWeight: "bold",
-  fontSize: 16
+  fontSize: 13
 },
   suggestions: {
   position: "absolute",
@@ -389,7 +389,7 @@ check: {
 },
   typeContainer: {
   display: "flex",
-  gap: 15,
+  gap: 10,
   justifyContent: "space-between"
 },
 
