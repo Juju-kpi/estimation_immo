@@ -82,7 +82,7 @@ const fetchAddressSuggestions = (query) => {
         <p style={styles.subtitle}>Toutes vos données sont confidentielles et sécurisées.</p>
 
         {/* Adresse avec autocomplete Nominatim amélioré */}
-<div  ref={wrapperRef} style={{ marginBottom: 20, position: "relative" }}>
+<div  ref={wrapperRef} style={{ marginBottom: 15, position: "relative" }}>
   <div style={styles.fieldContainer}>
     <FaMapMarkerAlt style={styles.icon} />
     <input
@@ -232,7 +232,7 @@ const fetchAddressSuggestions = (query) => {
 // Champ simple avec icône
 function Field({ icon, placeholder, type="text", value, onChange, error }) {
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div style={{ marginBottom: 15 }}>
       <div style={styles.fieldContainer}>
         <div style={styles.icon}>{icon}</div>
         <input type={type} placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} style={styles.input} />
