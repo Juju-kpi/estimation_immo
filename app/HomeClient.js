@@ -122,7 +122,7 @@ export default function HomeClient() {
           /*sizes="250px"*/
         />
       </div>
-      <h3>Marie Dupont</h3>
+      <h3>Marie Houlier</h3>
       <p>Spécialiste du marché résidentiel depuis 10 ans.</p>
     </div>
 
@@ -136,7 +136,7 @@ export default function HomeClient() {
           sizes="250px"
         />
       </div>
-      <h3>Victor Martin</h3>
+      <h3>Victor</h3>
       <p>Expert en estimation et investissement immobilier.</p>
     </div>
 
@@ -158,7 +158,7 @@ export default function HomeClient() {
         </p>
 
         <a href="/estimation">
-          <button className="cta-btn">
+          <button className="primary-btn">
             Obtenir mon estimation
           </button>
         </a>
