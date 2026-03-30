@@ -412,6 +412,7 @@ body {
 .contact-form-section {
   flex: 1;
   min-width: 300px;
+  color: #555;
 }
 
 .contact-form-section h1 {
