@@ -261,7 +261,7 @@ body {
 .agent-image {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 200px;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 15px;
@@ -404,7 +404,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-  padding: 80px 20px;
+  padding: 20px 20px;
   max-width: 1200px;
   margin: auto;
 }
@@ -435,6 +435,13 @@ body {
   font-size: 16px;
 }
 
+.contact-form-section p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px; /* un peu plus clean */
+  line-height: 1.6;
+  color: #555;
+}
+
 .contact-form .primary-btn {
   width: 100%;
 }
@@ -453,7 +460,8 @@ body {
 .contact-agents-section {
   flex: 1;
   min-width: 250px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-direction: column;
   gap: 30px;
 }
@@ -489,4 +497,9 @@ body {
   .contact-container {
     flex-direction: column;
   }
+  @media (max-width: 900px) {
+  .contact-agents-section {
+    grid-template-columns: 1fr; /* 1 colonne sur mobile */
+  }
+}
 }
