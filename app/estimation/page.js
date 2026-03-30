@@ -284,7 +284,7 @@ const styles = {
   gap: 15
 },
   title: { textAlign: "center", marginBottom: 5, fontSize: 20 },
-  subtitle: { textAlign: "center", color: "#666", marginBottom: 15 },
+  subtitle: { textAlign: "center", color: "#666", marginBottom: 10 },
   fieldContainer: {
     display: "flex",
     alignItems: "center",
