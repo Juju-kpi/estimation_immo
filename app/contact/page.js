@@ -55,8 +55,7 @@ export default function ContactPage() {
          <h1>Donnez vie à votre projet immobilier</h1>
 
 <p>
-Que vous souhaitiez acheter, investir ou être accompagné dans votre recherche,
-nos experts sont à vos côtés pour vous guider avec précision et transparence.
+Que vous souhaitiez acheter, investir ou être accompagné dans votre recherche, nous sommes à vos côtés pour vous guider avec précision et transparence.
 </p>
 
 <p>
@@ -65,7 +64,7 @@ complet jusqu’à la concrétisation de votre projet.
 </p>
 
 <p>
-Laissez-nous vos informations — Nous revenons vers vous rapidement.
+Laissez-nous vos informations, nous revenons vers vous rapidement.
 </p>
 
           <form onSubmit={handleSubmit} className="contact-form">
