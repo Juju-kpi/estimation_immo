@@ -262,7 +262,7 @@ function Field({ icon, placeholder, type="text", value, onChange, error }) {
 
 const styles = {
   page: {
-    minHeight: "100vh",
+    minHeight: "90vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
