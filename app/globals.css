@@ -412,8 +412,6 @@ body {
 .contact-form-section {
   flex: 1;
   min-width: 300px;
-  background: rgba(0,0,0,0.4);
-  padding: 30px;
   border-radius: 12px;
 }
 
@@ -425,7 +423,6 @@ body {
 
 .contact-form-section p {
   font-size: 18px;
-  color: #555;
   margin-bottom: 30px;
   color: white;
 }
