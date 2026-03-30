@@ -166,6 +166,7 @@ const fetchAddressSuggestions = (query) => {
 
     <span style={{
       flex: 1,
+      fontSize: 13,
       color: data.project ? "#000" : "#999"
     }}>
       {data.project || "Sélectionnez"}
@@ -174,7 +175,8 @@ const fetchAddressSuggestions = (query) => {
     <div style={{
       transform: open ? "rotate(180deg)" : "rotate(0deg)",
       transition: "0.3s",
-      color: "#0070f3"
+      color: "#0070f3",
+      fontSize: 12
     }}>
       ▼
     </div>
@@ -355,7 +357,8 @@ suggestionItemHover: {
 },
 
 dropdownItem: {
-  padding: "14px 18px",
+  padding: "12px 16px",
+  fontSize: 14, 
   cursor: "pointer",
   borderBottom: "1px solid #f0f0f0",
   transition: "0.2s",
