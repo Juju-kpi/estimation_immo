@@ -267,7 +267,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     background: "#f5f5f5",
-    padding: 15
+    padding: 10
   },
   container: {
     background: "#fff",
