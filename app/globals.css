@@ -5,6 +5,12 @@ body {
   color: #111;
 }
 
+input,
+textarea,
+button {
+  font-family: 'Poppins', sans-serif;
+}
+
 .btn {
   background: black;
   color: white;
