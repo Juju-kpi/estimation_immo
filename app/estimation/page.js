@@ -218,7 +218,7 @@ const fetchAddressSuggestions = (query) => {
     
         <label style={styles.checkboxLabel}>
           <input type="checkbox" checked={data.callConsent} onChange={e => setData({...data, callConsent: e.target.checked})} />
-          J’accepte d’être rappelé par nos experts, Marie ou Victor.
+          J’accepte d’être rappelé par Marie ou Victor, sans engagement, afin de discuter de mon estimation.
         </label>
 
         <button style={styles.submitBtn} onClick={handleSubmit}>
@@ -265,21 +265,21 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     background: "#f5f5f5",
-    padding: 20
+    padding: 15
   },
   container: {
     background: "#fff",
-    padding: 40,
+    padding: 20,
     borderRadius: 16,
     width: "100%",
-    maxWidth: 900,
+    maxWidth: 1000,
     boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
     animation: "fadeUp 0.8s ease"
   },
   grid: {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
-  gap: 20
+  gap: 15
 },
   title: { textAlign: "center", marginBottom: 10, fontSize: 32 },
   subtitle: { textAlign: "center", color: "#666", marginBottom: 30 },
