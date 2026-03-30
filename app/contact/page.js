@@ -8,14 +8,12 @@ const agents = [
     name: "Marie Dupont",
     role: "Spécialiste du marché résidentiel depuis 10 ans",
     img: "/Marie.jpeg",
-    email: "marie@example.com",
     phone: "+41 79 123 45 67",
   },
   {
     name: "Victor Martin",
     role: "Expert en estimation et investissement immobilier",
     img: "/Victor.jpeg",
-    email: "victor@example.com",
     phone: "+41 79 987 65 43",
   },
 ];
@@ -54,11 +52,21 @@ export default function ContactPage() {
       <div className="contact-container">
         {/* Colonne Formulaire + Texte */}
         <div className="contact-form-section">
-          <h1>Contactez nos experts</h1>
-          <p>
-            Nous avons plus de 20 ans d’expérience dans l’immobilier résidentiel et
-            commercial. Nos experts sont là pour répondre à toutes vos questions.
-          </p>
+         <h1>Donnez vie à votre projet immobilier</h1>
+
+<p>
+Que vous souhaitiez acheter, investir ou être accompagné dans votre recherche,
+nos experts sont à vos côtés pour vous guider avec précision et transparence.
+</p>
+
+<p>
+Accédez à des opportunités ciblées, des conseils personnalisés et un accompagnement
+complet jusqu’à la concrétisation de votre projet.
+</p>
+
+<p>
+Laissez-nous vos informations — Nous revenons vers vous rapidement.
+</p>
 
           <form onSubmit={handleSubmit} className="contact-form">
             <input
@@ -77,9 +85,9 @@ export default function ContactPage() {
               onChange={handleChange}
               required
             />
-            <textarea
-              name="message"
-              placeholder="Message"
+           <textarea
+  name="message"
+  placeholder="Décrivez votre projet (type de bien, budget, localisation, délai...)"
               value={formData.message}
               onChange={handleChange}
               rows={6}
@@ -101,7 +109,6 @@ export default function ContactPage() {
               <h3>{agent.name}</h3>
               <p>{agent.role}</p>
               <p>
-                <a href={`mailto:${agent.email}`} className="agent-contact">{agent.email}</a><br/>
                 <a href={`tel:${agent.phone}`} className="agent-contact">{agent.phone}</a>
               </p>
             </div>
