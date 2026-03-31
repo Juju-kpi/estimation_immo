@@ -3,10 +3,17 @@ body {
   font-family: Arial, sans-serif;
 
   color: #111;
-  background: url('/test_appart.jpeg') no-repeat center center fixed;
+  background: url('/test_appart.jpeg') no-repeat center 10px fixed;
   background-size: cover;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: -1;
+}
 input,
 textarea,
 button {
@@ -141,39 +148,9 @@ body {
   min-height: 80vh; /* garde une hauteur correcte */
   overflow: hidden;
   margin-top: 2px;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  object-fit: cover; /* cover pour remplir, mais pas étirer si les images sont grandes */
-  object-position: center;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 0;
-  .hero-bg {
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-}
-}
-
-.hero-bg.active {
-  opacity: 1;
-  z-index: 1;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none; /* le clic passe à travers */
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.15), 
-    rgba(0,0,0,0.25)
-  );
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(3px);
+  text-align: center;
 }
 
 .hero-content {
