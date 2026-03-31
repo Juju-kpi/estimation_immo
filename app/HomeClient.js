@@ -132,26 +132,15 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
   </div>
 </section>
 
-      {/* AVANTAGES */}
-      <section className="benefits">
-        <div className="benefit">✔ Gratuit</div>
-        <div className="benefit">✔ Sans engagement</div>
-        <div className="benefit">✔ 100% confidentiel</div>
-      </section>
+   <section className="legal">
+  <p>
+    Les informations collectées sur le site Sellmyhome sont strictement confidentielles et utilisées uniquement dans le cadre de la relation avec les utilisateurs. Ces données ne sont ni vendues, ni échangées, ni transférées à des tiers sans votre consentement explicite.
+  </p>
 
-      {/* CTA FINAL */}
-      <section className="cta">
-        <h2>Prêt à connaître la valeur de votre bien ?</h2>
-        <p>
-          Lancez votre estimation en quelques clics seulement.
-        </p>
-
-        <a href="/estimation">
-          <button className="primary-btn">
-            Obtenir mon estimation
-          </button>
-        </a>
-      </section>
+  <p>
+    Conformément au RGPD, vous disposez d’un droit d’accès, de rectification, de suppression et d’opposition concernant vos données personnelles.
+  </p>
+</section>
 
     </main>
   );
