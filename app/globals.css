@@ -468,21 +468,25 @@ body {
   z-index: -1;
 }
 .contact-container, .container {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(2px);
+  background: transparent;
 }
 
 .footer-legal {
-  background: #f8f9fb; /* 🔥 fond clair séparé */
+  background: white; /* 🔥 IMPORTANT */
   padding: 60px 20px;
-  margin-top: 80px; /* 🔥 séparation visuelle */
+  margin-top: 80px;
   border-top: 1px solid #eee;
+  position: relative;
+  z-index: 2; 
 }
 
 .footer-container {
   max-width: 900px;
   margin: auto;
-  text-align: center;
+  background: white; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 /* Intro (marketing) */
