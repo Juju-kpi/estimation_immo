@@ -40,20 +40,6 @@ export default function HomeClient() {
 
       {/* HERO */}
       <section className="hero">
-
-  <Image
-    src="/test_appart.jpeg" // ton image
-    alt="Immobilier"
-    fill
-    priority
-    quality={100}
-    sizes="100vw"
-    style={{ objectFit: "cover" }}
-    className="hero-bg active"
-  />
-
-  <div className="hero-overlay" />
-
   <div className="hero-content">
     <h1>Une estimation, oui. Mais surtout un accompagnement humain.</h1>
 
