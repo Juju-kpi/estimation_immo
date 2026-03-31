@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const images = [
@@ -7,7 +8,7 @@ const images = [
   "/appart2.jpeg",
   "/appart3.jpeg",
   "/appart4.jpeg",
-  "test_appart.jpeg"
+  "/test_appart.jpeg"
 ];
 
 export default function HomeClient() {
@@ -98,7 +99,7 @@ export default function HomeClient() {
 
   <div className="agents-grid">
 
-    <div className="agent-card">
+   <Link href="/#" className="agent-card">
       <div className="agent-image">
         <Image
           src="/Marie.jpeg"
@@ -110,24 +111,21 @@ export default function HomeClient() {
       </div>
       <h3>Marie Houlier</h3>
       <p>Spécialiste du marché résidentiel depuis 10 ans.</p>
-    </div>
+            </Link>
 
-    <div className="agent-card">
+   <Link href="/#" className="agent-card">
       <div className="agent-image">
         <Image
-          src="/Victor2.jpeg"
+          src="/victor2.jpeg"
           alt="Victor Martin"
           fill
           quality={100}
         />
       </div>
       <h3>Victor</h3>
-      <p>Originaire de Paris, j’ai débuté ma carrière dans le secteur bancaire, avant de me tourner vers les télécommunications, puis de trouver ma voie dans l’immobilier en 2019. Ce parcours varié m’a permis de développer une vision globale et des compétences solides en gestion, relation client et négociation.
-
-L’immobilier est pour moi bien plus qu’un métier : c’est une véritable passion. Chaque projet est unique, et j’apprécie particulièrement l’opportunité de relever de nouveaux défis, tout en accompagnant mes clients avec écoute, transparence et professionnalisme.
-
+      <p>
 Ma connaissance du marché parisien et mon engagement à fournir un service sur-mesure me permettent de répondre aux besoins spécifiques de chacun, qu’il s’agisse d’acheter, de vendre ou d’investir. Mon objectif est simple : vous aider à concrétiser vos projets immobiliers et à transformer vos envies en réalité, dans une relation de confiance et de proximité.</p>
-    </div>
+    </Link>
 
   </div>
 </section>
