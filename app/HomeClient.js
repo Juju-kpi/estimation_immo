@@ -110,7 +110,9 @@ export default function HomeClient() {
         />
       </div>
       <h3>Marie Houlier</h3>
-      <p>Spécialiste du marché résidentiel depuis 10 ans.</p>
+      <p>, je mets à votre service ma connaissance fine du marché immobilier et des ambiances propres à chaque quartier.
+
+Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. Consciente que cette démarche peut être émotionnellement intense, je veille à la rendre plus simple, fluide et sereine.</p>
             </Link>
 
    <Link href="/#" className="agent-card">
@@ -130,15 +132,37 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
   </div>
 </section>
 
-   <section className="legal">
-  <p>
-    Les informations collectées sur le site Sellmyhome sont strictement confidentielles et utilisées uniquement dans le cadre de la relation avec les utilisateurs. Ces données ne sont ni vendues, ni échangées, ni transférées à des tiers sans votre consentement explicite.
-  </p>
+  <footer className="footer-legal">
+  <div className="footer-container">
 
-  <p>
-    Conformément au RGPD, vous disposez d’un droit d’accès, de rectification, de suppression et d’opposition concernant vos données personnelles.
-  </p>
-</section>
+    <p className="footer-intro">
+      Bienvenue sur Sellmyhome, votre partenaire de confiance pour concrétiser vos projets immobiliers.
+      Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
+    </p>
+
+    <p className="footer-intro">
+      Notre mission : vous offrir un accompagnement humain, transparent et efficace,
+      avec un interlocuteur unique dédié à votre projet.
+    </p>
+
+    <div className="footer-legal-text">
+      <p>
+        Les informations collectées sur le site Sellmyhome sont strictement confidentielles
+        et utilisées uniquement dans le cadre de la relation avec les utilisateurs.
+      </p>
+
+      <p>
+        Ces données ne sont ni vendues, ni échangées, ni transférées à des tiers sans votre consentement explicite.
+      </p>
+
+      <p>
+        Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d’un droit d’accès,
+        de rectification, de suppression et d’opposition concernant vos données personnelles.
+      </p>
+    </div>
+
+  </div>
+</footer>
 
     </main>
   );
