@@ -164,6 +164,10 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
   </div>
 </footer>
 
+          <p style={{ marginTop: 20, fontSize: 13, color: "#999" }}>
+  © 2026 Sellmyhome — Tous droits réservés
+</p>
+
     </main>
   );
 }
