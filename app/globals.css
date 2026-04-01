@@ -212,7 +212,7 @@ body {
   margin: 60px auto;
   padding: 40px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.85); /* transparence clean */
+  background: rgba(255, 255, 255, 0.80); /* transparence clean */
   border-radius: 20px;
   backdrop-filter: blur(6px); /* effet glass */
   text-align: center;
@@ -465,7 +465,7 @@ body {
 
 .footer-legal {
   background: white; /* 🔥 IMPORTANT */
-  padding: 60px 20px;
+  padding: 30px 20px;
   margin-top: 20px;
   border-top: 1px solid #eee;
   position: relative;
@@ -473,7 +473,7 @@ body {
 }
 
 .footer-container {
-  max-width: 80%px;
+  max-width: 900px;
   margin: auto;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
