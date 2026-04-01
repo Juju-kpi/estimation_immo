@@ -28,18 +28,19 @@ export default function Navbar() {
             Accueil
           </Link>
 
-          <Link
-            href="/estimation"
-            className={`nav-cta ${pathname === "/estimation" ? "active-cta" : ""}`}
-          >
-            Estimation
-          </Link>
 
           <Link
             href="/contact"
             className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
           >
             Recherche
+          </Link>
+              
+              <Link
+            href="/estimation"
+            className={`nav-cta ${pathname === "/estimation" ? "active-cta" : ""}`}
+          >
+            Estimation
           </Link>
 
           <Link
