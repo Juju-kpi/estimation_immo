@@ -168,7 +168,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.2); /* 🔥 clé */
+  background: rgba(0,0,0,0.2);
   z-index: 1;
 }
 
@@ -217,8 +217,8 @@ body {
 
 .agents {
   max-width: 900px;
-  margin: 15px auto;
-  padding: 40px;
+  margin: 10px auto;
+  padding: 20px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.80); /* transparence clean */
   border-radius: 20px;
@@ -228,7 +228,7 @@ body {
 
 .agents h2 {
   font-size: 36px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   font-weight: 600;
 }
 
@@ -240,7 +240,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  align-items: start; /* 🔥 */
+  align-items: start; 
 }
 
 .agent-card {
