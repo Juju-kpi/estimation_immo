@@ -152,9 +152,7 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
         Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d’un droit d’accès,
         de rectification, de suppression et d’opposition concernant vos données personnelles.
       </p>
-             <p style={{ marginTop: 20, fontSize: 13, color: "#999" }}>
-  © 2026 Sellmyhome — Tous droits réservés
-</p>
+             
     </div>
 
   </div>
