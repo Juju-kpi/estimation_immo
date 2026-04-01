@@ -565,6 +565,8 @@ body {
   max-width: 800px;
   z-index: 2;
   line-height: 1.7;
+  margin: auto;
+  text-align: center;
 }
 
 .presentation-content h1 {
