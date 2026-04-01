@@ -8,6 +8,20 @@ export default function NousPage() {
       {/* AGENTS */}
       <section id="victor" className="agents presentation-agents">
 
+<div className="nous-header">
+  <h1 className="nous-title">Nos experts immobiliers</h1>
+
+  <p className="nous-subtitle">
+    Un accompagnement humain, précis et sur-mesure pour chaque projet.
+  </p>
+
+  <p>
+    <a href="mailto:contact@sellmyhome.fr">
+      contact@sellmyhome.fr
+    </a>
+  </p>
+</div>
+
         <div className="agent-card">
           <div className="agent-image marie">
             <Image src="/marie2.jpeg" alt="Marie" fill />
