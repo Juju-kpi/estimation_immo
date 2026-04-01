@@ -549,7 +549,7 @@ body {
 
 .presentation-hero {
   position: relative;
-   padding: 20px 20px 20px 20px;
+  padding: 10px 20px 10px 10px;
   text-align: center;
   color: white;
 }
@@ -563,14 +563,13 @@ body {
 .presentation-content {
   position: relative;
   max-width: 800px;
-  margin: auto;
   z-index: 2;
   line-height: 1.7;
 }
 
 .presentation-content h1 {
   font-size: 48px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .presentation-agents {
@@ -587,6 +586,6 @@ body {
 }
 
 .agent-phone {
-  margin-top: 15px;
+  margin-top: 10px;
   font-weight: 600;
 }
