@@ -549,7 +549,7 @@ body {
 
 .presentation-hero {
   position: relative;
-  padding: 10px 20px 10px 10px;
+  padding: 10px 10px 10px 10px;
   text-align: center;
   color: white;
 }
@@ -578,6 +578,9 @@ body {
   justify-content: center;
   padding: 10px 10px;
   flex-wrap: wrap;
+}
+.presentation-agents .agent-card h3 {
+  color: #0070f3; /* bleu */
 }
 
 .agent-card.large {
