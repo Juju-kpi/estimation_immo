@@ -1,5 +1,13 @@
- {/* AGENTS */}
+"use client";
+import Image from "next/image";
+
+export default function NousPage() {
+  return (
+    <main>
+
+      {/* AGENTS */}
       <section id="victor" className="agents presentation-agents">
+
         <div className="agent-card">
           <div className="agent-image marie">
             <Image src="/marie2.jpeg" alt="Marie" fill />
@@ -20,11 +28,12 @@
             et mène les négociations avec rigueur.
           </p>
 
-          <p className="agent-phone"> <a href="tel:+33752049878">+33 7 52 04 98 78</a>
-              </p>
+          <p className="agent-phone">
+            <a href="tel:+33752049878">+33 7 52 04 98 78</a>
+          </p>
         </div>
 
-              <div className="agent-card">
+        <div className="agent-card">
           <div className="agent-image">
             <Image src="/victor2.jpeg" alt="Victor" fill />
           </div>
@@ -44,8 +53,13 @@
             me permettent de répondre aux besoins spécifiques de chacun.
           </p>
 
-          <p className="agent-phone">  <a href="tel:+33614206664">+33 6 14 20 66 64</a>
-              </p>
+          <p className="agent-phone">
+            <a href="tel:+33614206664">+33 6 14 20 66 64</a>
+          </p>
         </div>
-              
+
       </section>
+
+    </main>
+  );
+}
