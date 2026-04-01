@@ -31,7 +31,7 @@ export default function Presentation() {
 
           <p>
             Laissez-nous vous accompagner dans cette aventure, avec professionnalisme, transparence
-            et un réel engagement à atteindre vos objectifs.
+            et un réel engagement à atteindre vos objectifs. Nous gérons votre dossier de la mise en relation jusqu'à la signature definitive chez le notaire.
           </p>
         </div>
       </section>
