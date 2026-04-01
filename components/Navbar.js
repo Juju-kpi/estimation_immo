@@ -1,17 +1,45 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <nav className="navbar">
       <div className="nav-container">
-
         <div className="nav-links">
-          <a href="/" className="nav-link">Accueil</a>
-          <a href="/estimation" className="nav-cta">Estimation</a>
-          <a href="/contact" className="nav-link">Recherche</a>
-          <a href="/presentation" className="nav-link">A propos</a>
-        </div>
 
+          <Link
+            href="/"
+            className={`nav-link ${pathname === "/" ? "active" : ""}`}
+          >
+            Accueil
+          </Link>
+
+          <Link
+            href="/estimation"
+            className={`nav-cta ${pathname === "/estimation" ? "active-cta" : ""}`}
+          >
+            Estimation
+          </Link>
+
+          <Link
+            href="/contact"
+            className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
+          >
+            Recherche
+          </Link>
+
+          <Link
+            href="/presentation"
+            className={`nav-link ${pathname === "/presentation" ? "active" : ""}`}
+          >
+            A propos
+          </Link>
+
+        </div>
       </div>
     </nav>
   );
