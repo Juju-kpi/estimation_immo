@@ -120,6 +120,22 @@ body {
   transition: all 0.3s ease;
 }
 
+/* LIEN ACTIF = HOVER PERMANENT */
+.nav-link.active {
+  background: #eaeaea;
+  transform: translateY(-2px);
+}
+
+/* underline active */
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* CTA actif (optionnel) */
+.nav-cta.active-cta {
+  box-shadow: 0 8px 20px rgba(0, 112, 243, 0.5);
+  transform: translateY(-2px);
+}
 
 
 /* GLOBAL */
