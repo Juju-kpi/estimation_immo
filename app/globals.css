@@ -645,8 +645,8 @@ body {
 
 .footer-bottom {
   width: 100%;
-  text-align: right;
-  margin-top: 20px;
+  text-align: left;
+  margin-top: 10px;
   font-size: 13px;
   color: #999;
 }
