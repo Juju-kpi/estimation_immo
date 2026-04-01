@@ -106,7 +106,7 @@ export default function HomeClient() {
    <Link href="/presentation#victor" className="agent-card">
       <div className="agent-image">
         <Image
-          src="/Marie.jpeg"
+          src="/marie2.jpeg"
           alt="Marie Dupont"
           fill
           quality={100}
