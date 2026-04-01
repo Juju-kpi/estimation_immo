@@ -15,7 +15,7 @@ export default function Navbar() {
         src="/logo.jpeg"
         alt="Sellmyhome"
         width={170}
-        height={85}
+        height={80}
         priority
       />
     </Link>
