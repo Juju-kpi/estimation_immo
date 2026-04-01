@@ -164,6 +164,14 @@ body {
   padding: 20px;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4); /* 🔥 clé */
+  z-index: 1;
+}
+
 /* ANIMATION */
 @keyframes fadeUp {
   from {
@@ -209,7 +217,7 @@ body {
 
 .agents {
   max-width: 900px;
-  margin: 60px auto;
+  margin: 15px auto;
   padding: 40px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.80); /* transparence clean */
@@ -464,9 +472,9 @@ body {
 }
 
 .footer-legal {
-  background: white; /* 🔥 IMPORTANT */
+  background: rgba(255, 255, 255, 0.75); 
   padding: 30px 20px;
-  margin-top: 20px;
+  margin-top: 15px;
   border-top: 1px solid #eee;
   position: relative;
   z-index: 2; 
@@ -474,7 +482,7 @@ body {
 
 .footer-container {
   max-width: 900px;
-  margin: auto;
+  margin: 15;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
