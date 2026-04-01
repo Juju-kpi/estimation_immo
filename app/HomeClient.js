@@ -103,7 +103,7 @@ export default function HomeClient() {
 
   <div className="agents-grid">
 
-   <Link href=/presentation#victor" className="agent-card">
+   <Link href="/presentation#victor" className="agent-card">
       <div className="agent-image">
         <Image
           src="/Marie.jpeg"
