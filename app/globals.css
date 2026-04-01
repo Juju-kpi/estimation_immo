@@ -643,6 +643,13 @@ body {
   box-shadow: 0 -5px 20px rgba(0,0,0,0.03);
 }
 
+.footer-bottom {
+  width: 100%;
+  text-align: right;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #999;
+}
 
 
 
