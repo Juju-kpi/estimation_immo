@@ -112,7 +112,7 @@ export default function HomeClient() {
       <h3>Marie Houlier</h3>
       <p>Je mets à votre service ma connaissance fine du marché immobilier et des ambiances propres à chaque quartier.
 
-Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. 
+Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. </p>
    <Link href="/#" className="agent-card">
       <div className="agent-image">
         <Image
