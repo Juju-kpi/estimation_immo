@@ -53,7 +53,7 @@ export default function Navbar() {
             href="/nous"
             className={`nav-link ${pathname === "/nous" ? "active" : ""}`}
           >
-            A propos
+            Nous contacter
           </Link>
 
 
