@@ -373,6 +373,7 @@ body {
   color: white;
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
+  background: rgba(0,0,0,0.2);
 }
 
 .contact-text h1 {
@@ -389,7 +390,7 @@ body {
 .contact-form-section {
   flex: 1;
   min-width: 300px;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0,0,0,0.2);
   padding: 10px;
   border-radius: 12px;
 }
