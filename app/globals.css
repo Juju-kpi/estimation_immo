@@ -64,10 +64,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
+.nav-logo {
+  position: absolute;
+  left: 15px;
+  display: flex;
+  align-items: center;
+}
 /* MENU */
 .nav-links {
+  margin: 0 auto;
   display: flex;
   gap: 40px;
   align-items: center;
