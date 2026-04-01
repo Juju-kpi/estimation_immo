@@ -113,6 +113,7 @@ export default function HomeClient() {
       <p>Je mets à votre service ma connaissance fine du marché immobilier et des ambiances propres à chaque quartier.
 
 Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. </p>
+            </Link>
    <Link href="/#" className="agent-card">
       <div className="agent-image">
         <Image
