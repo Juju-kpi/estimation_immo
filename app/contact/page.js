@@ -1,22 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-
-const agents = [
-  {
-    name: "Marie Houlier",
-    role: "Spécialiste du marché résidentiel depuis 10 ans",
-    img: "/Marie.jpeg",
-    phone: "+33 7 52 04 98 78",
-  },
-  {
-    name: "Victor",
-    role: "Expert en estimation et investissement immobilier",
-    img: "/Victor.jpeg",
-    phone: "+33 6 14 20 66 64",
-  },
-];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -42,77 +26,52 @@ export default function ContactPage() {
       } else {
         setStatus("error");
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
     }
   };
 
   return (
     <main className="contact-page">
-      <div className="contact-container">
-        {/* Colonne Formulaire + Texte */}
-        <div className="contact-form-section">
-         <h1>Donnez vie à votre projet immobilier</h1>
+      <div className="contact-container single">
 
-<p>
-Que vous souhaitiez acheter, investir ou être accompagné dans votre recherche, nous sommes à vos côtés pour vous guider avec précision et transparence.
-</p>
+        <div className="contact-form-section centered">
+          <h1>Donnez vie à votre projet immobilier</h1>
 
-<p>
-Accédez à des opportunités ciblées, des conseils personnalisés et un accompagnement
-complet jusqu’à la concrétisation de votre projet.
-</p>
+          <p>
+            Que vous souhaitiez acheter, investir ou être accompagné dans votre recherche,
+            nous sommes à vos côtés pour vous guider avec précision et transparence.
+          </p>
 
-<p>
-Laissez-nous vos informations, nous revenons vers vous rapidement.
-</p>
+          <p>
+            Accédez à des opportunités ciblées, des conseils personnalisés et un accompagnement
+            complet jusqu’à la concrétisation de votre projet.
+          </p>
+
+          <p>
+            Laissez-nous vos informations, nous revenons vers vous rapidement.
+          </p>
 
           <form onSubmit={handleSubmit} className="contact-form">
-            <input
-              type="text"
-              name="name"
-              placeholder="Nom"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-           <textarea
-  name="message"
-  placeholder="Décrivez votre projet (type de bien, budget, localisation, délai...)"
+            <input type="text" name="name" placeholder="Nom" value={formData.name} onChange={handleChange} required />
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+
+            <textarea
+              name="message"
+              placeholder="Décrivez votre projet (type de bien, budget, localisation, délai...)"
               value={formData.message}
               onChange={handleChange}
               rows={6}
               required
-            ></textarea>
+            />
+
             <button type="submit" className="primary-btn">Envoyer</button>
+
             {status === "success" && <p className="success-msg">Message envoyé avec succès !</p>}
             {status === "error" && <p className="error-msg">Erreur, veuillez réessayer.</p>}
           </form>
         </div>
 
-        {/* Colonne Agents */}
-        <div className="contact-agents-section">
-          {agents.map((agent, idx) => (
-            <div key={idx} className="agent-card">
-              <div className="agent-image">
-                <Image src={agent.img} alt={agent.name} fill />
-              </div>
-              <h3>{agent.name}</h3>
-              <p>{agent.role}</p>
-              <p>
-                <a href={`tel:${agent.phone}`} className="agent-contact">{agent.phone}</a>
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
     </main>
   );
