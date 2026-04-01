@@ -35,7 +35,7 @@ export default function Footer() {
         <Image
           src="/logo_leggett.png"
           alt="Leggett Immobilier"
-          width={150}
+          width={200}
           height={100}
           priority
         />
