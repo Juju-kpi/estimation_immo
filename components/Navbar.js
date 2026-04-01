@@ -15,7 +15,7 @@ export default function Navbar() {
         src="/logo.jpeg"
         alt="Sellmyhome"
         width={170}
-        height={80}
+        height={75}
         priority
       />
     </Link>
@@ -48,6 +48,14 @@ export default function Navbar() {
           >
             A propos
           </Link>
+
+               <Link
+            href="/nous"
+            className={`nav-link ${pathname === "/nous" ? "active" : ""}`}
+          >
+            A propos
+          </Link>
+
 
         </div>
       </div>
