@@ -266,7 +266,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f5f5f5",
+    background: "transparent",
     padding: 10
   },
   container: {
