@@ -39,8 +39,8 @@ export default function Presentation() {
       {/* AGENTS */}
       <section id="victor" className="agents presentation-agents">
 
-        <div className="agents-cards">
-          <div className="agents-image">
+        <div className="agent-card">
+          <div className="agent-image">
             <Image src="/victor2.jpeg" alt="Victor" fill />
           </div>
           <h3>Victor</h3>
@@ -63,8 +63,8 @@ export default function Presentation() {
               </p>
         </div>
 
-        <div className="agents-cards">
-          <div className="agents-image">
+        <div className="agent-card">
+          <div className="agent-image">
             <Image src="/Marie.jpeg" alt="Marie" fill />
           </div>
           <h3>Marie Houlier</h3>
