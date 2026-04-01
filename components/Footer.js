@@ -23,12 +23,14 @@ export default function Footer() {
       <div className="footer-center">
         <div className="footer-links">
           <Link href="/">Accueil</Link>
-          <Link href="/estimation">Estimation</Link>
           <Link href="/contact">Recherche</Link>
+        <Link href="/estimation">Estimation</Link>
           <Link href="/presentation">A propos</Link>
          <Link href="/nous">Nous contacter</Link>
         </div>
-        <p className="footer-email">contact@sellmyhome.fr</p>
+       <a href="mailto:contact@sellmyhome.fr" className="footer-email">
+  contact@sellmyhome.fr
+</a>
       </div>
 
       {/* Logo Leggett à droite */}
@@ -37,20 +39,13 @@ export default function Footer() {
           src="/logo_leggett.png"
           alt="Leggett Immobilier"
           width={230}
-          height={80}
+          height={70}
           priority
         />
       </div>
-<p style={{
-    position: "absolute",
-    bottom: 15,
-    right: 20,
-    fontSize: 13,
-    color: "#999",
-  }}
->
-  © 2026 Sellmyhome — Tous droits réservés
-</p>
+<div className="footer-bottom">
+  <p>© 2026 Sellmyhome — Tous droits réservés</p>
+</div>
     </footer>
   );
 }
