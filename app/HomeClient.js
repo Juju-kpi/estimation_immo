@@ -103,7 +103,7 @@ export default function HomeClient() {
 
   <div className="agents-grid">
 
-   <Link href="/presentation#victor" className="agent-card">
+   <Link href="/nous" className="agent-card">
       <div className="agent-image marie">
         <Image
           src="/marie2.jpeg"
@@ -118,7 +118,7 @@ export default function HomeClient() {
 
 Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. </p>
             </Link>
-   <Link href="/presentation#victor" className="agent-card">
+   <Link href="/nous" className="agent-card">
       <div className="agent-image">
         <Image
           src="/victor2.jpeg"
