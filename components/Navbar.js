@@ -9,8 +9,18 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        <div className="nav-links">
 
+ <Link href="/" className="nav-logo">
+      <Image
+        src="/logo.jpeg"
+        alt="Sellmyhome"
+        width={120}
+        height={40}
+        priority
+      />
+    </Link>
+          
+           <div className="nav-links">  
           <Link
             href="/"
             className={`nav-link ${pathname === "/" ? "active" : ""}`}
