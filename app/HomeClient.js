@@ -48,6 +48,9 @@ export default function HomeClient() {
       Bienvenue sur Sellmyhome, votre partenaire de confiance pour concrétiser vos projets immobiliers.
       Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
     </p>
+        <p>
+        Notre mission est simple : vous offrir un service personnalisé et efficace, en mettant à votre disposition un agent expérimenté, doté d’un vaste carnet d’adresses et entouré d’un réseau de partenaires de confiance. Avec Sellmyhome, vous bénéficiez d’un interlocuteur unique, dédié à vos besoins, pour simplifier vos démarches et maximiser vos chances de réussite.
+        </p>
 
     <a href="/estimation">
       <button className="primary-btn">
@@ -133,11 +136,6 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
 
   <footer className="footer-legal">
   <div className="footer-container">
-
-    <p className="footer-intro">
-      Notre mission : vous offrir un accompagnement humain, transparent et efficace,
-      avec un interlocuteur unique dédié à votre projet.
-    </p>
 
     <div className="footer-legal-text">
       <p>
