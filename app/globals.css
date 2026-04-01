@@ -291,6 +291,11 @@ body {
   object-fit: cover;
 }
 
+.marie img {
+  object-fit: cover;
+  object-position: center 30%;
+}
+
 /* TEXT */
 .agent-card h3 {
   font-size: 20px;
