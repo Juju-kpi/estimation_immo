@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const images = [
+{/* const images = [
   "/appart1.jpeg",
   "/appart2.jpeg",
   "/appart3.jpeg",
   "/appart4.jpeg",
   "/test_appart.jpeg"
-];
+];  */}
 
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
@@ -110,11 +110,9 @@ export default function HomeClient() {
         />
       </div>
       <h3>Marie Houlier</h3>
-      <p>, je mets à votre service ma connaissance fine du marché immobilier et des ambiances propres à chaque quartier.
+      <p>Je mets à votre service ma connaissance fine du marché immobilier et des ambiances propres à chaque quartier.
 
-Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. Consciente que cette démarche peut être émotionnellement intense, je veille à la rendre plus simple, fluide et sereine.</p>
-            </Link>
-
+Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. 
    <Link href="/#" className="agent-card">
       <div className="agent-image">
         <Image
@@ -126,7 +124,7 @@ Conseillère et commerciale en immobilier, je vous accompagne avec empathie et e
       </div>
       <h3>Victor</h3>
       <p>
-Ma connaissance du marché parisien et mon engagement à fournir un service sur-mesure me permettent de répondre aux besoins spécifiques de chacun, qu’il s’agisse d’acheter, de vendre ou d’investir. Mon objectif est simple : vous aider à concrétiser vos projets immobiliers et à transformer vos envies en réalité, dans une relation de confiance et de proximité.</p>
+Ma connaissance du marché parisien et mon engagement à fournir un service sur-mesure me permettent de répondre aux besoins spécifiques de chacun, qu’il s’agisse d’acheter, de vendre ou d’investir.</p>
     </Link>
 
   </div>
