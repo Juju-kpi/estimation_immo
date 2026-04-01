@@ -26,6 +26,7 @@ export default function Footer() {
           <Link href="/estimation">Estimation</Link>
           <Link href="/contact">Recherche</Link>
           <Link href="/presentation">A propos</Link>
+         <Link href="/nous">Nous contacter</Link>
         </div>
         <p className="footer-email">contact@sellmyhome.fr</p>
       </div>
