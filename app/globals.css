@@ -518,3 +518,50 @@ body {
   box-shadow: 0 -5px 20px rgba(0,0,0,0.03);
 }
 
+
+
+
+.presentation-hero {
+  position: relative;
+  padding: 100px 20px;
+  text-align: center;
+  color: white;
+}
+
+.presentation-hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.presentation-content {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  z-index: 2;
+  line-height: 1.7;
+}
+
+.presentation-content h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+
+.presentation-agents {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 80px 20px;
+  flex-wrap: wrap;
+}
+
+.agent-card.large {
+  max-width: 400px;
+  text-align: left;
+}
+
+.agent-phone {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #0070f3;
+}
