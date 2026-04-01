@@ -40,7 +40,7 @@ export default function Presentation() {
       <section id="victor" className="agents presentation-agents">
         <div className="agent-card">
           <div className="agent-image">
-            <Image src="/Marie.jpeg" alt="Marie" fill />
+            <Image src="/marie2.jpeg" alt="Marie" fill />
           </div>
           <h3>Marie Houlier</h3>
 
