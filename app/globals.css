@@ -147,6 +147,81 @@ body {
 }
 
 
+/*footer*/
+/* FOOTER */
+.footer {
+  background-color: #005fcc; /* bleu type Leggett */
+  color: white;
+  padding: 40px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Logo gauche */
+.footer-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Centre */
+.footer-center {
+  flex: 2;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 0.7;
+}
+
+.footer-email {
+  font-weight: 500;
+}
+
+/* Logo droite */
+.footer-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-left,
+  .footer-right {
+    justify-content: center;
+  }
+}
+
+
 /* GLOBAL */
 body {
   margin: 0;
