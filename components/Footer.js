@@ -41,7 +41,14 @@ export default function Footer() {
           priority
         />
       </div>
-<p style={{ marginTop: 20, fontSize: 13, color: "#999" }}>
+<p style={{
+    position: "absolute",
+    bottom: 15,
+    right: 20,
+    fontSize: 13,
+    color: "#999",
+  }}
+>
   © 2026 Sellmyhome — Tous droits réservés
 </p>
     </footer>
