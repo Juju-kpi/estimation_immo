@@ -39,7 +39,7 @@ export default function Presentation() {
       {/* AGENTS */}
       <section id="victor" className="agents presentation-agents">
         <div className="agent-card">
-          <div className="agent-image">
+          <div className="agent-image marie">
             <Image src="/marie2.jpeg" alt="Marie" fill />
           </div>
           <h3>Marie Houlier</h3>
