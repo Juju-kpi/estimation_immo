@@ -45,8 +45,8 @@ export default function HomeClient() {
     <h1>Une estimation, oui. Mais surtout un accompagnement humain.</h1>
 
     <p>
-      Nous ne donnons pas qu’un prix — Marie et Victor sont présents
-      pour concrétiser votre projet immobilier dans les meilleures conditions.
+      Bienvenue sur Sellmyhome, votre partenaire de confiance pour concrétiser vos projets immobiliers.
+      Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
     </p>
 
     <a href="/estimation">
@@ -55,7 +55,7 @@ export default function HomeClient() {
       </button>
     </a>
 
-    <p style={{ marginTop: 15, fontSize: 14, opacity: 0.85 }}>
+    <p style={{ marginTop: 15, fontSize: 14 }}>
       Rencontrez nos experts • Gratuit • Sans engagement  • Confidentiel
     </p>
   </div>
@@ -135,11 +135,6 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
   <div className="footer-container">
 
     <p className="footer-intro">
-      Bienvenue sur Sellmyhome, votre partenaire de confiance pour concrétiser vos projets immobiliers.
-      Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
-    </p>
-
-    <p className="footer-intro">
       Notre mission : vous offrir un accompagnement humain, transparent et efficace,
       avec un interlocuteur unique dédié à votre projet.
     </p>
@@ -158,14 +153,13 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
         Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d’un droit d’accès,
         de rectification, de suppression et d’opposition concernant vos données personnelles.
       </p>
+             <p style={{ marginTop: 20, fontSize: 13, color: "#999" }}>
+  © 2026 Sellmyhome — Tous droits réservés
+</p>
     </div>
 
   </div>
 </footer>
-
-          <p style={{ marginTop: 20, fontSize: 13, color: "#999" }}>
-  © 2026 Sellmyhome — Tous droits réservés
-</p>
 
     </main>
   );
