@@ -148,21 +148,14 @@ body {
 
 
 /*footer*/
-/* FOOTER */
 .footer {
-  background-color: #005fcc; /* bleu type Leggett */
+  background-color: #005fcc; /* bleu Leggett */
   color: white;
   padding: 40px 20px;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
 }
 
 /* Logo gauche */
@@ -211,9 +204,10 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .footer-container {
+  .footer {
     flex-direction: column;
     text-align: center;
+    gap: 20px;
   }
   .footer-left,
   .footer-right {
