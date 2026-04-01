@@ -10,7 +10,7 @@ export async function POST(req) {
 
     await resend.emails.send({
       from: "onboarding@resend.dev", // ton domaine vérifié Resend
-      to: "julien.lbc19@gmail.com", // email qui reçoit le message
+      to: "smh.redirection@gmail.com", // email qui reçoit le message
       subject: `Nouveau message de ${name} - site Julien`,
       html: `
         <p><strong>Nom:</strong> ${name}</p>
