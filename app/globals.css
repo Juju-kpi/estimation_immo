@@ -700,3 +700,21 @@ body {
   margin-top: 10px;
   font-weight: 600;
 }
+
+.nous-header {
+  text-align: center;
+  margin-bottom: 40px;
+   max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+ 
+
+.nous-header a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nous-header a:hover {
+  text-decoration: underline;
+}
