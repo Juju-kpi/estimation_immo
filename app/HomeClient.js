@@ -49,7 +49,8 @@ export default function HomeClient() {
       Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
     </p>
         <p>
-        Notre mission est simple : vous offrir un service personnalisé et efficace, en mettant à votre disposition un agent expérimenté, doté d’un vaste carnet d’adresses et entouré d’un réseau de partenaires de confiance. Avec Sellmyhome, vous bénéficiez d’un interlocuteur unique, dédié à vos besoins, pour simplifier vos démarches et maximiser vos chances de réussite.
+        Un interlocuteur unique, un réseau solide, et un accompagnement
+  humain pour maximiser vos chances de réussite.
         </p>
 
     <a href="/estimation">
