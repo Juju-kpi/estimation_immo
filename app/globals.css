@@ -362,22 +362,47 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  padding: 20px 20px;
+  padding: 20px;
   max-width: 1200px;
   margin: auto;
 }
 
+.contact-text {
+  flex: 1;
+  min-width: 300px; /* s’adapte sur mobile */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+.contact-text h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.contact-text p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
 .contact-form-section {
   flex: 1;
   min-width: 300px;
-  border-radius: 12px;
-}
-.contact-form-section {
   background: rgba(0,0,0,0.1);
-  padding: 5px;
+  padding: 10px;
   border-radius: 12px;
 }
 
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+  }
+
+  .contact-form-section {
+    padding: 20px;
+  }
+}
 .contact-form-section h1 {
   font-size: 42px;
   margin-bottom: 20px;
