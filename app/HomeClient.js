@@ -45,7 +45,7 @@ export default function HomeClient() {
     <h1>Une estimation, oui. Mais surtout un accompagnement humain.</h1>
 
     <p>
-      Bienvenue sur Sellmyhome, votre partenaire de confiance pour concrétiser vos projets immobiliers.
+      Bienvenue sur <strong style={{ fontSize: "1.1em" }}>Sellmyhome</strong>, votre partenaire de confiance pour concrétiser vos projets immobiliers.
       Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
     </p>
         <p>
