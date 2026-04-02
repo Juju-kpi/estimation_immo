@@ -136,7 +136,6 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
 </section>
 
   <footer className="footer-legal">
-  <div className="footer-container">
 
     <div className="footer-legal-text">
       <p>
@@ -152,8 +151,6 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
         Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d’un droit d’accès,
         de rectification, de suppression et d’opposition concernant vos données personnelles.
       </p>
-             
-    </div>
 
   </div>
 </footer>
