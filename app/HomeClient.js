@@ -134,9 +134,7 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
 
   </div>
 </section>
-
-  <footer className="footer-legal">
-
+<div className="footer-container">
     <div className="footer-legal-text">
       <p>
         Les informations collectées sur le site Sellmyhome sont strictement confidentielles
@@ -153,8 +151,7 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
       </p>
 
   </div>
-</footer>
-
+          </div>
     </main>
   );
 }
