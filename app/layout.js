@@ -9,17 +9,22 @@ const poppins = Poppins({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://sellmyhome.fr"),
   title: "Sell my home: Estimation Immobilière et Accompagnement Humain pour vendre votre bien",
-  description: "Sellmyhome vous accompagne pour estimer et vendre votre bien immobilier. Un accompagnement humain, transparent et efficace pour réussir votre projet.",
+  description:
+    "Sellmyhome vous accompagne pour estimer et vendre votre bien immobilier. Un accompagnement humain, transparent et efficace pour réussir votre projet.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-       <body className={poppins.className}>
+      <body className={poppins.className}>
         <Navbar />
         {children}
-     <Footer />
+        <Footer />
       </body>
     </html>
   );
