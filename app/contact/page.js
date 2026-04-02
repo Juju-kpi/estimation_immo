@@ -63,7 +63,7 @@ export default function ContactPage() {
         placeholder="Décrivez votre projet (type de bien, budget, localisation, délai...)"
         value={formData.message}
         onChange={handleChange}
-        rows={6}
+        rows={4}
         required
       />
 
