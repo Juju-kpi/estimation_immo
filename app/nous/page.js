@@ -1,11 +1,6 @@
 "use client";
 import Image from "next/image";
-export const metadata = {
-  title: "A propos | Sell my home",
-  alternates: {
-    canonical: "/nous",
-  },
-};
+
 export default function NousPage() {
   return (
     <main>
