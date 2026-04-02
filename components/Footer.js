@@ -22,6 +22,9 @@ export default function Footer() {
       <div className="footer-center">
         <div className="footer-intro-block">
           <h3 className="footer-title">Nous connaître</h3>
+         <a href="mailto:contact@sellmyhome.fr" className="footer-contact-link">
+                contact@sellmyhome.fr
+              </a>
 
           <div className="footer-contacts">
             <div className="footer-contact-card">
