@@ -80,16 +80,23 @@ export default function Estimation() {
     }
 
     setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
+if (Object.keys(newErrors).length > 0) return;
 
-    await fetch("/api/lead", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+await fetch("/api/lead", {
+  method: "POST",
+  body: JSON.stringify(data),
+});
 
-    localStorage.setItem("showSuccessToast", "true");
-    router.push("/");
-  };
+if (typeof window !== "undefined" && window.gtag) {
+  window.gtag("event", "form_submit_estimation", {
+    event_category: "conversion",
+    event_label: "estimation_form",
+    value: 1,
+  });
+}
+
+localStorage.setItem("showSuccessToast", "true");
+router.push("/");
 
   return (
     <div style={styles.page} className="estimation-page">
