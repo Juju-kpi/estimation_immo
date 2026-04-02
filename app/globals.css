@@ -887,3 +887,115 @@ button {
   text-decoration: underline;
   color: var(--color-primary-dark);
 }
+
+/* =========================
+   MOBILE ONLY
+   ========================= */
+@media (max-width: 768px) {
+  /* Un peu d'air sur les côtés partout */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    width: 100%;
+    padding: 0;
+  }
+
+  .nav-container {
+    max-width: 100%;
+    padding: 12px 14px;
+    min-height: 72px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-logo {
+    position: static; /* enlève le positionnement absolu sur mobile */
+    margin-top: 0;
+    margin-right: 0;
+    justify-content: center;
+  }
+
+  /* si ton logo est trop gros dans la navbar */
+  .nav-logo img {
+    max-width: 140px;
+    height: auto;
+  }
+
+  .nav-links {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0 4px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .nav-cta {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  /* CONTENEURS GÉNÉRAUX :
+     on évite l'effet collé au bord */
+  .contact-container,
+  .container,
+  .agents,
+  .benefits,
+  .presentation-content,
+  .nous-header {
+    width: calc(100% - 24px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-container {
+    padding: 14px 0;
+    gap: 20px;
+  }
+
+  .agents {
+    padding: 16px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .benefits {
+    padding: 20px 16px;
+    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-text,
+  .contact-form-section {
+    padding: 16px;
+  }
+
+  .presentation-content {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* FOOTER un peu moins collé */
+  .footer {
+    padding: 20px 14px;
+  }
+
+  .footer-center {
+    padding: 0 6px;
+  }
+
+  .footer-container {
+    width: calc(100% - 24px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
