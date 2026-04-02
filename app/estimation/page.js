@@ -11,6 +11,13 @@ import {
   FaPhone
 } from "react-icons/fa";
 
+export const metadata = {
+  title: "Estimation immobilière | Sell my home",
+  alternates: {
+    canonical: "/estimation",
+  },
+};
+
 export default function Estimation() {
   const router = useRouter();
   const wrapperRef = useRef(null);
