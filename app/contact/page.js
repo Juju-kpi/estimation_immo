@@ -2,13 +2,6 @@
 
 import { useState } from "react";
 
-export const metadata = {
-  title: "Nous contacter | Sell my home",
-  alternates: {
-    canonical: "/contact",
-  },
-};
-
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(null);
