@@ -82,12 +82,12 @@ const fetchAddressSuggestions = (query) => {
 
   return (
     <div style={styles.page}>
-      <div style={styles.container}>
+  <div ref={wrapperRef} style={styles.container}>
         <h1 style={styles.title}>Estimation immobilière</h1>
         <p style={styles.subtitle}>Toutes vos données sont confidentielles et sécurisées.</p>
 
         {/* Adresse avec autocomplete Nominatim amélioré */}
-<div  ref={wrapperRef} style={{ marginBottom: 15, position: "relative" }}>
+<div style={{ marginBottom: 15, position: "relative" }}>
   <div style={styles.fieldContainer}>
     <FaMapMarkerAlt style={styles.icon} />
     <input
@@ -121,134 +121,124 @@ const fetchAddressSuggestions = (query) => {
   {errors.address && <p style={styles.error}>{errors.address}</p>}
 </div>
 
-{/* TYPE DE BIEN (dropdown clean) */}
-<div style={{ marginBottom: 15, position: "relative" }}>
-  <div
-    style={styles.fieldContainer}
-    onClick={() => setOpenType(!openType)}
-  >
-    <FaBuilding style={styles.icon} />
+<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
 
-    <span style={{
-      flex: 1,
-      fontSize: 13,
-      color: data.type ? "#000" : "#999"
-    }}>
-      {data.type || "Type de bien"}
-    </span>
-
-    <div style={{
-      transform: openType ? "rotate(180deg)" : "rotate(0deg)",
-      transition: "0.3s",
-      color: "var(--color-primary)",
-      fontSize: 12
-    }}>
-      ▼
+  {/* --- COLONNE GAUCHE --- */}
+  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+    {/* TYPE DE BIEN */}
+    <div style={{ position: "relative" }}>
+      <div
+        style={styles.fieldContainer}
+        onClick={() => setOpenType(!openType)}
+      >
+        <FaBuilding style={styles.icon} />
+        <span style={{
+          flex: 1,
+          fontSize: 13,
+          color: data.type ? "#000" : "#999"
+        }}>
+          {data.type || "Type de bien"}
+        </span>
+        <div style={{
+          transform: openType ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "0.3s",
+          color: "var(--color-primary)",
+          fontSize: 12
+        }}>
+          ▼
+        </div>
+      </div>
+      {openType && (
+        <div style={styles.dropdown}>
+          {["Appartement", "Maison", "Local commercial"].map(option => (
+            <div
+              key={option}
+              style={{
+                ...styles.dropdownItem,
+                background: data.type === option ? "var(--color-light-blue)" : "transparent",
+                color: data.type === option ? "var(--color-primary)" : "#333"
+              }}
+              onClick={() => {
+                setData({ ...data, type: option });
+                setOpenType(false);
+              }}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
+
+    {/* SURFACE */}
+    <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
+
+    {/* PROJET */}
+    <div style={{ position: "relative" }}>
+      <div
+        style={styles.fieldContainer}
+        onClick={() => setOpen(!open)}
+      >
+        <FaCalendarAlt style={styles.icon} />
+        <span style={{
+          flex: 1,
+          fontSize: 13,
+          color: data.project ? "#000" : "#999"
+        }}>
+          {data.project || "Projet de vente"}
+        </span>
+        <div style={{
+          transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "0.3s",
+          color: "var(--color-primary)",
+          fontSize: 12
+        }}>
+          ▼
+        </div>
+      </div>
+      {open && (
+        <div style={styles.dropdown}>
+          {["Court terme", "Moyen terme", "Long terme"].map(option => (
+            <div
+              key={option}
+              style={{
+                ...styles.dropdownItem,
+                background: data.project === option ? "var(--color-light-blue)" : "transparent",
+                color: data.project === option ? "var(--color-primary)" : "#333"
+              }}
+              onClick={() => {
+                setData({ ...data, project: option });
+                setOpen(false);
+              }}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    {/* ÉTAGE si appartement */}
+    {data.type === "Appartement" && (
+      <Field
+        icon={<FaBuilding />}
+        placeholder="Étage"
+        type="number"
+        value={data.floor}
+        onChange={val => setData({...data, floor: val})}
+        error={errors.floor}
+      />
+    )}
   </div>
 
-  {openType && (
-    <div style={styles.dropdown}>
-      {["Appartement", "Maison", "Local commercial"].map(option => (
-        <div
-          key={option}
-          style={{
-            ...styles.dropdownItem,
-            background: data.type === option ? "var(--color-light-blue)" : "transparent",
-            color: data.type === option ? "var(--color-primary)" : "#333",
-            fontWeight: data.type === option ? "500" : "400"
-          }}
-          onClick={() => {
-            setData({ ...data, type: option });
-            setOpenType(false);
-          }}
-        >
-          <span>{option}</span>
-
-          {data.type === option && (
-            <span style={styles.check}>✓</span>
-          )}
-        </div>
-      ))}
-    </div>
-  )}
-</div>
-
-        {data.type === "appartement" && (
-  <Field
-    icon={<FaBuilding />}
-    placeholder="Étage"
-    type="number"
-    value={data.floor}
-    onChange={val => setData({...data, floor: val})}
-    error={errors.floor}
-  />
-)}
-      <div style={styles.grid}>
-      
-        <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
-
-    {/* Projet de vente avec flèche et style custom */}
-<div style={{ marginBottom: 15, position: "relative" }}>
-  <div
-    style={styles.fieldContainer}
-    onClick={() => setOpen(!open)}
-  >
-    <FaCalendarAlt style={styles.icon} />
-
-    <span style={{
-      flex: 1,
-      fontSize: 13,
-      color: data.project ? "#000" : "#999"
-    }}>
-      {data.project || "Sélectionnez"}
-    </span>
-
-    <div style={{
-      transform: open ? "rotate(180deg)" : "rotate(0deg)",
-      transition: "0.3s",
-      color: "#0070f3",
-      fontSize: 12
-    }}>
-      ▼
-    </div>
+  {/* --- COLONNE DROITE --- */}
+  <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+    <Field icon={<FaUser />} placeholder="Nom et prénom" value={data.name} onChange={val => setData({...data, name: val})} error={errors.name} />
+    <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
+    <Field icon={<FaPhone />} placeholder="Téléphone" value={data.phone} onChange={val => setData({...data, phone: val})} error={errors.phone} />
   </div>
 
-  {/* MENU */}
-  {open && (
-    <div style={styles.dropdown}>
-      {["Court terme", "Moyen terme", "Long terme"].map(option => (
-        <div
-          key={option}
-          style={{
-            ...styles.dropdownItem,
-            background: data.project === option ? "#f0f8ff" : "transparent",
-            color: data.project === option ? "#0070f3" : "#333",
-            fontWeight: data.project === option ? "500" : "400"
-          }}
-          onClick={() => {
-            setData({ ...data, project: option });
-            setOpen(false);
-          }}
-        >
-          <span>{option}</span>
-
-          {data.project === option && (
-            <span style={styles.check}>✓</span>
-          )}
-        </div>
-      ))}
-    </div>
-  )}
-
-  {errors.project && <p style={styles.error}>{errors.project}</p>}
 </div>
-
-        <Field icon={<FaUser />} placeholder="Nom et prénom" value={data.name} onChange={val => setData({...data, name: val})} error={errors.name} />
-        <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
-        <Field icon={<FaPhone />} placeholder="Téléphone" value={data.phone} onChange={val => setData({...data, phone: val})} error={errors.phone} />
-
-    </div>
     
         <label style={styles.checkboxLabel}>
           <input type="checkbox" checked={data.callConsent} onChange={e => setData({...data, callConsent: e.target.checked})} />
@@ -380,7 +370,7 @@ suggestionItemHover: {
     position: "absolute",
     right: 15,
     pointerEvents: "none",
-    color: "#0070f3"
+    color: "var(--color-primary)"
   },
   dropdown: {
   position: "absolute",
@@ -389,7 +379,7 @@ suggestionItemHover: {
   right: 0,
   background: "#fff",
   borderRadius: 12,
-  border: "1px solid #0070f3",
+  border: "1px solid var(--color-primary)",
   boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
   overflow: "hidden",
   zIndex: 1000,
@@ -407,7 +397,7 @@ dropdownItem: {
 },
 
 check: {
-  color: "#0070f3",
+  color: "var(--color-primary)",
   fontWeight: "bold",
   fontSize: 13
 },
