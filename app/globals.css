@@ -785,6 +785,7 @@ button {
   box-shadow: 0 10px 30px rgba(32, 58, 99, 0.08);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(230, 238, 245, 0.8);
+  margin-bottom: 5px;
 }
 
 /* Intro (marketing) */
