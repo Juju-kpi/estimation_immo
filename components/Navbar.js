@@ -12,7 +12,7 @@ export default function Navbar() {
 
  <Link href="/" className="nav-logo">
       <Image
-        src="/logo.jpeg"
+        src="/logo.png"
         alt="Sellmyhome"
         width={170}
         height={75}
