@@ -9,8 +9,8 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Estimation Immobilière",
-  description: "Estimez votre bien en quelques minutes",
+  title: "Sell my home: Estimation Immobilière et Accompagnement Humain pour vendre votre bien",
+  description: "Sellmyhome vous accompagne pour estimer et vendre votre bien immobilier. Un accompagnement humain, transparent et efficace pour réussir votre projet.",
 };
 
 export default function RootLayout({ children }) {
