@@ -53,7 +53,7 @@ export default function Footer() {
       {/* Logo Leggett à droite */}
       <div className="footer-right">
         <Image
-          src="/logo_leggett.png"
+          src="/logo_leggett_svg.png"
           alt="Leggett Immobilier"
           width={180}
           height={0}
