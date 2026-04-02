@@ -54,9 +54,19 @@ export default function HomeClient() {
         </p>
 
     <a href="/estimation">
-      <button className="primary-btn">
-        Obtenir mon estimation
-      </button>
+    <button
+  className="primary-btn"
+  onClick={() => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "click_estimation", {
+        event_category: "engagement",
+        event_label: "homepage",
+      });
+    }
+  }}
+>
+  Obtenir mon estimation
+</button>
     </a>
 
     <p style={{ marginTop: 15, fontSize: 14 }}>
