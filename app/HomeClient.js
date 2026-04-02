@@ -127,7 +127,7 @@ Conseillère et commerciale en immobilier, je vous accompagne avec empathie et e
           quality={100}
         />
       </div>
-      <h3>Victor</h3>
+      <h3>Victor Da Cruz</h3>
       <p>
 Ma connaissance du marché parisien et mon engagement à fournir un service sur-mesure me permettent de répondre aux besoins spécifiques de chacun, qu’il s’agisse d’acheter, de vendre ou d’investir.</p>
     </Link>
