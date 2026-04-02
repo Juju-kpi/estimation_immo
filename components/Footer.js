@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="footer-left">
         <Link href="/">
           <Image
-            src="/logo.jpeg"
+            src="/logo.png"
             alt="Sellmyhome"
             width={140}
             height={90}
