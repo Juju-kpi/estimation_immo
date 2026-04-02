@@ -1,154 +1,436 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { FaMapMarkerAlt, FaBuilding, FaRulerCombined, FaCalendarAlt, FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
 
 export default function Estimation() {
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [data, setData] = useState({});
-
-  const next = () => setStep(step + 1);
-
-  const handleSubmit = async () => {
-    await fetch("/api/lead", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    // active le toast sur la homepage
-    if (typeof window !== "undefined") {
-      localStorage.setItem("showSuccessToast", "true");
+  const wrapperRef = useRef(null);
+  const [data, setData] = useState({
+    address: "",
+    floor: "",
+    type: "",
+    surface: "",
+    project: "",
+    name: "",
+    email: "",
+    phone: "",
+    callConsent: false
+  });
+  const [errors, setErrors] = useState({});
+  const [suggestions, setSuggestions] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [openType, setOpenType] = useState(false);
+  
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      setSuggestions([]);
+      setOpen(false);       // ferme dropdown "Projet"
+      setOpenType(false);   // ferme dropdown "Type de bien"
     }
-
-    router.push("/");
   };
 
+  document.addEventListener("click", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, []);
+  // Fetch suggestions pour l'adresse via Nominatim
+const debounceRef = useRef(null);
+
+const fetchAddressSuggestions = (query) => {
+  clearTimeout(debounceRef.current);
+
+  debounceRef.current = setTimeout(async () => {
+    if (!query || query.length < 3) {
+      setSuggestions([]);
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/adress?q=${encodeURIComponent(query)}`);
+      const json = await res.json();
+      setSuggestions(json.slice(0, 3));
+    } catch {
+      setSuggestions([]);
+    }
+  }, 300);
+};
+  const handleSubmit = async () => {
+  const newErrors = {};
+
+  if (!data.address) newErrors.address = "Adresse requise";
+  if (!data.phone || data.phone.length < 8)
+  newErrors.phone = "Téléphone requis";
+  if (!data.name) newErrors.name = "Nom requis";
+  if (!data.email || !/\S+@\S+\.\S+/.test(data.email))
+    newErrors.email = "Email valide requis";
+
+  setErrors(newErrors);
+  if (Object.keys(newErrors).length > 0) return;
+
+  await fetch("/api/lead", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  localStorage.setItem("showSuccessToast", "true");
+  router.push("/");
+};
+
   return (
-    <div style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f5f5" }}>
-      <div style={{ background: "#fff", padding: 40, borderRadius: 12, width: 500, boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
-        <h1 style={{ textAlign: "center", marginBottom: 30 }}>Estimation immobilière</h1>
+    <div style={styles.page}>
+  <div ref={wrapperRef} style={styles.container}>
+        <h1 style={styles.title}>Estimation immobilière</h1>
+        <p style={styles.subtitle}>Toutes vos données sont confidentielles et sécurisées.</p>
 
-        {step === 1 && (
-          <>
-            <h2>Quelle est l’adresse du logement ?</h2>
-            <input
-              placeholder="Ex: 10 rue de Paris, Lyon"
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, address: e.target.value })}
-            />
-            <button style={buttonStyle} onClick={next}>Continuer</button>
-          </>
-        )}
-        {/* STEP 2 : Type */}
-        {step === 2 && (
-          <>
-            <h2>Type de bien</h2>
+        {/* Adresse avec autocomplete Nominatim amélioré */}
+<div style={{ marginBottom: 15, position: "relative" }}>
+  <div style={styles.fieldContainer}>
+    <FaMapMarkerAlt style={styles.icon} />
+    <input
+      type="text"
+      placeholder="Adresse du logement"
+      value={data.address}
+      onChange={e => {
+        setData({ ...data, address: e.target.value });
+        fetchAddressSuggestions(e.target.value);
+      }}
+      style={styles.input}
+    />
+  </div>
 
-            <div style={gridStyle}>
-              {["Appartement", "Maison", "Bureau"].map((type) => (
-                <div
-                  key={type}
-                  style={cardStyle}
-                  onClick={() => {
-                    setData({ ...data, type });
-                    next();
-                  }}
-                >
-                  <p>{type}</p>
-                </div>
-              ))}
+  {suggestions.length > 0 && (
+    <ul style={styles.suggestions}>
+      {suggestions.map(s => (
+        <li
+          key={s.place_id}
+          onClick={() => {
+            setData({ ...data, address: s.display_name });
+            setSuggestions([]);
+          }}
+          style={styles.suggestionItem}
+        >
+          {s.display_name}
+        </li>
+      ))}
+    </ul>
+  )}
+  {errors.address && <p style={styles.error}>{errors.address}</p>}
+</div>
+
+<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+
+  {/* --- COLONNE GAUCHE --- */}
+  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+    {/* TYPE DE BIEN */}
+    <div style={{ position: "relative" }}>
+      <div
+        style={styles.fieldContainer}
+        onClick={() => setOpenType(!openType)}
+      >
+        <FaBuilding style={styles.icon} />
+        <span style={{
+          flex: 1,
+          fontSize: 13,
+          color: data.type ? "#000" : "#999"
+        }}>
+          {data.type || "Type de bien"}
+        </span>
+        <div style={{
+          transform: openType ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "0.3s",
+          color: "var(--color-primary)",
+          fontSize: 12
+        }}>
+          ▼
+        </div>
+      </div>
+      {openType && (
+        <div style={styles.dropdown}>
+          {["Appartement", "Maison", "Local commercial"].map(option => (
+            <div
+              key={option}
+              style={{
+                ...styles.dropdownItem,
+                background: data.type === option ? "var(--color-light-blue)" : "transparent",
+                color: data.type === option ? "var(--color-primary)" : "#333"
+              }}
+              onClick={() => {
+                setData({ ...data, type: option });
+                setOpenType(false);
+              }}
+            >
+              {option}
             </div>
-          </>
-        )}
+          ))}
+        </div>
+      )}
+    </div>
 
-        {/* STEP 3 : Caractéristiques */}
-        {step === 3 && (
-          <>
-            <h2>Caractéristiques principales</h2>
+    {/* SURFACE */}
+    <Field icon={<FaRulerCombined />} placeholder="Surface (m²)" type="number" value={data.surface} onChange={val => setData({...data, surface: val})} error={errors.surface} />
 
-            <input
-              placeholder="Surface (m²)"
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, surface: e.target.value })}
-            />
-
-            <input
-              placeholder="Nombre de pièces"
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, rooms: e.target.value })}
-            />
-
-            <select
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, condition: e.target.value })}
+    {/* PROJET */}
+    <div style={{ position: "relative" }}>
+      <div
+        style={styles.fieldContainer}
+        onClick={() => setOpen(!open)}
+      >
+        <FaCalendarAlt style={styles.icon} />
+        <span style={{
+          flex: 1,
+          fontSize: 13,
+          color: data.project ? "#000" : "#999"
+        }}>
+          {data.project || "Projet de vente"}
+        </span>
+        <div style={{
+          transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "0.3s",
+          color: "var(--color-primary)",
+          fontSize: 12
+        }}>
+          ▼
+        </div>
+      </div>
+      {open && (
+        <div style={styles.dropdown}>
+          {["Court terme", "Moyen terme", "Long terme"].map(option => (
+            <div
+              key={option}
+              style={{
+                ...styles.dropdownItem,
+                background: data.project === option ? "var(--color-light-blue)" : "transparent",
+                color: data.project === option ? "var(--color-primary)" : "#333"
+              }}
+              onClick={() => {
+                setData({ ...data, project: option });
+                setOpen(false);
+              }}
             >
-              <option>État du bien</option>
-              <option>Neuf</option>
-              <option>Excellent</option>
-              <option>Standard</option>
-              <option>À rénover</option>
-            </select>
+              {option}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
 
-            <button style={buttonStyle} onClick={next}>
-              Continuer
-            </button>
-          </>
-        )}
+    {/* ÉTAGE si appartement */}
+    {data.type === "Appartement" && (
+      <Field
+        icon={<FaBuilding />}
+        placeholder="Étage"
+        type="number"
+        value={data.floor}
+        onChange={val => setData({...data, floor: val})}
+        error={errors.floor}
+      />
+    )}
+  </div>
 
-        {/* STEP 4 : Projet */}
-        {step === 4 && (
-          <>
-            <h2>Votre projet</h2>
+  {/* --- COLONNE DROITE --- */}
+  <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+    <Field icon={<FaUser />} placeholder="Nom et prénom" value={data.name} onChange={val => setData({...data, name: val})} error={errors.name} />
+    <Field icon={<FaEnvelope />} placeholder="Email" value={data.email} onChange={val => setData({...data, email: val})} error={errors.email} />
+    <Field icon={<FaPhone />} placeholder="Téléphone" value={data.phone} onChange={val => setData({...data, phone: val})} error={errors.phone} />
+  </div>
 
-            <select
-              style={inputStyle}
-              onChange={(e) => setData({ ...data, project: e.target.value })}
-            >
-              <option>Choisissez</option>
-              <option>Vente immédiate</option>
-              <option>3 à 6 mois</option>
-              <option>+6 mois</option>
-              <option>Pas de projet</option>
-            </select>
+</div>
+    
+        <label style={styles.checkboxLabel}>
+          <input type="checkbox" checked={data.callConsent} onChange={e => setData({...data, callConsent: e.target.checked})} />
+          J’accepte d’être rappelé par Marie ou Victor, sans engagement, afin de discuter de mon estimation.
+        </label>
 
-            <button style={buttonStyle} onClick={next}>
-              Continuer
-            </button>
-          </>
-        )}
-
-        {/* STEP 5 : Contact */}
-         {step === 5 && (
-          <>
-            <h2>Vos coordonnées</h2>
-            <input placeholder="Nom" style={inputStyle} onChange={(e) => setData({ ...data, name: e.target.value })} />
-            <input placeholder="Email" style={inputStyle} onChange={(e) => setData({ ...data, email: e.target.value })} />
-            <input placeholder="Téléphone" style={inputStyle} onChange={(e) => setData({ ...data, phone: e.target.value })} />
-
-            <button style={buttonStyle} onClick={handleSubmit}>Envoyer</button>
-          </>
-        )}
+        <button style={styles.submitBtn} onClick={handleSubmit}>
+          Envoyer ma demande
+        </button>
       </div>
     </div>
   );
 }
 
-/* Styles */
-const inputStyle = { width: "100%", padding: 12, marginTop: 10, marginBottom: 20, borderRadius: 8, border: "1px solid #ddd" };
-const buttonStyle = { width: "100%", padding: 15, background: "#0070f3", color: "white", border: "none", borderRadius: 8, cursor: "pointer", fontSize: 16 };
+// Champ simple avec icône
+function Field({ icon, placeholder, type="text", value, onChange, error }) {
+  return (
+    <div style={{ marginBottom: 15 }}>
+      <div style={styles.fieldContainer}>
+        <div style={styles.icon}>{icon}</div>
+        <input type={type} placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} style={styles.input} />
+      </div>
+      {error && <p style={styles.error}>{error}</p>}
+        <style jsx>{`
+  @keyframes fadeSlideIn {
+    0% { opacity: 0; transform: translateY(-5px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  ul li:hover {
+  background: #f0f7ff;
+  border-left: 3px solid #0070f3;
+}
+`}</style>
+        <style jsx>{`
+  .dropdownItem:hover {
+    background: #f0f8ff;
+    color: #0070f3;
+  }
+`}</style>
+    </div>
+  )
+}
 
-const gridStyle = {
-  display: "flex",
-  gap: 20,
-  justifyContent: "center"
-};
-
-const cardStyle = {
-  padding: 20,
-  border: "1px solid #ddd",
+const styles = {
+  page: {
+    minHeight: "90vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "transparent",
+    padding: 10
+  },
+  container: {
+    background: "#fff",
+    padding: 15,
+    borderRadius: 16,
+    width: "100%",
+    maxWidth: 800,
+    boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
+    animation: "fadeUp 0.8s ease"
+  },
+  grid: {
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gap: 15
+},
+  title: { textAlign: "center", marginBottom: 5, fontSize: 20 },
+  subtitle: { textAlign: "center", color: "#666", marginBottom: 10 },
+  fieldContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    border: "1px solid #ddd",
+    borderRadius: 10,
+    padding: "8px 10px",
+    background: "#fafafa",
+    transition: "0.3s",
+    position: "relative"
+  },
+  input: { flex: 1, border: "none", background: "transparent", fontSize: 13, outline: "none" },
+  icon: { 
+  color: "var(--color-primary)", 
+  fontSize: 16 
+},
+  error: { color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" },
+  checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 15, fontSize: 14, color: "#555" },
+ submitBtn: {
+  width: "50%",
+  margin: "0 auto", 
+  display: "block",
+  padding: 13,
+  fontSize: 15,
+  background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
+  color: "white",
+  border: "none",
   borderRadius: 10,
   cursor: "pointer",
+  transition: "0.3s",
+  boxShadow: "var(--shadow-soft)"
+},
+  submitBtnHover: {
+  transform: "translateY(-2px)"
+},
+ suggestions: {
+  position: "absolute",
+  top: "100%",
+  left: 0,
+  right: 0,
+  background: "#fff",
+  border: "1px solid #ddd",
+  borderRadius: 10,
+  maxHeight: 180,
+  overflowY: "auto",
+  zIndex: 1000,
+  marginTop: 5,
+  boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+  animation: "fadeSlideIn 0.2s ease",
+},
+suggestionItem: {
+  padding: "10px 15px",
+  cursor: "pointer",
+  transition: "0.2s",
+  borderBottom: "1px solid #f0f0f0",
+},
+suggestionItemHover: {
+  backgroundColor: "#f0f8ff",
+},
+  selectArrow: {
+    position: "absolute",
+    right: 15,
+    pointerEvents: "none",
+    color: "var(--color-primary)"
+  },
+  dropdown: {
+  position: "absolute",
+  top: "105%",
+  left: 0,
+  right: 0,
+  background: "#fff",
+  borderRadius: 12,
+  border: "1px solid var(--color-primary)",
+  boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+  overflow: "hidden",
+  zIndex: 1000,
+},
+
+dropdownItem: {
+  padding: "12px 16px",
+  fontSize: 14, 
+  cursor: "pointer",
+  borderBottom: "1px solid #f0f0f0",
+  transition: "0.2s",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center"
+},
+
+check: {
+  color: "var(--color-primary)",
+  fontWeight: "bold",
+  fontSize: 13
+},
+  suggestions: {
+  position: "absolute",
+  top: "110%",
+  left: 0,
+  right: 0,
+  background: "#fff",
+  borderRadius: 12,
+  boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+  overflow: "hidden",
+  zIndex: 1000,
+  animation: "fadeSlideIn 0.2s ease",
+},
+  suggestionItem: {
+  padding: "14px 16px",
+  cursor: "pointer",
+  borderBottom: "1px solid #f5f5f5",
+  transition: "all 0.2s ease",
+},
+  typeContainer: {
+  display: "flex",
+  gap: 10,
+  justifyContent: "space-between"
+},
+
+typeCard: {
+  flex: 1,
+  padding: 10,
+  borderRadius: 12,
   textAlign: "center",
-  width: 120,
-  transition: "0.2s"
+  cursor: "pointer",
+  transition: "0.2s",
+}
 };

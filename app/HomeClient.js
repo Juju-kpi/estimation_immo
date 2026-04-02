@@ -1,34 +1,85 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+
+{/* const images = [
+  "/appart1.jpeg",
+  "/appart2.jpeg",
+  "/appart3.jpeg",
+  "/appart4.jpeg",
+  "/test_appart.jpeg"
+];  */}
 
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
 
+  // Toast
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const shouldShow = localStorage.getItem("showSuccessToast");
-      if (shouldShow) {
-        setShowToast(true);
-        localStorage.removeItem("showSuccessToast");
-
-        const timer = setTimeout(() => setShowToast(false), 3000);
-        return () => clearTimeout(timer);
-      }
+    const shouldShow = localStorage.getItem("showSuccessToast");
+    if (shouldShow) {
+      setShowToast(true);
+      localStorage.removeItem("showSuccessToast");
+      setTimeout(() => setShowToast(false), 10000);
     }
   }, []);
+
+  // Carousel auto
+  {/*useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []); */}
 
   return (
     <main className="home">
 
-      {/* TOAST */}
-      {showToast && (
-        <div className="toast">
-          Votre demande a bien été envoyée !
-        </div>
-      )}
+      {showToast && <div className="toast">Votre demande a bien été envoyée !</div>}
 
       {/* HERO */}
       <section className="hero">
+  <div className="hero-content">
+    <h1>Une estimation, oui. Mais surtout un accompagnement humain.</h1>
+
+    <p>
+      Bienvenue sur <strong style={{ fontSize: "1.1em" }}>Sellmyhome</strong>, votre partenaire de confiance pour concrétiser vos projets immobiliers.
+      Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
+    </p>
+        <p>
+        Un interlocuteur unique, un réseau solide, et un accompagnement
+  humain pour maximiser vos chances de réussite.
+        </p>
+
+    <a href="/estimation">
+      <button className="primary-btn">
+        Obtenir mon estimation
+      </button>
+    </a>
+
+    <p style={{ marginTop: 15, fontSize: 14 }}>
+      Rencontrez nos experts • Gratuit • Sans engagement  • Confidentiel
+    </p>
+  </div>
+</section>
+
+        {/* BACKGROUND CAROUSEL */}
+{/*  {images.map((img, index) => (
+          <Image
+            key={index}
+            src={img}
+            alt="Appartement"
+            fill
+            priority
+            quality={100}
+            sizes= "100vw"
+            style={{ objectFit: "cover"}}
+            className={`hero-bg ${index === currentImage ? "active" : ""}`}
+          />
+        ))} 
+
         <div className="hero-overlay" />
 
         <div className="hero-content">
@@ -44,49 +95,63 @@ export default function HomeClient() {
           </a>
         </div>
       </section>
-
+*/}
       {/* SECTION AGENTS (plus humain) */}
-      <section className="agents">
-        <h2>Vos experts immobiliers</h2>
+   
+<section className="agents">
+  <h2>Vos experts immobiliers</h2>
 
-        <div className="agents-grid">
+  <div className="agents-grid">
 
-          <div className="agent-card">
-            <img src="/agent1.jpg" alt="agent" />
-            <h3>Marie Dupont</h3>
-            <p>Spécialiste du marché résidentiel depuis 10 ans.</p>
+   <Link href="/nous" className="agent-card">
+      <div className="agent-image marie">
+        <Image
+          src="/marie2.jpeg"
+          alt="Marie Dupont"
+          fill
+          quality={100}
+          /*sizes="250px"*/
+        />
+      </div>
+      <h3>Marie Houlier</h3>
+      <p>Je mets à votre service ma connaissance fine du marché immobilier et des ambiances propres à chaque quartier.
+
+Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. </p>
+            </Link>
+   <Link href="/nous" className="agent-card">
+      <div className="agent-image">
+        <Image
+          src="/victor2.jpeg"
+          alt="Victor Martin"
+          fill
+          quality={100}
+        />
+      </div>
+      <h3>Victor Da Cruz</h3>
+      <p>
+Ma connaissance du marché parisien et mon engagement à fournir un service sur-mesure me permettent de répondre aux besoins spécifiques de chacun, qu’il s’agisse d’acheter, de vendre ou d’investir.</p>
+    </Link>
+
+  </div>
+</section>
+<div className="footer-container">
+    <div className="footer-legal-text">
+      <p>
+        Les informations collectées sur le site Sellmyhome sont strictement confidentielles
+        et utilisées uniquement dans le cadre de la relation avec les utilisateurs.
+      </p>
+
+      <p>
+        Ces données ne sont ni vendues, ni échangées, ni transférées à des tiers sans votre consentement explicite.
+      </p>
+
+      <p>
+        Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d’un droit d’accès,
+        de rectification, de suppression et d’opposition concernant vos données personnelles.
+      </p>
+
+  </div>
           </div>
-
-          <div className="agent-card">
-            <img src="/agent2.jpg" alt="agent" />
-            <h3>Thomas Martin</h3>
-            <p>Expert en estimation et investissement immobilier.</p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* AVANTAGES */}
-      <section className="benefits">
-        <div className="benefit">✔ Gratuit</div>
-        <div className="benefit">✔ Sans engagement</div>
-        <div className="benefit">✔ 100% confidentiel</div>
-      </section>
-
-      {/* CTA FINAL */}
-      <section className="cta">
-        <h2>Prêt à connaître la valeur de votre bien ?</h2>
-        <p>
-          Lancez votre estimation en quelques clics seulement.
-        </p>
-
-        <a href="/estimation">
-          <button className="cta-btn">
-            Obtenir mon estimation
-          </button>
-        </a>
-      </section>
-
     </main>
   );
 }
