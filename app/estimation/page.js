@@ -20,11 +20,14 @@ export default function Estimation() {
   const [errors, setErrors] = useState({});
   const [suggestions, setSuggestions] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openType, setOpenType] = useState(false);
   
 useEffect(() => {
   const handleClickOutside = (event) => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       setSuggestions([]);
+      setOpen(false);       // ferme dropdown "Projet"
+      setOpenType(false);   // ferme dropdown "Type de bien"
     }
   };
 
@@ -59,6 +62,8 @@ const fetchAddressSuggestions = (query) => {
   const newErrors = {};
 
   if (!data.address) newErrors.address = "Adresse requise";
+  if (!data.phone || data.phone.length < 8)
+  newErrors.phone = "Téléphone requis";
   if (!data.name) newErrors.name = "Nom requis";
   if (!data.email || !/\S+@\S+\.\S+/.test(data.email))
     newErrors.email = "Email valide requis";
@@ -116,30 +121,57 @@ const fetchAddressSuggestions = (query) => {
   {errors.address && <p style={styles.error}>{errors.address}</p>}
 </div>
 
-    {/* TYPE DE BIEN */}
-<div style={{ marginBottom: 15 }}>
-  <div style={styles.typeContainer}>
-    
-    {[
-      { label: "Appartement", value: "appartement", icon: "🏢" },
-      { label: "Maison", value: "maison", icon: "🏠" },
-      { label: "Local commercial", value: "local", icon: "🏬" }
-    ].map(item => (
-      <div
-        key={item.value}
-        onClick={() => setData({ ...data, type: item.value })}
-        style={{
-          ...styles.typeCard,
-          border: data.type === item.value ? "2px solid #0070f3" : "1px solid #ddd",
-          background: data.type === item.value ? "#f0f8ff" : "#fff"
-        }}
-      >
-        <div style={{ fontSize: 15 }}>{item.icon}</div>
-       <div style={{ fontSize: 13 }}>{item.label}</div>
-      </div>
-    ))}
+{/* TYPE DE BIEN (dropdown clean) */}
+<div style={{ marginBottom: 15, position: "relative" }}>
+  <div
+    style={styles.fieldContainer}
+    onClick={() => setOpenType(!openType)}
+  >
+    <FaBuilding style={styles.icon} />
 
+    <span style={{
+      flex: 1,
+      fontSize: 13,
+      color: data.type ? "#000" : "#999"
+    }}>
+      {data.type || "Type de bien"}
+    </span>
+
+    <div style={{
+      transform: openType ? "rotate(180deg)" : "rotate(0deg)",
+      transition: "0.3s",
+      color: "var(--color-primary)",
+      fontSize: 12
+    }}>
+      ▼
+    </div>
   </div>
+
+  {openType && (
+    <div style={styles.dropdown}>
+      {["Appartement", "Maison", "Local commercial"].map(option => (
+        <div
+          key={option}
+          style={{
+            ...styles.dropdownItem,
+            background: data.type === option ? "var(--color-light-blue)" : "transparent",
+            color: data.type === option ? "var(--color-primary)" : "#333",
+            fontWeight: data.type === option ? "500" : "400"
+          }}
+          onClick={() => {
+            setData({ ...data, type: option });
+            setOpenType(false);
+          }}
+        >
+          <span>{option}</span>
+
+          {data.type === option && (
+            <span style={styles.check}>✓</span>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
 </div>
 
         {data.type === "appartement" && (
@@ -297,22 +329,29 @@ const styles = {
     position: "relative"
   },
   input: { flex: 1, border: "none", background: "transparent", fontSize: 13, outline: "none" },
-  icon: { color: "#0070f3", fontSize: 16 },
+  icon: { 
+  color: "var(--color-primary)", 
+  fontSize: 16 
+},
   error: { color: "red", fontSize: 12, marginTop: 5, opacity: 0.9, transition: "0.3s" },
   checkboxLabel: { display: "flex", alignItems: "center", gap: 10, marginBottom: 15, fontSize: 14, color: "#555" },
-  submitBtn: {
-    width: "50%",
-    margin: "0 auto", 
-    display: "block",
-    padding: 13,
-    fontSize: 15,
-    background: "#0070f3",
-    color: "white",
-    border: "none",
-    borderRadius: 10,
-    cursor: "pointer",
-    transition: "0.3s",
-  },
+ submitBtn: {
+  width: "50%",
+  margin: "0 auto", 
+  display: "block",
+  padding: 13,
+  fontSize: 15,
+  background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
+  color: "white",
+  border: "none",
+  borderRadius: 10,
+  cursor: "pointer",
+  transition: "0.3s",
+  boxShadow: "var(--shadow-soft)"
+},
+  submitBtnHover: {
+  transform: "translateY(-2px)"
+},
  suggestions: {
   position: "absolute",
   top: "100%",
