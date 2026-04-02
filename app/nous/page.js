@@ -51,7 +51,7 @@ export default function NousPage() {
           <div className="agent-image">
             <Image src="/victor2.jpeg" alt="Victor" fill />
           </div>
-          <h3>Victor</h3>
+          <h3>Victor Da Cruz</h3>
 
           <p>
             Originaire de Paris, j’ai débuté ma carrière dans le secteur bancaire,
