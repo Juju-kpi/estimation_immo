@@ -17,6 +17,9 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
+   icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
