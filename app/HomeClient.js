@@ -2,14 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-{/* const images = [
-  "/appart1.jpeg",
-  "/appart2.jpeg",
-  "/appart3.jpeg",
-  "/appart4.jpeg",
-  "/test_appart.jpeg"
-];  */}
+import Head from "next/head";
 
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
@@ -35,6 +28,15 @@ export default function HomeClient() {
   }, []); */}
 
   return (
+     <>
+      {/* SEO Meta Tags */}
+      <Head>
+        <title>SellMyHome | Estimation immobilière gratuite et accompagnement humain</title>
+        <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://sellmyhome.fr" />
+      </Head>
+    
     <main className="home">
 
       {showToast && <div className="toast">Votre demande a bien été envoyée !</div>}
