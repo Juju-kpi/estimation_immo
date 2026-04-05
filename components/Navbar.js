@@ -37,11 +37,19 @@ export default function Navbar() {
           </Link>
               
               <Link
-            href="/estimation"
-            className={`nav-cta ${pathname === "/estimation" ? "active-cta" : ""}`}
-          >
-            Estimation
-          </Link>
+  href="/estimation"
+  className={`nav-cta ${pathname === "/estimation" ? "active-cta" : ""}`}
+  onClick={() => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "click_estimation_nav", {
+        event_category: "navigation",
+        event_label: "navbar",
+      });
+    }
+  }}
+>
+  Estimation
+</Link>
 
           <Link
             href="/presentation"

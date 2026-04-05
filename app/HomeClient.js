@@ -2,14 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-{/* const images = [
-  "/appart1.jpeg",
-  "/appart2.jpeg",
-  "/appart3.jpeg",
-  "/appart4.jpeg",
-  "/test_appart.jpeg"
-];  */}
+import Head from "next/head";
 
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
@@ -25,16 +18,18 @@ export default function HomeClient() {
     }
   }, []);
 
-  // Carousel auto
-  {/*useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 4000);
 
-    return () => clearInterval(interval);
-  }, []); */}
 
   return (
+     <>
+      {/* SEO Meta Tags */}
+      <Head>
+        <title>SellMyHome | Estimation immobilière gratuite et accompagnement humain</title>
+        <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://sellmyhome.fr" />
+      </Head>
+    
     <main className="home">
 
       {showToast && <div className="toast">Votre demande a bien été envoyée !</div>}
@@ -54,9 +49,19 @@ export default function HomeClient() {
         </p>
 
     <a href="/estimation">
-      <button className="primary-btn">
-        Obtenir mon estimation
-      </button>
+    <button
+  className="primary-btn"
+  onClick={() => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "click_estimation", {
+        event_category: "engagement",
+        event_label: "homepage",
+      });
+    }
+  }}
+>
+  Obtenir mon estimation
+</button>
     </a>
 
     <p style={{ marginTop: 15, fontSize: 14 }}>
@@ -65,37 +70,6 @@ export default function HomeClient() {
   </div>
 </section>
 
-        {/* BACKGROUND CAROUSEL */}
-{/*  {images.map((img, index) => (
-          <Image
-            key={index}
-            src={img}
-            alt="Appartement"
-            fill
-            priority
-            quality={100}
-            sizes= "100vw"
-            style={{ objectFit: "cover"}}
-            className={`hero-bg ${index === currentImage ? "active" : ""}`}
-          />
-        ))} 
-
-        <div className="hero-overlay" />
-
-        <div className="hero-content">
-          <h1>Estimez votre bien immobilier</h1>
-          <p>
-            Une estimation fiable, rapide et confidentielle réalisée par des experts.
-          </p>
-
-          <a href="/estimation">
-            <button className="primary-btn">
-              Commencer l’estimation
-            </button>
-          </a>
-        </div>
-      </section>
-*/}
       {/* SECTION AGENTS (plus humain) */}
    
 <section className="agents">
@@ -153,5 +127,6 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
   </div>
           </div>
     </main>
+  </>
   );
 }

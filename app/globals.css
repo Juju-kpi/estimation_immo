@@ -887,3 +887,137 @@ button {
   text-decoration: underline;
   color: var(--color-primary-dark);
 }
+
+/* =========================
+   MOBILE ONLY
+   ========================= */
+@media (max-width: 768px) {
+  /* Un peu d'air sur les côtés partout */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* NAVBAR STRUCTURE */
+  .nav-container {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  /* LOGO CENTRÉ */
+  .nav-logo {
+    position: static;
+    justify-content: center;
+  }
+
+  .nav-logo img {
+    max-width: 130px;
+  }
+
+  /* LIENS EN GRID PROPRE */
+  .nav-links {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* BOUTONS */
+  .nav-link,
+  .nav-cta {
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    padding: 8px 6px;
+  }
+
+  /* CTA plus visible */
+  .nav-cta {
+    grid-column: span 2; /* prend toute la largeur */
+    padding: 10px;
+    font-size: 14px;
+  }
+  /* CONTENEURS GÉNÉRAUX :
+     on évite l'effet collé au bord */
+  .contact-container,
+  .container,
+  .agents,
+  .benefits,
+  .presentation-content,
+  .nous-header {
+    width: calc(100% - 24px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-container {
+    padding: 14px 0;
+    gap: 20px;
+  }
+
+  .agents {
+    padding: 16px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .benefits {
+    padding: 20px 16px;
+    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-text,
+  .contact-form-section {
+    padding: 16px;
+  }
+
+  .presentation-content {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* FOOTER un peu moins collé */
+  .footer {
+    padding: 20px 14px;
+  }
+
+  .footer-center {
+    padding: 0 6px;
+  }
+
+  .footer-container {
+    width: calc(100% - 24px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .hero-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero h1 {
+    font-size: 32px; /* évite débordement */
+    line-height: 1.3;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero p {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
