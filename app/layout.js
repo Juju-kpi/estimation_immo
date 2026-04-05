@@ -18,7 +18,7 @@ export const metadata = {
     canonical: "/",
   },
    icons: {
-    icon: "/favicon.png",
+    icon: "/logo_moteur_recherche.jpeg",
   },
 };
 
