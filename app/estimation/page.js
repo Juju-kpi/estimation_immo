@@ -308,7 +308,6 @@ router.push("/"); };
         >
           Envoyer ma demande
         </button>
-      </div>
 
 <div style={styles.seoContainer} className="seo-container">
   <h2 style={styles.seoTitle}>
@@ -359,6 +358,7 @@ router.push("/"); };
     Faites votre estimation dès maintenant et découvrez la valeur réelle de votre bien immobilier.
   </p>
 </div>
+              </div>
 
 <Script
   id="faq-schema"
