@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Script from "next/script";
 import { useRouter } from "next/navigation";
 import {
   FaMapMarkerAlt,
@@ -309,6 +310,125 @@ router.push("/"); };
         </button>
       </div>
 
+<div style={styles.seoContainer} className="seo-container">
+  <h2 style={styles.seoTitle}>
+    Estimation immobilière gratuite en ligne
+  </h2>
+
+  <p style={styles.seoText}>
+    Réaliser une estimation immobilière est une étape essentielle avant de vendre un bien. Que vous soyez propriétaire d’un appartement, d’une maison ou d’un local, connaître la valeur réelle de votre bien vous permet de prendre les bonnes décisions et d’optimiser votre vente.
+  </p>
+
+  <p style={styles.seoText}>
+    Avec SellMyHome, vous bénéficiez d’une estimation immobilière gratuite en ligne, simple, rapide et sans engagement. En quelques minutes, vous obtenez une première estimation basée sur des données concrètes du marché immobilier.
+  </p>
+
+  <h3 style={styles.seoSubtitle}>
+    Comment estimer son bien immobilier efficacement
+  </h3>
+
+  <p style={styles.seoText}>
+    Estimer son bien immobilier ne se résume pas à comparer quelques annonces. Une estimation fiable repose sur plusieurs éléments comme la localisation, la surface, les caractéristiques du bien et les tendances du marché immobilier.
+  </p>
+
+  <h3 style={styles.seoSubtitle}>
+    Pourquoi utiliser une estimation immobilière en ligne
+  </h3>
+
+  <p style={styles.seoText}>
+    Les outils d’estimation immobilière en ligne permettent d’obtenir rapidement une première indication du prix de votre bien. Ils sont accessibles à tout moment et permettent d’éviter les erreurs de prix.
+  </p>
+
+  <h3 style={styles.seoSubtitle}>
+    L’importance d’un accompagnement humain
+  </h3>
+
+  <p style={styles.seoText}>
+    Une estimation automatisée constitue une première étape, mais elle ne suffit pas toujours. SellMyHome vous propose également un accompagnement humain pour affiner votre estimation et vous aider à vendre dans les meilleures conditions.
+  </p>
+
+  <h3 style={styles.seoSubtitle}>
+    Les erreurs à éviter
+  </h3>
+
+  <p style={styles.seoText}>
+    Se baser uniquement sur les annonces, surestimer son bien ou ignorer le marché sont des erreurs fréquentes. Une estimation fiable permet d’éviter ces pièges et d’optimiser votre vente.
+  </p>
+
+  <p style={styles.seoText}>
+    Faites votre estimation dès maintenant et découvrez la valeur réelle de votre bien immobilier.
+  </p>
+</div>
+
+<Script
+  id="faq-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Comment estimer son bien immobilier ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Vous pouvez utiliser un outil d’estimation immobilière en ligne comme SellMyHome pour obtenir une estimation rapide et fiable, puis être accompagné par un expert.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "L’estimation immobilière est-elle gratuite ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Oui, l’estimation proposée par SellMyHome est gratuite et sans engagement.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Combien de temps prend une estimation immobilière ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "L’estimation en ligne prend seulement quelques minutes après avoir renseigné les informations de votre bien.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Puis-je être accompagné après l’estimation ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Oui, vous pouvez être rappelé par un expert immobilier pour affiner votre estimation et vous accompagner dans la vente.",
+          },
+        },
+      ],
+    }),
+  }}
+/>
+
+<Script
+  id="product-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Estimation immobilière SellMyHome",
+      description:
+        "Outil d’estimation immobilière gratuite en ligne avec accompagnement humain pour vendre votre bien rapidement.",
+      brand: {
+        "@type": "Brand",
+        name: "SellMyHome",
+      },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+      },
+    }),
+  }}
+/>
+            
       <style jsx>{`
         @keyframes fadeSlideIn {
           0% {
@@ -558,5 +678,35 @@ const styles = {
     textAlign: "center",
     cursor: "pointer",
     transition: "0.2s",
-  }
+  },
+  seoContainer: {
+  marginTop: 15,
+  padding: 10,
+  background: "rgba(255, 255, 255, 0.9)",
+  borderRadius: 16,
+  boxShadow: "0 10px 30px rgba(32, 58, 99, 0.08)",
+  backdropFilter: "blur(6px)",
+  border: "1px solid rgba(230, 238, 250, 0.8)",
+},
+
+seoTitle: {
+  fontSize: 15,
+  marginBottom: 5,
+  color: "#1a2b49",
+  textAlign: "center",
+},
+
+seoSubtitle: {
+  fontSize: 10,
+  marginTop: 10,
+  marginBottom: 5,
+  color: "var(--color-primary)",
+},
+
+seoText: {
+  fontSize: 8,
+  color: "#555",
+  lineHeight: 1.6,
+  marginBottom: 5,
+},
 };
