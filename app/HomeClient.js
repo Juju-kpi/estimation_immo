@@ -18,14 +18,7 @@ export default function HomeClient() {
     }
   }, []);
 
-  // Carousel auto
-  {/*useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 4000);
 
-    return () => clearInterval(interval);
-  }, []); */}
 
   return (
      <>
@@ -77,37 +70,6 @@ export default function HomeClient() {
   </div>
 </section>
 
-        {/* BACKGROUND CAROUSEL */}
-{/*  {images.map((img, index) => (
-          <Image
-            key={index}
-            src={img}
-            alt="Appartement"
-            fill
-            priority
-            quality={100}
-            sizes= "100vw"
-            style={{ objectFit: "cover"}}
-            className={`hero-bg ${index === currentImage ? "active" : ""}`}
-          />
-        ))} 
-
-        <div className="hero-overlay" />
-
-        <div className="hero-content">
-          <h1>Estimez votre bien immobilier</h1>
-          <p>
-            Une estimation fiable, rapide et confidentielle réalisée par des experts.
-          </p>
-
-          <a href="/estimation">
-            <button className="primary-btn">
-              Commencer l’estimation
-            </button>
-          </a>
-        </div>
-      </section>
-*/}
       {/* SECTION AGENTS (plus humain) */}
    
 <section className="agents">
@@ -165,5 +127,6 @@ Ma connaissance du marché parisien et mon engagement à fournir un service sur-
   </div>
           </div>
     </main>
+  </>
   );
 }
