@@ -680,7 +680,7 @@ const styles = {
     transition: "0.2s",
   },
   seoContainer: {
-  marginTop: 15,
+  marginTop: 20,
   padding: 10,
   background: "rgba(255, 255, 255, 0.9)",
   borderRadius: 16,
@@ -690,21 +690,21 @@ const styles = {
 },
 
 seoTitle: {
-  fontSize: 15,
+  fontSize: 18,
   marginBottom: 5,
   color: "#1a2b49",
   textAlign: "center",
 },
 
 seoSubtitle: {
-  fontSize: 10,
+  fontSize: 14,
   marginTop: 10,
   marginBottom: 5,
   color: "var(--color-primary)",
 },
 
 seoText: {
-  fontSize: 8,
+  fontSize: 10,
   color: "#555",
   lineHeight: 1.6,
   marginBottom: 5,
