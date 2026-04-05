@@ -53,7 +53,7 @@ export default function HomeClient() {
     <button
   className="primary-btn"
   onClick={() => {
-    trackClick("homeclient_estimation")};
+    trackClick("homeclient_estimation");
 
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "click_estimation", {
