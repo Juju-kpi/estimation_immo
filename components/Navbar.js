@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { trackClick } from "../components/Tracker";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -32,6 +33,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
+ onClick={() => trackClick("nav_recherche")}
           >
             Recherche
           </Link>
@@ -40,6 +42,7 @@ export default function Navbar() {
   href="/estimation"
   className={`nav-cta ${pathname === "/estimation" ? "active-cta" : ""}`}
   onClick={() => {
+     trackClick("nav_estimation");
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "click_estimation_nav", {
         event_category: "navigation",
@@ -54,6 +57,7 @@ export default function Navbar() {
           <Link
             href="/presentation"
             className={`nav-link ${pathname === "/presentation" ? "active" : ""}`}
+ onClick={() => trackClick("nav_presentation")}
           >
             A propos
           </Link>
@@ -61,6 +65,7 @@ export default function Navbar() {
                <Link
             href="/nous"
             className={`nav-link ${pathname === "/nous" ? "active" : ""}`}
+ onClick={() => trackClick("nav_contact")}
           >
             Nous contacter
           </Link>
