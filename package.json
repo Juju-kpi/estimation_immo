@@ -12,6 +12,7 @@
     "react": "latest",
     "react-dom": "latest",
     "resend": "latest",
-    "react-icons": "latest"
+    "react-icons": "latest",
+    "mongodb": "latest"
   }
 }
