@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Script from "next/script";
+import Head from "next/head";
 import { useRouter } from "next/navigation";
 import {
   FaMapMarkerAlt,
@@ -87,6 +88,23 @@ localStorage.setItem("showSuccessToast", "true");
 router.push("/"); };
 
   return (
+
+<>
+      <Head>
+        <title>Estimation immobilière gratuite en ligne | SellMyHome</title>
+        <meta
+          name="description"
+          content="Réalisez une estimation immobilière gratuite et rapide en ligne avec SellMyHome. Obtenez la valeur réelle de votre appartement, maison ou local commercial."
+        />
+        <meta name="keywords" content="estimation immobilière, appartement, maison, local commercial, prix immobilier, vente bien, Paris, vente immobilière, SeLoger, se loger, meilleurs agents, cherche à vendre, acheter immobilier" />
+        <meta name="author" content="SellMyHome" />
+        <meta property="og:title" content="Estimation immobilière gratuite en ligne | SellMyHome" />
+        <meta property="og:description" content="Obtenez votre estimation immobilière rapidement et sans engagement avec SellMyHome." />
+        <meta property="og:image" content="https://sellmyhome.fr/logo.png" />
+        <meta property="og:url" content="https://sellmyhome.fr/estimation" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+    
     <div style={styles.page} className="estimation-page">
       <div ref={wrapperRef} style={styles.container} className="estimation-container">
         <h1 style={styles.title} className="estimation-title">
@@ -502,6 +520,7 @@ router.push("/"); };
         }
       `}</style>
     </div>
+  </>
   );
 }
 
