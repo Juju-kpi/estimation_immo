@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { trackClick } from "./Tracker";
 
 export default function Footer() {
   return (
@@ -46,10 +47,10 @@ export default function Footer() {
         {/* Liens du site en plus petit */}
         <div className="footer-links footer-links-small">
           <Link href="/">Accueil</Link>
-          <Link href="/contact">Recherche</Link>
-          <Link href="/estimation">Estimation</Link>
-          <Link href="/presentation">A propos</Link>
-          <Link href="/nous">Nous contacter</Link>
+          <Link href="/contact"  onClick={() => trackClick("footer_contact")}>Recherche</Link>
+          <Link href="/estimation"  onClick={() => trackClick("footer_estimation")}>Estimation</Link>
+          <Link href="/presentation"  onClick={() => trackClick("footer_presentation")}>A propos</Link>
+          <Link href="/nous"  onClick={() => trackClick("footer_nous")}>Nous contacter</Link>
         </div>
       </div>
 
