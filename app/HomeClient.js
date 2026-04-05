@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { trackClick } from "../components/Tracker";
 
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
@@ -52,6 +53,8 @@ export default function HomeClient() {
     <button
   className="primary-btn"
   onClick={() => {
+    trackClick("homeclient_estimation")};
+
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "click_estimation", {
         event_category: "engagement",
@@ -77,7 +80,7 @@ export default function HomeClient() {
 
   <div className="agents-grid">
 
-   <Link href="/nous" className="agent-card">
+   <Link href="/nous" className="agent-card" onClick={() => trackClick("marie_contact")}>
       <div className="agent-image marie">
         <Image
           src="/marie2.jpeg"
@@ -92,7 +95,7 @@ export default function HomeClient() {
 
 Conseillère et commerciale en immobilier, je vous accompagne avec empathie et efficacité à chaque étape de votre projet de vente. </p>
             </Link>
-   <Link href="/nous" className="agent-card">
+   <Link href="/nous" className="agent-card" onClick={() => trackClick("victor_contact")}>
       <div className="agent-image">
         <Image
           src="/victor2.jpeg"
