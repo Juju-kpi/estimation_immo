@@ -415,6 +415,9 @@ router.push("/"); };
       name: "Estimation immobilière SellMyHome",
       description:
         "Outil d’estimation immobilière gratuite en ligne avec accompagnement humain pour vendre votre bien rapidement.",
+      image: "https://sellmyhome.fr/logo.png",
+      url: "https://sellmyhome.fr/estimation",
+      category: "Immobilier",
       brand: {
         "@type": "Brand",
         name: "SellMyHome",
