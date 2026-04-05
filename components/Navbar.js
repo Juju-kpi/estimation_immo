@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { trackClick } from "../components/Tracker";
+import { trackClick } from "./components/Tracker";
 
 export default function Navbar() {
   const pathname = usePathname();
