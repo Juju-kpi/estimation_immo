@@ -7,15 +7,20 @@ const supabase = createClient(
 
 // 🔒 Anti-spam mémoire
 const RATE_LIMIT = new Map();
+const RATE_LIMIT_SECONDS = 5;
 
 function isRateLimited(userId) {
   const now = Math.floor(Date.now() / 1000);
   const last = RATE_LIMIT.get(userId) || 0;
-
-  if (now - last < 5) return true; // max 1 requête tous les 5s
+  if (now - last < RATE_LIMIT_SECONDS) return true;
   RATE_LIMIT.set(userId, now);
   return false;
 }
+
+// 🔹 Limites max
+const MAX_DURATION = 60 * 60; // 1h
+const MAX_PAGES = 20;
+const MAX_EVENTS = 50;
 
 export async function POST(req) {
   try {
@@ -23,39 +28,50 @@ export async function POST(req) {
 
     const { userId, duration, pages = [], events = [], startedAt, endedAt } = body;
 
-    // 🔴 Validation stricte
+    // 🔴 Validation
     if (!userId || !startedAt || !endedAt) {
+      console.warn("Invalid payload:", body);
       return new Response("Invalid data", { status: 400 });
     }
 
     if (isRateLimited(userId)) {
+      console.warn(`Rate limit hit for user ${userId}`);
       return new Response("Too many requests", { status: 429 });
     }
 
-    // 🔹 Clamp payload
-    const safeDuration = Math.min(duration, 60 * 60); // max 1h
-    const safePages = pages.slice(0, 20);
-    const safeEvents = events.slice(0, 50);
+    // 🔹 Clamp payload pour éviter abus
+    const safeDuration = Math.min(duration, MAX_DURATION);
+    const safePages = pages.slice(0, MAX_PAGES);
+    const safeEvents = events.slice(0, MAX_EVENTS);
 
-    // 🔹 USER
-    const { data: user } = await supabase
+    // 🔹 USER - récupère ou crée
+    const { data: user, error: userError } = await supabase
       .from("users")
       .select("*")
       .eq("userId", userId)
       .single();
 
-    const createdAt = Number(userId.split("-").pop());
+    if (userError && userError.code !== "PGRST116") { // PGRST116 = not found
+      console.error("Supabase user fetch error:", userError);
+      return new Response("Server error", { status: 500 });
+    }
+
+    const createdAt = Number(userId.split("-").pop()) || startedAt;
 
     if (!user) {
-      await supabase.from("users").insert({
+      const { error: insertUserError } = await supabase.from("users").insert({
         userId,
         firstSeen: createdAt,
         lastSeen: endedAt,
         totalVisits: 1,
         totalTime: safeDuration,
       });
+      if (insertUserError) {
+        console.error("Error inserting user:", insertUserError);
+        return new Response("Server error", { status: 500 });
+      }
     } else {
-      await supabase
+      const { error: updateUserError } = await supabase
         .from("users")
         .update({
           lastSeen: endedAt,
@@ -63,10 +79,15 @@ export async function POST(req) {
           totalTime: (user.totalTime || 0) + safeDuration,
         })
         .eq("userId", userId);
+
+      if (updateUserError) {
+        console.error("Error updating user:", updateUserError);
+        return new Response("Server error", { status: 500 });
+      }
     }
 
     // 🔹 SESSIONS
-    await supabase.from("sessions").insert({
+    const { error: insertSessionError } = await supabase.from("sessions").insert({
       userId,
       duration: safeDuration,
       pages: safePages,
@@ -75,9 +96,16 @@ export async function POST(req) {
       ended_at: endedAt,
     });
 
+    if (insertSessionError) {
+      console.error("Error inserting session:", insertSessionError);
+      return new Response("Server error", { status: 500 });
+    }
+
+    console.log("Session recorded for user:", userId);
+
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (err) {
-    console.error(err);
+    console.error("API /track error:", err);
     return new Response("Server error", { status: 500 });
   }
 }
