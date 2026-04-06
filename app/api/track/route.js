@@ -48,7 +48,7 @@ export async function POST(req) {
     const { data: user, error: userError } = await supabase
       .from("users")
       .select("*")
-      .eq("userId", userId)
+      .eq("userid", userId)
       .single();
 
     if (userError && userError.code !== "PGRST116") { // PGRST116 = not found
@@ -60,11 +60,11 @@ export async function POST(req) {
 
     if (!user) {
       const { error: insertUserError } = await supabase.from("users").insert({
-        userId,
-        firstSeen: createdAt,
-        lastSeen: endedAt,
-        totalVisits: 1,
-        totalTime: safeDuration,
+        userid: userId,
+        firstseen: createdAt,
+        lastseen: endedAt,
+        totalvisits: 1,
+        totaltime: safeDuration,
       });
       if (insertUserError) {
         console.error("Error inserting user:", insertUserError);
@@ -74,11 +74,11 @@ export async function POST(req) {
       const { error: updateUserError } = await supabase
         .from("users")
         .update({
-          lastSeen: endedAt,
-          totalVisits: (user.totalVisits || 0) + 1,
-          totalTime: (user.totalTime || 0) + safeDuration,
+          lastseen: endedAt,
+          totalvisits: (user.totalvisits || 0) + 1,
+          totaltime: (user.totaltime || 0) + safeDuration,
         })
-        .eq("userId", userId);
+        .eq("userid", userId);
 
       if (updateUserError) {
         console.error("Error updating user:", updateUserError);
@@ -88,12 +88,13 @@ export async function POST(req) {
 
     // 🔹 SESSIONS
     const { error: insertSessionError } = await supabase.from("sessions").insert({
-      userId,
-      duration: safeDuration,
-      pages: safePages,
-      events: safeEvents,
-      started_at: startedAt,
-      ended_at: endedAt,
+      userid: userId,       
+  duration: safeDuration,
+  pages: safePages,
+  events: safeEvents,
+  started_at: startedAt,
+  ended_at: endedAt
+
     });
 
     if (insertSessionError) {
