@@ -13,6 +13,6 @@
     "react-dom": "latest",
     "resend": "latest",
     "react-icons": "latest",
-    "mongodb": "latest"
+     "@supabase/supabase-js": "latest"
   }
 }
