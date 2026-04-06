@@ -18,9 +18,11 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
-   icons: {
-    icon: "/logo_moteur_recherche.jpeg",
-  },
+  icons: {
+  icon: "/favicon.ico",
+  shortcut: "/favicon.ico",
+  apple: "/apple-touch-icon.png",
+},
 };
 
 export default function RootLayout({ children }) {
@@ -44,7 +46,7 @@ export default function RootLayout({ children }) {
           "@type": "Organization",
           name: "SellMyHome",
           url: "https://sellmyhome.fr",
-          logo: "https://sellmyhome.fr/favicon.png",
+          logo: "https://sellmyhome.fr/favicon.ico",
           description:
             "SellMyHome propose une estimation immobilière gratuite en ligne avec un accompagnement humain pour vendre votre bien rapidement et au meilleur prix.",
         },
