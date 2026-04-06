@@ -119,7 +119,7 @@ export default function Tracker() {
       sessionRef.current = createNewSession(); // recommencer une nouvelle session partielle
       window.currentTrackingSession = sessionRef.current;
       saveSession(sessionRef.current);
-    }, 30000); // toutes les 30 secondes
+    }, 15000); // toutes les 30 secondes
 
     return () => {
       window.removeEventListener("beforeunload", handleUnload);
