@@ -70,6 +70,7 @@ function sendSession(session) {
     endedAt: now(),
   };
 
+  console.log("Envoi de la session:", payload);
   navigator.sendBeacon("/api/track", JSON.stringify(payload));
 
   localStorage.removeItem("trackingSession");
