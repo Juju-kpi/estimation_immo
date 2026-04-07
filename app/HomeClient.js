@@ -49,23 +49,22 @@ export default function HomeClient() {
   humain pour maximiser vos chances de réussite.
         </p>
 
-    <a href="/estimation">
-    <button
-  className="primary-btn"
-  onClick={() => {
-    trackClick("homeclient_estimation");
-
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "click_estimation", {
-        event_category: "engagement",
-        event_label: "homepage",
-      });
-    }
-  }}
->
-  Obtenir mon estimation
-</button>
-    </a>
+<Link href="/estimation" passHref>
+  <button
+    className="primary-btn"
+    onClick={() => {
+      trackClick("homeclient_estimation");
+      if (window.gtag) {
+        window.gtag("event", "click_estimation", {
+          event_category: "engagement",
+          event_label: "homepage",
+        });
+      }
+    }}
+  >
+    Obtenir mon estimation
+  </button>
+</Link>
 
     <p style={{ marginTop: 15, fontSize: 14 }}>
       Rencontrez nos experts • Gratuit • Sans engagement  • Confidentiel • Paris et Ile-de-France
