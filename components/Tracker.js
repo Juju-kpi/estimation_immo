@@ -61,24 +61,32 @@ export function trackClick(name, extra = {}) {
   console.log("Click tracked:", name, extra);
 }
 
+// 🔹 TRACKER COMPONENT
 export default function Tracker() {
   const pathname = usePathname();
-  const sessionRef = useRef(createSession());
+  const sessionRef = useRef(null);
+  const lastPathRef = useRef(null);
 
   useEffect(() => {
     getUserId();
 
-    // 🔹 Stocker session globale
-    window.currentTrackingSession = sessionRef.current;
-
-    // 🔹 Ajouter la page courante
-    if (!sessionRef.current.pages.includes(pathname)) {
-      sessionRef.current.pages.push(pathname);
+    // 🔹 Créer la session si elle n'existe pas
+    if (!sessionRef.current) {
+      sessionRef.current = createSession();
+      window.currentTrackingSession = sessionRef.current;
     }
-    sessionRef.current.lastActivity = now();
+    const session = sessionRef.current;
 
-    // 🔹 Envoi quand l’onglet est fermé ou masqué
-    const handleUnload = () => sendSession(sessionRef.current);
+    // 🔹 Ajouter la page vue uniquement si différente de la dernière
+    if (pathname && pathname !== lastPathRef.current) {
+      session.pages.push(pathname);
+      lastPathRef.current = pathname;
+      session.lastActivity = now();
+      console.log("Page viewed:", pathname);
+    }
+
+    // 🔹 Envoi de la session à la fermeture de l'onglet ou invisibilité
+    const handleUnload = () => sendSession(session);
     const handleVisibility = () => {
       if (document.visibilityState === "hidden") handleUnload();
     };
@@ -86,10 +94,8 @@ export default function Tracker() {
     window.addEventListener("beforeunload", handleUnload);
     document.addEventListener("visibilitychange", handleVisibility);
 
-    // 🔹 Envoi automatique après 20 min
-    const timeout = setTimeout(() => {
-      sendSession(sessionRef.current);
-    }, 20 * 60 * 1000);
+    // 🔹 Envoi automatique après 20 minutes max
+    const timeout = setTimeout(() => sendSession(session), 20 * 60 * 1000);
 
     return () => {
       window.removeEventListener("beforeunload", handleUnload);
