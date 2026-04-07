@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-// 🔹 helper timestamp en secondes
+// 🔹 Timestamp en secondes
 const now = () => Math.floor(Date.now() / 1000);
 
 // 🔹 USER ID
@@ -12,13 +12,12 @@ function getUserId() {
   if (!uid) {
     uid = `${crypto.randomUUID()}-${now()}`;
     localStorage.setItem("anonUserId", uid);
-    localStorage.setItem("userCreatedAt", now());
   }
   return uid;
 }
 
 // 🔹 SESSION
-function createNewSession() {
+function createSession() {
   const ts = now();
   return {
     id: crypto.randomUUID(),
@@ -29,33 +28,10 @@ function createNewSession() {
   };
 }
 
-// 🔹 SAVE session
-function saveSession(session) {
-  localStorage.setItem("trackingSession", JSON.stringify(session));
-}
-
-// 🔹 CLICK tracking
-export function trackClick(name, extra = {}) {
-  const session = window.currentTrackingSession;
-  if (!session) return;
-
-  session.events.push({
-    type: "click",
-    name,
-    ...extra,
-    ts: now(),
-  });
-
-  session.lastActivity = now();
-  saveSession(session);
-
-  console.log("Click tracked:", name, extra);
-}
-
-// 🔹 SEND session
+// 🔹 ENVOI SESSION
 function sendSession(session) {
   const userId = localStorage.getItem("anonUserId");
-  if (!userId) return;
+  if (!userId || !session) return;
 
   const payload = {
     userId,
@@ -66,46 +42,43 @@ function sendSession(session) {
     endedAt: now(),
   };
 
-  console.log("Sending session:", payload);
-
-  // envoi fiable
   navigator.sendBeacon("/api/track", JSON.stringify(payload));
-
-  // cleanup
-  localStorage.removeItem("trackingSession");
-  window.currentTrackingSession = null;
+  console.log("Session sent:", payload);
 }
 
-// 🔹 Tracker Component
+// 🔹 TRACK CLICK
+export function trackClick(name, extra = {}) {
+  const session = window.currentTrackingSession;
+  if (!session) return;
+
+  session.events.push({
+    type: "click",
+    name,
+    ...extra,
+    ts: now(),
+  });
+  session.lastActivity = now();
+  console.log("Click tracked:", name, extra);
+}
+
 export default function Tracker() {
   const pathname = usePathname();
-  const sessionRef = useRef(null);
+  const sessionRef = useRef(createSession());
 
   useEffect(() => {
     getUserId();
 
-    // 🔹 récupérer ou créer session
-    let session = JSON.parse(localStorage.getItem("trackingSession"));
-    const ts = now();
-    if (!session || ts - session.lastActivity > 30 * 60) {
-      session = createNewSession();
+    // 🔹 Stocker session globale
+    window.currentTrackingSession = sessionRef.current;
+
+    // 🔹 Ajouter la page courante
+    if (!sessionRef.current.pages.includes(pathname)) {
+      sessionRef.current.pages.push(pathname);
     }
-    session.lastActivity = ts;
+    sessionRef.current.lastActivity = now();
 
-    // 🔹 ajouter page courante si non déjà présente
-    if (!session.pages.includes(pathname)) {
-      session.pages.push(pathname);
-    }
-
-    // 🔹 stocker dans ref et global window pour trackClick
-    sessionRef.current = session;
-    window.currentTrackingSession = session;
-    saveSession(session);
-
-    // 🔹 handler envoi session à la fermeture
-    const handleUnload = () => {
-      if (sessionRef.current) sendSession(sessionRef.current);
-    };
+    // 🔹 Envoi quand l’onglet est fermé ou masqué
+    const handleUnload = () => sendSession(sessionRef.current);
     const handleVisibility = () => {
       if (document.visibilityState === "hidden") handleUnload();
     };
@@ -113,18 +86,15 @@ export default function Tracker() {
     window.addEventListener("beforeunload", handleUnload);
     document.addEventListener("visibilitychange", handleVisibility);
 
-    // 🔹 optionnel : envoi toutes les 30s pour éviter perte de données
-    const interval = setInterval(() => {
-      if (sessionRef.current) sendSession(sessionRef.current);
-      sessionRef.current = createNewSession(); // recommencer une nouvelle session partielle
-      window.currentTrackingSession = sessionRef.current;
-      saveSession(sessionRef.current);
-    }, 15000); // toutes les 30 secondes
+    // 🔹 Envoi automatique après 20 min
+    const timeout = setTimeout(() => {
+      sendSession(sessionRef.current);
+    }, 20 * 60 * 1000);
 
     return () => {
       window.removeEventListener("beforeunload", handleUnload);
       document.removeEventListener("visibilitychange", handleVisibility);
-      clearInterval(interval);
+      clearTimeout(timeout);
     };
   }, [pathname]);
 
