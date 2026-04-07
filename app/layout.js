@@ -12,9 +12,9 @@ const poppins = Poppins({
 
 export const metadata = {
   metadataBase: new URL("https://sellmyhome.fr"),
-  title: "Estimation immobilière gratuite en ligne et accompagnement humain | SellMyHome",
+  title: "Estimation immobilière gratuite en ligne et accompagnement humain, specialisé à Paris et Ile-de-France | SellMyHome",
   description:
-    "Sellmyhome vous accompagne pour estimer et vendre votre bien immobilier. Un accompagnement humain, transparent et efficace pour réussir votre projet.",
+    "Sellmyhome vous accompagne pour estimer et vendre votre bien immobilier. Un accompagnement humain, transparent et efficace pour réussir votre projet. Localisé à Paris et Ile-de-France",
   alternates: {
     canonical: "/",
   },
@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
           url: "https://sellmyhome.fr",
           logo: "https://sellmyhome.fr/favicon.ico",
           description:
-            "SellMyHome propose une estimation immobilière gratuite en ligne avec un accompagnement humain pour vendre votre bien rapidement et au meilleur prix.",
+            "SellMyHome propose une estimation immobilière gratuite en ligne avec un accompagnement humain pour vendre votre bien rapidement et au meilleur prix. Localisé à Paris et Ile-de-France",
         },
         {
           "@type": "WebSite",
