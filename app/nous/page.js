@@ -1,8 +1,16 @@
 "use client";
 import Image from "next/image";
-
+import Head from "next/head";
 export default function NousPage() {
-  return (
+   <>
+      {/* SEO Meta Tags */}
+      <Head>
+        <title>SellMyHome | Estimation immobilière gratuite et accompagnement humain</title>
+        <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé. Localisé à Paris et Ile-de-France" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://sellmyhome.fr" />
+      </Head> return (
+    
     <main>
 
       {/* AGENTS */}
@@ -75,5 +83,6 @@ export default function NousPage() {
       </section>
 
     </main>
+              </>
   );
 }
