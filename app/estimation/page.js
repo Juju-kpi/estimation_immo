@@ -94,12 +94,12 @@ router.push("/"); };
         <title>Estimation immobilière gratuite en ligne | SellMyHome</title>
         <meta
           name="description"
-          content="Réalisez une estimation immobilière gratuite et rapide en ligne avec SellMyHome. Obtenez la valeur réelle de votre appartement, maison ou local commercial."
+          content="Réalisez une estimation immobilière gratuite et rapide en ligne avec SellMyHome. Obtenez la valeur réelle de votre appartement, maison ou local commercial. Localisé à Paris."
         />
-        <meta name="keywords" content="estimation immobilière, appartement, maison, local commercial, prix immobilier, vente bien, Paris, vente immobilière, SeLoger, se loger, meilleurs agents, cherche à vendre, acheter immobilier" />
+        <meta name="keywords" content="estimation immobilière, appartement, maison, local commercial, prix immobilier, vente bien, Paris, vente immobilière, SeLoger, se loger, meilleurs agents, cherche à vendre, acheter immobilier, Leggett, Ile-de-France" />
         <meta name="author" content="SellMyHome" />
         <meta property="og:title" content="Estimation immobilière gratuite en ligne | SellMyHome" />
-        <meta property="og:description" content="Obtenez votre estimation immobilière rapidement et sans engagement avec SellMyHome." />
+        <meta property="og:description" content="Obtenez votre estimation immobilière rapidement et sans engagement avec SellMyHome. Localisé à Paris" />
         <meta property="og:image" content="https://sellmyhome.fr/logo.png" />
         <meta property="og:url" content="https://sellmyhome.fr/estimation" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -432,7 +432,7 @@ router.push("/"); };
       "@type": "Product",
       name: "Estimation immobilière SellMyHome",
       description:
-        "Outil d’estimation immobilière gratuite en ligne avec accompagnement humain pour vendre votre bien rapidement.",
+        "Outil d’estimation immobilière gratuite en ligne avec accompagnement humain pour vendre votre bien rapidement. Localisé à Paris",
       image: "https://sellmyhome.fr/logo.png",
       url: "https://sellmyhome.fr/estimation",
       category: "Immobilier",
