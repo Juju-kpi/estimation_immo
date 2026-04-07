@@ -26,7 +26,7 @@ export default function HomeClient() {
       {/* SEO Meta Tags */}
       <Head>
         <title>SellMyHome | Estimation immobilière gratuite et accompagnement humain</title>
-        <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé." />
+        <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé. Localisé à Paris et Ile-de-France" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://sellmyhome.fr" />
       </Head>
@@ -68,7 +68,7 @@ export default function HomeClient() {
     </a>
 
     <p style={{ marginTop: 15, fontSize: 14 }}>
-      Rencontrez nos experts • Gratuit • Sans engagement  • Confidentiel
+      Rencontrez nos experts • Gratuit • Sans engagement  • Confidentiel • Paris et Ile-de-France
     </p>
   </div>
 </section>
