@@ -1,16 +1,18 @@
 "use client";
 import Image from "next/image";
-import Head from "next/head";
+
+
+export const metadata = {
+  title: "Nos experts immobiliers à Paris | SellMyHome",
+  description:
+    "Découvrez nos experts immobiliers à Paris. Un accompagnement humain et sur-mesure pour votre projet de vente.",
+  alternates: {
+    canonical: "https://sellmyhome.fr/nous",
+  },
+};
+
 export default function NousPage() {
-   <>
-      {/* SEO Meta Tags */}
-      <Head>
-        <title>SellMyHome | Estimation immobilière gratuite et accompagnement humain</title>
-        <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé. Localisé à Paris et Ile-de-France" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://sellmyhome.fr" />
-      </Head> return (
-    
+   return (  
     <main>
 
       {/* AGENTS */}
@@ -83,6 +85,6 @@ export default function NousPage() {
       </section>
 
     </main>
-              </>
+            
   );
 }
