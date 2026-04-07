@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { Poppins } from "next/font/google";
 import Script from "next/script"; 
 import Tracker from "../components/Tracker";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
+        <Analytics />
 
 
 <Script
