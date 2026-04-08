@@ -29,7 +29,27 @@ export default function HomeClient() {
         <meta name="description" content="Bienvenue sur SellMyHome, votre partenaire pour estimer et vendre votre bien immobilier. Estimation gratuite, rapide et accompagnement personnalisé. Localisé à Paris et Ile-de-France" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://sellmyhome.fr" />
+
+    <Script
+  id="product-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Estimation immobilière SellMyHome",
+      "image": "https://sellmyhome.fr/public/logo_moteur_recherche.jpeg",
+      "description": "Estimation immobilière gratuite et accompagnement humain à Paris et Ile-de-France",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "120"
+      }
+    }),
+  }}
+/>
       </Head>
+    
     
     <main className="home">
 
@@ -38,12 +58,15 @@ export default function HomeClient() {
       {/* HERO */}
       <section className="hero">
   <div className="hero-content">
-    <h1>Une estimation, oui. Mais surtout un accompagnement humain.</h1>
+    <h1>Une estimation immobilière, oui. Mais surtout un accompagnement humain.</h1>
 
     <p>
       Bienvenue sur <strong style={{ fontSize: "1.1em" }}>Sellmyhome</strong>, votre partenaire de confiance pour concrétiser vos projets immobiliers.
       Que vous souhaitiez vendre, acheter ou investir, nous vous accompagnons à chaque étape avec un service personnalisé.
     </p>
+        <p>
+  Maximisez vos chances de réussite pour la <strong>vente d'appartement Paris</strong> avec notre accompagnement humain et personnalisé.
+</p>
         <p>
         Un interlocuteur unique, un réseau solide, et un accompagnement
   humain pour maximiser vos chances de réussite.
