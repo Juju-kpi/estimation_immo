@@ -19,7 +19,10 @@ export const metadata = {
     canonical: "/",
   },
   icons: {
-  icon: "/favicon.ico",
+   icon: [
+      { url: "/favicon.ico" },
+      { url: "/logo_moteur_recherche_48.png", sizes: "48x48", type: "image/png" }
+    ],
   shortcut: "/favicon.ico",
   apple: "/apple-touch-icon.png",
 },
