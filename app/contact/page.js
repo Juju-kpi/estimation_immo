@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Head from "next/head";
-import { trackClick } from "../components/Tracker";
+import { trackClick } from "../../components/Tracker";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
