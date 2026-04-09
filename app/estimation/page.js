@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Script from "next/script";
 import Head from "next/head";
-import { trackClick } from "../components/Tracker";
+import { trackClick } from "../../components/Tracker";
 import { useRouter } from "next/navigation";
 import {
   FaMapMarkerAlt,
