@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Script from "next/script";
 import Head from "next/head";
+import { trackClick } from "../components/Tracker";
 import { useRouter } from "next/navigation";
 import {
   FaMapMarkerAlt,
@@ -322,7 +323,10 @@ router.push("/"); };
         <button
           style={styles.submitBtn}
           className="estimation-submit"
-          onClick={handleSubmit}
+           onClick={() => {
+    trackClick("formulaire_envoyé");
+    handleSubmit();
+  }}
         >
           Envoyer ma demande
         </button>
