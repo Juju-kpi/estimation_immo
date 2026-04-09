@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Head from "next/head";
-
+import { trackClick } from "../components/Tracker";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -79,7 +79,9 @@ export default function ContactPage() {
         required
       />
 
-      <button type="submit" className="primary-btn">Envoyer</button>
+      <button type="submit" className="primary-btn"  onClick={() => {
+    trackClick("message_envoyé");
+  }}>Envoyer</button>
 
       {status === "success" && <p className="success-msg">Message envoyé avec succès !</p>}
       {status === "error" && <p className="error-msg">Erreur, veuillez réessayer.</p>}
