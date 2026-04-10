@@ -21,7 +21,8 @@ export const metadata = {
   icons: {
    icon: [
       { url: "/favicon.ico" },
-      { url: "/logo_moteur_recherche_48.png", sizes: "48x48", type: "image/png" }
+      { url: "/logo_moteur_recherche_48.png", sizes: "48x48", type: "image/png" },
+      { url: "/logo_moteur_recherche_192.png", sizes: "192x192", type: "image/png" },
     ],
   shortcut: "/favicon.ico",
   apple: "/apple-touch-icon.png",
@@ -49,7 +50,7 @@ export default function RootLayout({ children }) {
           "@type": "Organization",
           name: "SellMyHome",
           url: "https://sellmyhome.fr",
-          logo: "https://sellmyhome.fr/favicon.ico",
+          logo: "https://sellmyhome.fr/logo.png",
           description:
             "SellMyHome propose une estimation immobilière gratuite en ligne avec un accompagnement humain pour vendre votre bien rapidement et au meilleur prix. Localisé à Paris et Ile-de-France",
         },
