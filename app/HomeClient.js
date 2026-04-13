@@ -106,8 +106,8 @@ export default function HomeClient() {
    <Link href="/nous" className="agent-card" onClick={() => trackClick("marie_contact")}>
       <div className="agent-image marie">
         <Image
-          src="/marie2.jpeg"
-          alt="Marie Dupont"
+          src="/marie_houlier.jpeg"
+          alt="Marie Houlier"
           fill
           quality={100}
           /*sizes="250px"*/
