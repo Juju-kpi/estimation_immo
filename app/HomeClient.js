@@ -110,6 +110,7 @@ export default function HomeClient() {
           alt="Marie Houlier"
           fill
           quality={100}
+            unoptimized
           /*sizes="250px"*/
         />
       </div>
