@@ -24,7 +24,7 @@ export default function NousClient() {
 
         <div className="agent-card">
           <div className="agent-image marie">
-            <Image src="/marie2.jpeg" alt="Marie" fill />
+            <Image src="/marie_houlier.jpeg" alt="Marie Houlier" fill />
           </div>
           <h3>Marie Houlier</h3>
 
