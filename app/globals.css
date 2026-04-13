@@ -413,11 +413,17 @@ button {
 /* IMAGE */
 .agent-image img {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .marie img {
   object-fit: cover;
   object-position: center center;
+  filter: contrast(0.97) saturate(0.98);
 }
 
 /* TEXT */
