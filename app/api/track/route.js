@@ -28,6 +28,15 @@ export async function POST(req) {
 
     const { userId, duration, pages = [], events = [], startedAt, endedAt } = body;
 
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0] ||
+      req.headers.get("x-real-ip") ||
+      "unknown";
+
+    const country = req.headers.get("x-vercel-ip-country");
+    const city = req.headers.get("x-vercel-ip-city");
+    const region = req.headers.get("x-vercel-ip-country-region");
+
     // 🔴 Validation
     if (!userId || !startedAt || !endedAt) {
       console.warn("Invalid payload:", body);
@@ -93,7 +102,11 @@ export async function POST(req) {
   pages: safePages,
   events: safeEvents,
   started_at: startedAt,
-  ended_at: endedAt
+  ended_at: endedAt,
+       ip,
+      country,
+      city,
+      region,
 
     });
 
