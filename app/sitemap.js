@@ -13,7 +13,7 @@ export default function sitemap() {
     {
       url: 'https://sellmyhome.fr/contact',
       lastModified: new Date(),
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: 'https://sellmyhome.fr/presentation',
@@ -23,7 +23,7 @@ export default function sitemap() {
     {
       url: 'https://sellmyhome.fr/nous',
       lastModified: new Date(),
-      priority: 0.9,
+      priority: 0.7,
     },
   ]
 }
