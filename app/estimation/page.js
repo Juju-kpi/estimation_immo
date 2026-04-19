@@ -440,10 +440,12 @@ router.push("/"); };
       image: "https://sellmyhome.fr/logo.png",
       url: "https://sellmyhome.fr/estimation",
       category: "Immobilier",
+      serviceType: "Estimation immobilière",
       brand: {
         "@type": "Brand",
         name: "SellMyHome",
-        serviceType: "Estimation immobilière",
+      },
+      
       areaServed: {
         "@type": "Place",
         name: "France"
