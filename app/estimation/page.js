@@ -433,8 +433,8 @@ router.push("/"); };
   dangerouslySetInnerHTML={{
     __html: JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Product",
-      name: "Estimation immobilière SellMyHome",
+      "@type": "Service",
+      name: "Estimation immobilière gratuite SellMyHome",
       description:
         "Outil d’estimation immobilière gratuite en ligne avec accompagnement humain pour vendre votre bien rapidement. Localisé à Paris",
       image: "https://sellmyhome.fr/logo.png",
@@ -443,12 +443,22 @@ router.push("/"); };
       brand: {
         "@type": "Brand",
         name: "SellMyHome",
+        serviceType: "Estimation immobilière",
+      areaServed: {
+        "@type": "Place",
+        name: "France"
+      },
+          provider: {
+        "@type": "Organization",
+        name: "SellMyHome",
+        url: "https://sellmyhome.fr",
       },
       offers: {
         "@type": "Offer",
         price: "0",
         priceCurrency: "EUR",
         availability: "https://schema.org/InStock",
+        description: "Demande d’estimation gratuite sans engagement via formulaire en ligne."
       },
     }),
   }}
