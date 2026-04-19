@@ -83,6 +83,87 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-JG8JD68V5T');
           `}
         </Script>
+          <Script
+  id="faq-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Comment estimer son bien immobilier ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Vous pouvez utiliser un outil d’estimation immobilière en ligne comme SellMyHome pour obtenir une estimation rapide et fiable, puis être accompagné par un expert.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "L’estimation immobilière est-elle gratuite ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Oui, l’estimation proposée par SellMyHome est gratuite et sans engagement.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Combien de temps prend une estimation immobilière ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "L’estimation en ligne prend seulement quelques minutes après avoir renseigné les informations de votre bien.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Puis-je être accompagné après l’estimation ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Oui, vous pouvez être rappelé par un expert immobilier pour affiner votre estimation et vous accompagner dans la vente.",
+          },
+        },
+      ],
+    }),
+  }}
+/>
+
+<Script
+  id="product-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "Estimation immobilière gratuite SellMyHome",
+      description:
+        "Outil d’estimation immobilière gratuite en ligne avec accompagnement humain pour vendre votre bien rapidement. Localisé à Paris",
+      image: "https://sellmyhome.fr/logo.png",
+      url: "https://sellmyhome.fr/estimation",
+      category: "Immobilier",
+      brand: {
+        "@type": "Brand",
+        name: "SellMyHome",
+        serviceType: "Estimation immobilière",
+      areaServed: {
+        "@type": "Place",
+        name: "France"
+      },
+          provider: {
+        "@type": "Organization",
+        name: "SellMyHome",
+        url: "https://sellmyhome.fr",
+      },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        description: "Demande d’estimation gratuite sans engagement via formulaire en ligne."
+      },
+    }),
+  }}
+/>
       </body>
     </html>
   );
