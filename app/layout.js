@@ -165,6 +165,95 @@ export default function RootLayout({ children }) {
     }),
   }}
 />
+
+  <Script
+  id="local-business-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+
+      name: "SellMyHome",
+      image: "https://sellmyhome.fr/logo.png",
+      url: "https://sellmyhome.fr",
+      telephone: "+33752049878",
+
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Paris",
+        addressRegion: "Île-de-France",
+        addressCountry: "FR"
+      },
+
+      areaServed: {
+        "@type": "Place",
+        name: "Île-de-France"
+      },
+
+      priceRange: "€",
+      
+      sameAs: [
+        "https://www.linkedin.com/",
+        "https://www.facebook.com/"
+      ]
+    }),
+  }}
+/>
+
+  <Script
+  id="breadcrumb-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: "https://sellmyhome.fr"
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Estimation",
+          item: "https://sellmyhome.fr/estimation"
+        }
+      ]
+    }),
+  }}
+/>
+
+  <Script
+  id="howto-schema"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Comment estimer son bien immobilier",
+      step: [
+        {
+          "@type": "HowToStep",
+          name: "Remplir le formulaire",
+          text: "Indiquez les caractéristiques de votre bien immobilier."
+        },
+        {
+          "@type": "HowToStep",
+          name: "Recevoir une estimation",
+          text: "Obtenez une estimation instantanée en ligne."
+        },
+        {
+          "@type": "HowToStep",
+          name: "Être accompagné",
+          text: "Un expert vous recontacte pour affiner l’estimation."
+        }
+      ]
+    }),
+  }}
+/>
       </body>
     </html>
   );
