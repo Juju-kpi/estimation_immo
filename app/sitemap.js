@@ -11,9 +11,24 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
-      url: 'https://sellmyhome.fr/contact',
+      url: 'https://sellmyhome.fr/estimation-paris',
       lastModified: new Date(),
       priority: 0.9,
+    },
+    {
+      url: 'https://sellmyhome.fr/prix-m2-paris',
+      lastModified: new Date(),
+      priority: 0.7,
+    },
+    {
+      url: 'https://sellmyhome.fr/estimation-appartement',
+      lastModified: new Date(),
+      priority: 0.9,
+    },
+    {
+      url: 'https://sellmyhome.fr/contact',
+      lastModified: new Date(),
+      priority: 0.8,
     },
     {
       url: 'https://sellmyhome.fr/presentation',
@@ -23,7 +38,7 @@ export default function sitemap() {
     {
       url: 'https://sellmyhome.fr/nous',
       lastModified: new Date(),
-      priority: 0.7,
+      priority: 0.8,
     },
-  ]
+  ];
 }
