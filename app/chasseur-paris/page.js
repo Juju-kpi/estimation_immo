@@ -1,5 +1,12 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Estimation immobilière gratuite | SellMyHome",
+  alternates: {
+    canonical: "/chasseur-paris",
+  },
+};
+
 export default function Page() {
   return (
     <main style={{ padding: "40px", maxWidth: "900px", margin: "auto" }}>
