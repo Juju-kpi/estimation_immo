@@ -1,4 +1,11 @@
 import Link from "next/link";
+
+export const metadata = {
+  title: "Estimation immobilière gratuite | SellMyHome",
+  alternates: {
+    canonical: "/estimation-appartement",
+  },
+};
 export default function Page() {
   return (
     <main style={{ padding: "40px", maxWidth: "900px", margin: "auto" }}>
