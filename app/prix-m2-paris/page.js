@@ -35,7 +35,16 @@ export default function Page() {
         à votre bien en quelques minutes.
       </p>
 
-      {/* Ton formulaire */}
+      <p>
+  Pour une estimation plus précise, utilisez notre{" "}
+  <Link href="/estimation-paris">
+    estimation immobilière à Paris
+  </Link>{" "}
+  ou faites-vous accompagner par un{" "}
+  <Link href="/chasseur-paris">
+    chasseur immobilier
+  </Link>.
+</p>
     </main>
   );
 }
