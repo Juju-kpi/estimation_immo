@@ -3,7 +3,7 @@ export const metadata = {
   description:
     "Découvrez nos experts immobiliers à Paris. Un accompagnement humain et sur-mesure pour votre projet de vente.",
   alternates: {
-    canonical: "https://sellmyhome.fr",
+    canonical: "https://sellmyhome.fr/nous",
   },
 };
 
