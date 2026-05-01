@@ -40,5 +40,10 @@ export default function sitemap() {
       lastModified: new Date(),
       priority: 0.8,
     },
+     {
+      url: 'https://sellmyhome.fr/chasseur-paris',
+      lastModified: new Date(),
+      priority: 0.7,
+    },
   ];
 }
