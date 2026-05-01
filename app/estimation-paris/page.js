@@ -29,7 +29,16 @@ export default function Page() {
         suivie d’un accompagnement humain pour optimiser votre vente.
       </p>
 
-      {/* Ton formulaire ici */}
+      <p>
+  Consultez également notre{" "}
+  <Link href="/prix-m2-paris">
+    prix au m² à Paris
+  </Link>{" "}
+  pour affiner votre estimation, ou faites appel à un{" "}
+  <Link href="/chasseur-paris">
+    chasseur immobilier à Paris
+  </Link>.
+</p>
     </main>
   );
 }
