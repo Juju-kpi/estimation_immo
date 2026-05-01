@@ -1,4 +1,11 @@
 import Link from "next/link";
+
+export const metadata = {
+  title: "Contact | SellMyHome",
+  alternates: {
+    canonical: "/estimation-paris",
+  },
+};
 export default function Page() {
   return (
     <main style={{ padding: "40px", maxWidth: "900px", margin: "auto" }}>
