@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Page() {
   return (
     <main style={{ padding: "40px", maxWidth: "900px", margin: "auto" }}>
@@ -9,14 +11,6 @@ export default function Page() {
         et d’accéder à des biens exclusifs souvent indisponibles sur le marché public.
       </p>
 
-      <h2>Qu’est-ce qu’un chasseur immobilier ?</h2>
-      <p>
-        Un chasseur immobilier est un professionnel qui recherche un bien 
-        pour le compte d’un acheteur. Contrairement à une agence classique, 
-        il défend uniquement vos intérêts et vous accompagne de la recherche 
-        jusqu’à la signature.
-      </p>
-
       <h2>Pourquoi faire appel à un chasseur immobilier à Paris ?</h2>
       <ul>
         <li>Gain de temps dans un marché très concurrentiel</li>
@@ -25,26 +19,16 @@ export default function Page() {
         <li>Accompagnement personnalisé et négociation du prix</li>
       </ul>
 
-      <h2>Comment fonctionne notre service ?</h2>
       <p>
-        Nous commençons par définir précisément votre projet : budget, 
-        localisation, critères essentiels. Ensuite, nous lançons une recherche 
-        active, sélectionnons les meilleurs biens et organisons les visites. 
-        Nous vous accompagnons jusqu’à la signature chez le notaire.
-      </p>
-
-      <h2>Combien coûte un chasseur immobilier à Paris ?</h2>
-      <p>
-        Les honoraires d’un chasseur immobilier varient généralement entre 
-        2% et 5% du prix du bien. Chez SellMyHome, la première prise de contact 
-        est gratuite et sans engagement.
-      </p>
-
-      <h2>Trouver un appartement à Paris rapidement</h2>
-      <p>
-        Le marché immobilier parisien est très dynamique. Grâce à notre réseau 
-        et notre expertise, nous maximisons vos chances de trouver rapidement 
-        le bien qui correspond parfaitement à vos attentes.
+        Avant de vous lancer, vous pouvez également consulter notre{" "}
+        <Link href="/prix-m2-paris">
+          analyse du prix au m² à Paris
+        </Link>{" "}
+        ou réaliser une{" "}
+        <Link href="/estimation-paris">
+          estimation immobilière à Paris
+        </Link>{" "}
+        pour mieux définir votre budget.
       </p>
 
       <h2>Contactez votre chasseur immobilier</h2>
@@ -53,6 +37,12 @@ export default function Page() {
         le bien idéal pour vous à Paris.
       </p>
 
+      <p>
+        👉 Lancez votre recherche ou faites une{" "}
+        <Link href="/estimation">
+          estimation gratuite ici
+        </Link>
+      </p>
     </main>
   );
 }
