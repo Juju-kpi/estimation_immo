@@ -15,9 +15,6 @@ export const metadata = {
   title: "Estimation immobilière gratuite en ligne et accompagnement humain, specialisé à Paris et Ile-de-France | SellMyHome",
   description:
     "Sellmyhome vous accompagne pour estimer et vendre votre bien immobilier. Un accompagnement humain, transparent et efficace pour réussir votre projet. Localisé à Paris et Ile-de-France",
-  alternates: {
-    canonical: "/",
-  },
   icons: {
    icon: [
       { url: "/favicon.ico" },
