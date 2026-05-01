@@ -4,13 +4,6 @@ import { useState } from "react";
 import Head from "next/head";
 import { trackClick } from "../../components/Tracker";
 
-export const metadata = {
-  title: "Estimation immobilière gratuite | SellMyHome",
-  alternates: {
-    canonical: "/contact",
-  },
-};
-
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(null);
