@@ -32,7 +32,16 @@ export default function Page() {
         personnalisé pour maximiser la valeur de votre bien.
       </p>
 
-      {/* Ton formulaire */}
+      <p>
+  Si votre bien est situé dans la capitale, consultez notre{" "}
+  <Link href="/estimation-paris">
+    estimation immobilière à Paris
+  </Link>{" "}
+  ou notre analyse du{" "}
+  <Link href="/prix-m2-paris">
+    prix au m²
+  </Link>.
+</p>
     </main>
   );
 }
