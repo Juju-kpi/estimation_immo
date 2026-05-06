@@ -95,7 +95,7 @@ router.push("/"); };
         <title>Estimation immobilière gratuite en ligne | SellMyHome</title>
         <meta
           name="description"
-          content="Réalisez une estimation immobilière gratuite et rapide en ligne avec SellMyHome. Obtenez la valeur réelle de votre appartement, maison ou local commercial. Localisé à Paris."
+          content="Réalisez une estimation immobilière gratuite et rapide en ligne avec SellMyHome. Pour vendre ou acheter, n'hesitez pas à nous contacter. Localisé à Paris."
         />
         <meta name="keywords" content="estimation immobilière, appartement, maison, local commercial, prix immobilier, vente bien, Paris, vente immobilière, SeLoger, se loger, meilleurs agents, cherche à vendre, acheter immobilier, Leggett, Ile-de-France" />
         <meta name="author" content="SellMyHome" />
