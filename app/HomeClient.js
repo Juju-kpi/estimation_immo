@@ -6,7 +6,7 @@ import { trackClick } from "../components/Tracker";
 import Script from "next/script";
 
 const faqHome = [
-  { q: "Comment estimer mon bien immobilier à Paris ?", a: "Remplissez notre formulaire gratuit en 3 minutes. Marie Houlier, experte du marché parisien depuis 40 ans, vous rappelle sous 24h avec une estimation précise basée sur les transactions réelles dans votre secteur." },
+  { q: "Comment estimer mon bien immobilier à Paris ?", a: "Remplissez notre formulaire gratuit en 3 minutes. Marie Houlier, experte du marché parisien depuis 20 ans, vous rappelle sous 24h avec une estimation précise basée sur les transactions réelles dans votre secteur." },
   { q: "L'estimation immobilière est-elle vraiment gratuite ?", a: "Oui, totalement gratuite et sans engagement. SellMyHome ne facture aucun frais pour l'estimation. Notre rémunération intervient uniquement en cas de vente réussie, ce qui aligne nos intérêts avec les vôtres." },
   { q: "Combien de temps faut-il pour vendre un appartement à Paris ?", a: "Pour un bien correctement estimé et bien présenté, le délai moyen est de 60 à 90 jours à Paris. Grâce au réseau international Leggett, SellMyHome touche aussi une clientèle d'acquéreurs étrangers qui peut accélérer la vente." },
   { q: "SellMyHome couvre quels secteurs ?", a: "SellMyHome est spécialisé à Paris (tous arrondissements) et en Île-de-France, avec une expertise particulière dans les 6e, 7e, 8e, 15e, 16e et 17e arrondissements." },
@@ -184,7 +184,7 @@ export default function HomeClient() {
         {/* AGENT MARIE */}
         <section className="agents" aria-label="Votre experte immobilière">
           <h2>Votre experte immobilière à Paris</h2>
-          <p className="section-sub" style={{ textAlign: "center", marginBottom: "2rem" }}>40 ans de connaissance du marché parisien, un seul interlocuteur de bout en bout</p>
+          <p className="section-sub" style={{ textAlign: "center", marginBottom: "2rem" }}>20 ans de connaissance du marché parisien, un seul interlocuteur de bout en bout</p>
           <div className="agent-single">
             <Link href="/nous" className="agent-card agent-card-large" onClick={() => trackClick("marie_contact")}>
               <div className="agent-image marie">
