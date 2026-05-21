@@ -39,10 +39,10 @@ export default function Page() {
         <h1>SellMyHome — Agence immobilière à Paris</h1>
 
         <p className="seo-intro">
-          SellMyHome est une agence immobilière parisienne fondée sur un principe simple :
-          mettre l'humain au cœur de chaque transaction. Affiliée au réseau international{" "}
-          <strong>Leggett Immobilier</strong>, elle vous offre le meilleur des deux mondes —
-          l'expertise locale d'une agence de quartier et la diffusion internationale d'un grand réseau.
+          SellMyHome est le site d'estimation de l'agent commercial en immobilier fondée sur un principe simple :
+          mettre l'humain au cœur de chaque estimation. Affiliée au réseau international{" "}
+          <strong>Leggett Immobilier</strong>, Marie vous offre le meilleur des deux mondes;
+          l'expertise locale d'un agent immobilier de quartier et la diffusion d'un grand réseau.
         </p>
 
         <h2>Notre philosophie</h2>

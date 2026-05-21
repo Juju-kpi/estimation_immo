@@ -24,7 +24,7 @@ export default function Page() {
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Estimation gratuite — Sans engagement</Link></div>
 
       <h2>Une agence immobilière parisienne à taille humaine</h2>
-      <p>Dans un marché immobilier de plus en plus digitalisé, SellMyHome fait le pari de l'humain. Vous avez un seul interlocuteur — Marie Houlier — qui vous connaît, connaît votre bien, et ne lâche pas votre dossier jusqu'à la signature chez le notaire.</p>
+      <p>Dans un marché immobilier de plus en plus digitalisé, SellMyHome fait le pari de l'humain. Vous avez un seul interlocuteur, Marie Houlier, qui vous connaît, connaît votre bien, et ne lâche pas votre dossier jusqu'à la signature chez le notaire.</p>
       <p>Pas de turn-over, pas de négociateur qui change en cours de route, pas de dossier qui se perd. Marie répond à vos appels, vous tient informé après chaque visite, et défend vos intérêts à chaque étape. C'est la promesse SellMyHome.</p>
 
       <h2>Le réseau Leggett : une diffusion internationale depuis Paris</h2>

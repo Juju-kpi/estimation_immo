@@ -109,6 +109,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-md); cursor: pointer;
   transition: all 0.28s ease; box-shadow: var(--shadow-soft);
   text-decoration: none;
+  margin-bottom: 10px;
 }
 .primary-btn:hover, .btn:hover {
   transform: translateY(-2px); box-shadow: var(--shadow-medium);
