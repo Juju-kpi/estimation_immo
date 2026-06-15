@@ -1,32 +1,19 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-/**
- * <Counter value="40+" /> ou <Counter value="100%" /> ou <Counter value="24h" />
- * Anime le nombre contenu dans la valeur quand le composant entre dans le viewport,
- * en conservant le préfixe/suffixe non numérique (+, %, h, texte...).
- */
-export default function Counter({ value, duration = 1400 }) {
+export default function Counter({ value, duration = 1600 }) {
   const ref = useRef(null);
-  const [display, setDisplay] = useState(null);
+  const [display, setDisplay] = useState(value); // affiche la valeur finale dès le départ, pas 0
+  const [animated, setAnimated] = useState(false);
 
-  // Sépare la partie numérique du reste (ex: "40+" -> num=40, suffix="+")
   const match = String(value).match(/^(\D*)(\d+)(\D*)$/);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-
-    if (!match) {
-      setDisplay(value);
-      return;
-    }
+    if (!el || !match || animated) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setDisplay(value);
-      return;
-    }
+    if (prefersReduced) return;
 
     const target = parseInt(match[2], 10);
     const prefix = match[1];
@@ -35,28 +22,29 @@ export default function Counter({ value, duration = 1400 }) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !animated) {
+            setAnimated(true);
+            observer.unobserve(entry.target);
             const start = performance.now();
             const tick = (now) => {
               const progress = Math.min((now - start) / duration, 1);
-              // easeOutCubic
               const eased = 1 - Math.pow(1 - progress, 3);
               const current = Math.round(target * eased);
               setDisplay(`${prefix}${current}${suffix}`);
               if (progress < 1) requestAnimationFrame(tick);
               else setDisplay(value);
             };
-            requestAnimationFrame(tick);
-            observer.unobserve(entry.target);
+            // Petit délai pour que l'élément soit bien visible avant de démarrer
+            setTimeout(() => requestAnimationFrame(tick), 200);
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.6 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [match, value, duration]);
+  }, [match, value, duration, animated]);
 
-  return <span ref={ref}>{display ?? (match ? `${match[1]}0${match[3]}` : value)}</span>;
+  return <span ref={ref}>{display}</span>;
 }
