@@ -290,11 +290,13 @@ export default function HomeClient() {
                 return (
                   <Reveal key={i} delay={i * 100} className="timeline-step">
                     <div className="timeline-marker">
-                      <span className="timeline-step-number">{i + 1}</span>
-                      <Icon size={22} />
+                      <span className="timeline-marker-number">{i + 1}</span>
                     </div>
                     <div className="timeline-content">
-                      <h3>{step.title}</h3>
+                      <h3>
+                        <Icon size={16} style={{ verticalAlign: "-2px", marginRight: 8, color: "var(--color-accent)", flexShrink: 0 }} aria-hidden="true" />
+                        {step.title}
+                      </h3>
                       <p>{step.desc}</p>
                     </div>
                   </Reveal>
