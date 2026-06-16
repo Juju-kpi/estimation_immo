@@ -3,10 +3,8 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-// 🔹 Timestamp en secondes
 const now = () => Math.floor(Date.now() / 1000);
 
-// 🔹 USER ID
 function getUserId() {
   let uid = localStorage.getItem("anonUserId");
   if (!uid) {
@@ -16,22 +14,24 @@ function getUserId() {
   return uid;
 }
 
-// 🔹 SESSION
 function createSession() {
   const ts = now();
   return {
-    id: crypto.randomUUID(),
     startedAt: ts,
     lastActivity: ts,
     pages: [],
     events: [],
+    sent: false, // garde-fou anti-double envoi
   };
 }
 
-// 🔹 ENVOI SESSION
 function sendSession(session) {
+  // Empêche tout double envoi (beforeunload + visibilitychange peuvent se déclencher ensemble)
+  if (!session || session.sent) return;
+  session.sent = true;
+
   const userId = localStorage.getItem("anonUserId");
-  if (!userId || !session) return;
+  if (!userId) return;
 
   const payload = {
     userId,
@@ -42,66 +42,76 @@ function sendSession(session) {
     endedAt: now(),
   };
 
+  // sendBeacon est fire-and-forget, parfait pour beforeunload
   navigator.sendBeacon("/api/track", JSON.stringify(payload));
-  console.log("Session sent:", payload);
 }
 
-// 🔹 TRACK CLICK
 export function trackClick(name, extra = {}) {
-  const session = window.currentTrackingSession;
-  if (!session) return;
-
-  session.events.push({
-    type: "click",
-    name,
-    ...extra,
-    ts: now(),
-  });
+  const session = window.__trackingSession;
+  if (!session || session.sent) return;
+  session.events.push({ type: "click", name, ...extra, ts: now() });
   session.lastActivity = now();
-  console.log("Click tracked:", name, extra);
 }
 
-// 🔹 TRACKER COMPONENT
 export default function Tracker() {
   const pathname = usePathname();
+  // sessionRef persiste pour toute la durée de vie du composant (SPA complète)
   const sessionRef = useRef(null);
-  const lastPathRef = useRef(null);
+  const listenersAttached = useRef(false);
 
+  // Init une seule fois au montage
   useEffect(() => {
     getUserId();
 
-    // 🔹 Créer la session si elle n'existe pas
     if (!sessionRef.current) {
       sessionRef.current = createSession();
-      window.currentTrackingSession = sessionRef.current;
+      window.__trackingSession = sessionRef.current;
     }
+
+    // Attacher les listeners une seule fois
+    if (!listenersAttached.current) {
+      listenersAttached.current = true;
+
+      const handleUnload = () => sendSession(sessionRef.current);
+
+      const handleVisibility = () => {
+        if (document.visibilityState === "hidden") {
+          sendSession(sessionRef.current);
+        }
+      };
+
+      window.addEventListener("beforeunload", handleUnload);
+      document.addEventListener("visibilitychange", handleVisibility);
+
+      // Envoi de secours après 25 min si l'onglet reste ouvert sans action
+      const timeout = setTimeout(() => {
+        sendSession(sessionRef.current);
+        // Recrée une nouvelle session pour la suite
+        sessionRef.current = createSession();
+        window.__trackingSession = sessionRef.current;
+      }, 25 * 60 * 1000);
+
+      // Cleanup au démontage complet (navigation hors SPA, etc.)
+      return () => {
+        window.removeEventListener("beforeunload", handleUnload);
+        document.removeEventListener("visibilitychange", handleVisibility);
+        clearTimeout(timeout);
+      };
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // [] = une seule fois au montage
+
+  // Suivi des pages vues — déclenché à chaque changement de route
+  useEffect(() => {
     const session = sessionRef.current;
+    if (!session || session.sent) return;
+    if (!pathname) return;
 
-    // 🔹 Ajouter la page vue uniquement si différente de la dernière
-    if (pathname && pathname !== lastPathRef.current) {
+    const lastPage = session.pages[session.pages.length - 1];
+    if (pathname !== lastPage) {
       session.pages.push(pathname);
-      lastPathRef.current = pathname;
       session.lastActivity = now();
-      console.log("Page viewed:", pathname);
     }
-
-    // 🔹 Envoi de la session à la fermeture de l'onglet ou invisibilité
-    const handleUnload = () => sendSession(session);
-    const handleVisibility = () => {
-      if (document.visibilityState === "hidden") handleUnload();
-    };
-
-    window.addEventListener("beforeunload", handleUnload);
-    document.addEventListener("visibilitychange", handleVisibility);
-
-    // 🔹 Envoi automatique après 20 minutes max
-    const timeout = setTimeout(() => sendSession(session), 20 * 60 * 1000);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleUnload);
-      document.removeEventListener("visibilitychange", handleVisibility);
-      clearTimeout(timeout);
-    };
   }, [pathname]);
 
   return null;

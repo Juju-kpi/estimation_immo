@@ -24,7 +24,6 @@ import {
   UserRound,
   CheckCircle2,
   ChevronRight,
-  Star,
 } from "lucide-react";
 
 const faqHome = [
@@ -120,24 +119,6 @@ const timelineSteps = [
     icon: FileSignature,
     title: "Jusqu'à la signature chez le notaire",
     desc: "Marie reste à vos côtés pour défendre vos intérêts à chaque étape, jusqu'à l'acte authentique.",
-  },
-];
-
-const temoignages = [
-  {
-    nom: "Sophie R.",
-    bien: "Appartement 3P — 15e",
-    texte: "Marie a su fixer le bon prix dès le départ. Vendu en 6 semaines, au prix demandé. Un accompagnement vraiment humain.",
-  },
-  {
-    nom: "François & Claire M.",
-    bien: "Maison — Neuilly-sur-Seine",
-    texte: "Nous avons apprécié la transparence totale : chaque visite était suivie d'un compte-rendu détaillé. Aucune pression.",
-  },
-  {
-    nom: "Antoine L.",
-    bien: "Appartement 2P — 7e",
-    texte: "Estimation très précise, conforme au prix final obtenu. Je recommande sans hésiter pour tout projet à Paris.",
   },
 ];
 
@@ -309,6 +290,7 @@ export default function HomeClient() {
                 return (
                   <Reveal key={i} delay={i * 100} className="timeline-step">
                     <div className="timeline-marker">
+                      <span className="timeline-step-number">{i + 1}</span>
                       <Icon size={22} />
                     </div>
                     <div className="timeline-content">
@@ -347,6 +329,7 @@ export default function HomeClient() {
                   fill quality={95} unoptimized />
               </div>
               <div className="agent-info">
+                <span className="agent-leggett-badge"><Globe2 size={12} /> Agente Leggett</span>
                 <h3>Marie Houlier</h3>
                 <p className="agent-tagline">Agente Leggett · Spécialiste Paris &amp; Île-de-France</p>
                 <p>Installée à Paris depuis plus de quinze ans, je mets à votre service ma connaissance fine du marché et des ambiances propres à chaque quartier. Estimation, vente, achat : je vous accompagne avec empathie et efficacité.</p>
@@ -362,31 +345,6 @@ export default function HomeClient() {
               </div>
             </Link>
           </Reveal>
-        </section>
-
-        {/* ── TÉMOIGNAGES ── */}
-        <section className="temoignages-section" aria-label="Avis clients">
-          <Reveal>
-            <p className="section-eyebrow">Ce qu'ils en disent</p>
-            <h2 className="section-title">
-              Ils ont vendu avec Marie
-              <span className="section-title-underline" />
-            </h2>
-          </Reveal>
-          <div className="temoignages-grid">
-            {temoignages.map((t, i) => (
-              <Reveal key={i} delay={i * 80} className="temoignage-card">
-                <div className="temoignage-stars">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
-                </div>
-                <p className="temoignage-texte">«&nbsp;{t.texte}&nbsp;»</p>
-                <div className="temoignage-auteur">
-                  <span className="temoignage-nom">{t.nom}</span>
-                  <span className="temoignage-bien">{t.bien}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </section>
 
         {/* ── CONFIANCE ── */}
