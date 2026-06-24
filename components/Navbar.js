@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className="navbar" role="navigation" aria-label="Navigation principale">
       <div className="nav-container">
         <Link href="/" className="nav-logo" aria-label="SellMyHome — Accueil">
-          <Image src="/logo.png" alt="SellMyHome — Agence immobilière Paris" width={170} height={75} priority />
+          <Image src="/logo.png" alt="SellMyHome — Agence immobilière Paris" width={170} height={75} priority quality={90} />
         </Link>
         <div className="nav-links">
           <Link href="/" className={nl("/")}>Accueil</Link>

@@ -53,7 +53,10 @@ body {
   overflow-x: hidden;
   font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+/* WebP background si supporté */
+.webp body { background-image: url('/appart_bg.webp'); }
 body::before {
   content: "";
   position: fixed; inset: 0; z-index: -1;
@@ -1285,3 +1288,116 @@ details[open] .faq-question { color: var(--color-secondary); }
 @media (max-width: 768px) {
   .timeline-section { background: #F7F9F7; } /* S'assure que le fond opaque tient sur mobile */
 }
+/* ── SITUATIONS DE VIE ───────────────────────────── */
+.situations-section {
+  padding: 70px 24px;
+}
+.situations-container {
+  max-width: 1000px; margin: auto;
+  background: var(--glass-white);
+  border: 1px solid rgba(220,227,221,0.65);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  box-shadow: var(--shadow-medium);
+}
+.situations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 2rem;
+}
+.situation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--color-offwhite);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  text-decoration: none; color: inherit;
+  transition: all 0.28s cubic-bezier(.21,.65,.27,1);
+  border-left: 3px solid transparent;
+}
+.situation-card:hover {
+  border-left-color: var(--color-accent);
+  background: white;
+  box-shadow: var(--shadow-soft);
+  transform: translateX(4px);
+}
+.situation-icon {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-light-blue);
+  color: var(--color-secondary);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.28s ease;
+}
+.situation-card:hover .situation-icon {
+  background: var(--color-secondary);
+  color: white;
+}
+.situation-body { flex: 1; }
+.situation-body h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+.situation-body p {
+  font-size: 13px;
+  color: var(--color-text-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+.situation-arrow {
+  flex-shrink: 0;
+  color: var(--color-text-light);
+  margin-top: 2px;
+  transition: all 0.25s ease;
+}
+.situation-card:hover .situation-arrow {
+  color: var(--color-accent);
+  transform: translateX(3px);
+}
+
+/* ── MID-CTA note ────────────────────────────────── */
+.mid-cta-note {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.03em;
+}
+
+/* ── RESPONSIVE situations ───────────────────────── */
+@media (max-width: 768px) {
+  .situations-section { padding: 36px 14px; }
+  .situations-container { padding: 26px 18px; border-radius: var(--radius-lg); }
+  .situations-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 1.5rem; }
+  .situation-card { padding: 16px 14px; gap: 12px; }
+  .situation-card:hover { transform: none; }
+  .situation-icon { width: 40px; height: 40px; }
+  .situation-body h3 { font-size: 14px; }
+  .situation-body p { font-size: 12.5px; }
+}
+@media (max-width: 480px) {
+  .situations-container { padding: 20px 14px; }
+}
+
+
+/* ── PERFORMANCE ─────────────────────────────────── */
+/* content-visibility: auto = navigateur skip le rendu des sections hors viewport */
+.trust-section,
+.faq-section,
+.seo-links-section,
+.footer-container {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
+}
+
+/* Évite le CLS sur les images fill */
+.agent-image,
+.marie { transform: translateZ(0); }

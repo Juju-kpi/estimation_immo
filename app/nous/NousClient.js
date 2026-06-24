@@ -20,10 +20,12 @@ export default function NousClient() {
         <Reveal delay={120} className="agent-card agent-card-solo">
           <div className="agent-image marie">
             <Image
-              src="/Marie.jpeg"
+              src="/Marie.jpg"
               alt="Marie Houlier, conseillère immobilière spécialiste Paris et Île-de-France"
               fill
-              quality={95}
+              quality={85}
+              priority
+              sizes="(max-width: 768px) 90vw, 340px"
             />
           </div>
           <h3>Marie Houlier</h3>

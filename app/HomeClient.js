@@ -24,6 +24,11 @@ import {
   UserRound,
   CheckCircle2,
   ChevronRight,
+  Heart,
+  Scale,
+  Plane,
+  TreePalm,
+  Zap,
 } from "lucide-react";
 
 const faqHome = [
@@ -122,6 +127,52 @@ const timelineSteps = [
   },
 ];
 
+// ── Situations de vie ──────────────────────────────
+const situations = [
+  {
+    icon: Heart,
+    titre: "Succession ou héritage",
+    desc: "Un bien à gérer après un décès, une indivision à résoudre entre héritiers. Marie vous accompagne avec discrétion pour valoriser et vendre dans les meilleures conditions.",
+    href: "/vendre-appartement-succession-paris",
+    track: "situation_succession",
+  },
+  {
+    icon: Scale,
+    titre: "Séparation ou divorce",
+    desc: "Vendre le bien commun lors d'une séparation ou d'un divorce demande rapidité et neutralité. Marie assure un accompagnement équitable pour les deux parties.",
+    href: "/vendre-appartement-divorce-paris",
+    track: "situation_divorce",
+  },
+  {
+    icon: Plane,
+    titre: "Déménagement ou mutation",
+    desc: "Vous quittez Paris pour raisons professionnelles ou personnelles. Vendre vite au bon prix, même à distance — c'est ce que Marie organise pour vous.",
+    href: "/vendre-appartement-rapidement-paris",
+    track: "situation_demenagement",
+  },
+  {
+    icon: TreePalm,
+    titre: "Départ en retraite",
+    desc: "Libérer du capital pour financer une nouvelle vie. Marie vous aide à vendre sereinement votre bien parisien et à optimiser le produit de la vente.",
+    href: "/vendre-maison-retraite-paris",
+    track: "situation_retraite",
+  },
+  {
+    icon: HomeIcon,
+    titre: "Vendre pour acheter plus grand",
+    desc: "Vous souhaitez vendre votre bien actuel pour financer un achat plus adapté. Marie coordonne les deux projets pour éviter les délais et les imprévus.",
+    href: "/vendre-avant-achat-paris",
+    track: "situation_vendre_acheter",
+  },
+  {
+    icon: Zap,
+    titre: "Vente urgente",
+    desc: "Besoin de liquidités rapidement, délai contraint. Marie mobilise son réseau pour trouver un acquéreur sérieux sans sacrifier le prix.",
+    href: "/vendre-appartement-rapidement-paris",
+    track: "situation_urgent",
+  },
+];
+
 export default function HomeClient() {
   const [showToast, setShowToast] = useState(false);
   const [activeService, setActiveService] = useState(0);
@@ -185,6 +236,51 @@ export default function HomeClient() {
                 <span className="stat-label">{s.label}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── VOUS ENVISAGEZ DE VENDRE ? — SITUATIONS ── */}
+        <section className="situations-section" aria-label="Situations de vente">
+          <div className="situations-container">
+            <Reveal>
+              <p className="section-eyebrow">Votre situation</p>
+              <h2 className="section-title">
+                Vous envisagez de vendre ?
+                <span className="section-title-underline" />
+              </h2>
+              <p className="section-sub">
+                Chaque vente part d'une situation personnelle. Marie s'adapte à la vôtre
+                avec discrétion, efficacité et sans pression.
+              </p>
+            </Reveal>
+            <div className="situations-grid">
+              {situations.map((s, i) => {
+                const Icon = s.icon;
+                return (
+                  <Reveal key={i} delay={i * 60}>
+                    <Link
+                      href={s.href}
+                      className="situation-card"
+                      onClick={() => trackClick(s.track)}
+                    >
+                      <span className="situation-icon"><Icon size={24} /></span>
+                      <div className="situation-body">
+                        <h3>{s.titre}</h3>
+                        <p>{s.desc}</p>
+                      </div>
+                      <span className="situation-arrow"><ChevronRight size={18} /></span>
+                    </Link>
+                  </Reveal>
+                );
+              })}
+            </div>
+            <Reveal delay={100}>
+              <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+                <Link href="/estimation" className="primary-btn" onClick={() => trackClick("situations_cta")}>
+                  Obtenir mon estimation gratuite
+                </Link>
+              </div>
+            </Reveal>
           </div>
         </section>
 
@@ -273,7 +369,7 @@ export default function HomeClient() {
           </div>
         </section>
 
-        {/* ── COMMENT ÇA SE PASSE — TIMELINE ── */}
+        {/* ── TIMELINE ── */}
         <section className="timeline-section" aria-label="Comment se déroule l'accompagnement">
           <div className="timeline-container">
             <Reveal>
@@ -326,9 +422,12 @@ export default function HomeClient() {
           <Reveal delay={100} className="agent-single">
             <Link href="/nous" className="agent-card agent-card-large" onClick={() => trackClick("marie_contact")}>
               <div className="agent-image marie">
-                <Image src="/marie_houlier.png"
+                <Image src="/marie_houlier.jpg"
                   alt="Marie Houlier, conseillère en immobilier spécialiste vente appartement Paris et Île-de-France, agente Leggett"
-                  fill quality={95} unoptimized />
+                  fill
+                  quality={85}
+                  priority
+                  sizes="(max-width: 768px) 100vw, 260px" />
               </div>
               <div className="agent-info">
                 <span className="agent-leggett-badge"><Globe2 size={12} /> Agente Leggett</span>
@@ -382,6 +481,7 @@ export default function HomeClient() {
               <Link href="/estimation" className="primary-btn" onClick={() => trackClick("mid_cta")}>
                 Obtenir mon estimation gratuite
               </Link>
+              <span className="mid-cta-note">Gratuit · Confidentiel · Sans engagement</span>
             </div>
           </section>
         </Reveal>
