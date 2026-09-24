@@ -34,6 +34,13 @@ const nextConfig = {
     ];
   },
 
+  // Redirections 301 (pages fusionnées — évite la cannibalisation SEO)
+  async redirects() {
+    return [
+      { source: "/presentation", destination: "/agence-immobiliere-paris", permanent: true },
+    ];
+  },
+
   // Compression activée
   compress: true,
 

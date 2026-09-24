@@ -1,11 +1,14 @@
 export const metadata = {
-  title: "Frais de notaire Paris 2026 — calcul, montant, simulateur",
-  description: "Calculez les frais de notaire pour l'achat d'un bien immobilier à Paris en 2026. Ancien vs neuf, droits de mutation, émoluments : tout comprendre avec un simulateur gratuit. Conseils de Marie Houlier, agente Leggett.",
+  title: "Frais de notaire Paris 2026 : calcul & exemples",
+  description: "Frais de notaire à Paris en 2026 : 7 à 8 % dans l'ancien, 2 à 3 % dans le neuf. Détail du calcul, exemples chiffrés et astuces légales pour les réduire.",
   alternates: { canonical: "https://sellmyhome.fr/frais-notaire-paris" },
-  openGraph: { title: "Frais de notaire Paris 2026 — Simulateur gratuit | SellMyHome", description: "Calculez les frais de notaire pour votre achat immobilier à Paris. Simulateur gratuit, ancien et neuf.", url: "https://sellmyhome.fr/frais-notaire-paris" },
+  openGraph: { images: [OG_IMAGE], title: "Frais de notaire Paris 2026 : calcul & exemples | SellMyHome", description: "Frais de notaire à Paris en 2026 : 7 à 8 % dans l'ancien, 2 à 3 % dans le neuf. Détail du calcul, exemples chiffrés et astuces légales pour les réduire.", url: "https://sellmyhome.fr/frais-notaire-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Quel est le montant des frais de notaire à Paris en 2026 ?", a: "Pour un bien ancien à Paris, les frais de notaire représentent en moyenne 7 à 8 % du prix de vente. Pour un bien neuf (VEFA), ils sont réduits à environ 2 à 3 %. Sur un appartement à 600 000 €, comptez donc environ 42 000 à 48 000 € de frais dans l'ancien." },
@@ -17,11 +20,12 @@ const faq = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-notaire" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-notaire" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Frais de notaire Paris", item: "https://sellmyhome.fr/frais-notaire-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Frais de notaire Paris", item: "https://sellmyhome.fr/frais-notaire-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb"><Link href="/">Accueil</Link> › <span>Frais de notaire Paris</span></nav>
       <h1>Frais de notaire à Paris en 2026 — calcul et simulateur gratuit</h1>
+      <Byline readingTime={5} />
       <p className="seo-intro">Que vous soyez <strong>acheteur ou vendeur à Paris</strong>, comprendre les frais de notaire vous aide à anticiper le budget global de votre transaction. Ce guide détaille leur composition réelle et propose un simulateur pour estimer le montant applicable à votre projet.</p>
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Estimer mon bien gratuitement</Link></div>
 
@@ -57,6 +61,8 @@ export default function Page() {
         <li><strong>Négocier les émoluments</strong> — pour la part du prix dépassant 100 000 €, une remise sur les émoluments (jusqu'à 20 %) peut être demandée au notaire, notamment pour les transactions de montant élevé fréquentes dans les arrondissements premium.</li>
         <li><strong>Privilégier le neuf si le projet le permet</strong> — l'écart de 5 points entre ancien et neuf représente une économie substantielle, à mettre en balance avec la rareté du neuf dans Paris intra-muros.</li>
       </ul>
+
+      <AdvisorBox source="frais-notaire-paris" />
 
       <h2>FAQ — Frais de notaire Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

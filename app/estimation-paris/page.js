@@ -1,11 +1,15 @@
 export const metadata = {
-  title: "Estimation immobilière Paris gratuite — appartement & maison par arrondissement",
-  description: "Estimation immobilière gratuite à Paris par Marie Houlier, agente Leggett depuis 40 ans. Analyse arrondissement par arrondissement, DPE, copropriété, exposition. Réponse sous 24h, sans engagement.",
+  title: "Estimation immobilière Paris gratuite en 24h",
+  description: "Estimation gratuite de votre appartement à Paris, arrondissement par arrondissement : Marie étudie les ventes de votre rue et vous rappelle sous 24h.",
   alternates: { canonical: "https://sellmyhome.fr/estimation-paris" },
-  openGraph: { title: "Estimation immobilière Paris gratuite | SellMyHome", description: "Estimation gratuite à Paris par une experte Leggett depuis 40 ans. Précise, rapide, sans engagement.", url: "https://sellmyhome.fr/estimation-paris" },
+  openGraph: { images: [OG_IMAGE], title: "Estimation immobilière Paris gratuite en 24h | SellMyHome", description: "Estimation gratuite de votre appartement à Paris, arrondissement par arrondissement : Marie étudie les ventes de votre rue et vous rappelle sous 24h.", url: "https://sellmyhome.fr/estimation-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline, ZoneChips } from "../../components/SeoBits";
+import { PARIS } from "../../lib/locations";
 
 const faq = [
   { q: "Comment se calcule une estimation immobilière à Paris ?", a: "L'estimation tient compte de la surface Carrez, de l'arrondissement et de la rue précise, de l'étage, de l'exposition, de l'état général, du DPE et des transactions récentes dans le même secteur (base DVF des Notaires de France). À Paris, deux biens identiques en surface peuvent varier de 20 à 30 % selon la rue." },
@@ -13,7 +17,7 @@ const faq = [
   { q: "Quelle est la différence entre une estimation en ligne et une visite physique ?", a: "L'estimation en ligne donne une fourchette de prix en quelques minutes. La visite physique de Marie prend en compte des éléments que les algorithmes ne voient pas : luminosité, qualité des finitions, bruit de rue, cachet de l'immeuble. Ces éléments peuvent faire varier le prix de 5 à 15 %." },
   { q: "Combien vaut mon appartement à Paris en 2026 ?", a: "Les prix varient d'environ 7 300 €/m² dans le 19e à plus de 15 000 €/m² dans le 6e/7e, avec une médiane parisienne autour de 9 700-9 800 €/m². Mais la valeur réelle dépend d'une dizaine de critères propres à votre bien. Seule une estimation personnalisée vous donnera un chiffre fiable." },
   { q: "Quel délai pour vendre un appartement à Paris ?", a: "Le délai moyen est de 60 à 90 jours pour un bien correctement estimé. Un bien surestimé peut rester 6 à 12 mois sur le marché avant d'être bradé. C'est pourquoi l'estimation initiale est déterminante." },
-  { q: "SellMyHome peut-il estimer un bien dans tous les arrondissements ?", a: "Oui. Marie intervient dans les 20 arrondissements de Paris, avec une expertise particulière dans les 6e, 7e, 8e, 15e, 16e et 17e. Elle connaît les micro-marchés et les spécificités de chaque type d'immeuble." },
+  { q: "SellMyHome peut-il estimer un bien dans tous les arrondissements ?", a: "Oui. Marie intervient dans les 20 arrondissements de Paris, avec une expertise particulière dans les 6e, 7e, 8e, 15e, 16e et 17e, ainsi que dans les communes proches d'Île-de-France. Elle connaît les micro-marchés et les spécificités de chaque type d'immeuble." },
 ];
 
 const secteurs = [
@@ -28,13 +32,19 @@ const secteurs = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-ep" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-ep" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Estimation Paris", item: "https://sellmyhome.fr/estimation-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Estimation Paris", item: "https://sellmyhome.fr/estimation-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb"><Link href="/">Accueil</Link> › <span>Estimation immobilière Paris</span></nav>
       <h1>Estimation immobilière gratuite à Paris</h1>
-      <p className="seo-intro">Vous envisagez de <strong>vendre votre appartement ou maison à Paris</strong> ? Une estimation immobilière précise est la première étape indispensable. SellMyHome vous propose une estimation gratuite, réalisée par Marie Houlier, agente Leggett et spécialiste du marché parisien depuis plus de 40 ans, arrondissement par arrondissement.</p>
+      <Byline readingTime={5} />
+      <p className="seo-intro">Vous envisagez de <strong>vendre votre appartement ou maison à Paris</strong> ? Une estimation immobilière précise est la première étape indispensable. SellMyHome vous met en relation directe avec Marie Houlier, agente Leggett et spécialiste du marché parisien depuis 15 ans, pour une estimation gratuite, argumentée et réalisée arrondissement par arrondissement — rue par rue, même.</p>
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Obtenir mon estimation gratuite — Réponse sous 24h</Link></div>
+
+      <h2>Choisissez votre arrondissement</h2>
+      <p>Chaque arrondissement a ses micro-marchés, son bâti et sa clientèle. Retrouvez les prix 2026, les quartiers et les points de vigilance propres à votre secteur :</p>
+      <ZoneChips zones={PARIS} label="Arrondissements de Paris" />
+      <p style={{ fontSize: 14 }}>Votre bien est en proche banlieue ? Consultez notre page <Link href="/estimation-ile-de-france">estimation immobilière en Île-de-France</Link> (Neuilly, Boulogne, Levallois, Vincennes, Versailles…).</p>
 
       <h2>Pourquoi une estimation professionnelle est indispensable à Paris ?</h2>
       <p>Paris est l'un des marchés immobiliers les plus complexes au monde. Les prix varient du simple au double entre deux rues du même arrondissement. Un bien trop cher reste sur le marché, accumule les visites sans offres, puis se brade. Un bien sous-estimé fait perdre des dizaines de milliers d'euros en quelques heures.</p>
@@ -71,13 +81,15 @@ export default function Page() {
 
       <h2>Les erreurs à éviter pour estimer son bien à Paris</h2>
       <p>Se baser sur les annonces en ligne est la principale erreur : les prix affichés ne reflètent pas les prix obtenus — l'écart peut dépasser 10 à 15 % sur certains secteurs parisiens. Faire appel à plusieurs agences simultanément dilue l'effort de vente et crée de la confusion chez les acheteurs.</p>
-      <p>Un mandataire unique, pleinement investi, obtient statistiquement de meilleurs résultats en termes de prix et de délai. C'est la philosophie SellMyHome : un seul interlocuteur, une vraie expertise.</p>
+      <p>Un mandataire unique, pleinement investi, obtient généralement de meilleurs résultats en termes de prix et de délai. C'est la philosophie SellMyHome : un seul interlocuteur, une vraie expertise, et une personne que vous pouvez appeler directement.</p>
+
+      <AdvisorBox source="estimation-paris" />
 
       <h2>FAQ — Estimation immobilière à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>
 
       <div className="seo-internal-links">
-        <p>À lire aussi : <Link href="/prix-m2-paris">Prix m² Paris 2026 par arrondissement</Link> · <Link href="/vendre-a-paris">Guide complet pour vendre à Paris</Link> · <Link href="/chasseur-paris">Chasseur immobilier Paris</Link> · <Link href="/estimation-appartement">Estimation appartement</Link> · <Link href="/diagnostic-immobilier-paris">Diagnostics immobiliers</Link></p>
+        <p>À lire aussi : <Link href="/prix-m2-paris">Prix m² Paris 2026 par arrondissement</Link> · <Link href="/vendre-a-paris">Guide complet pour vendre à Paris</Link> · <Link href="/chasseur-paris">Chasseur immobilier Paris</Link> · <Link href="/estimation-appartement">Estimation appartement</Link> · <Link href="/diagnostic-immobilier-paris">Diagnostics immobiliers</Link> · <Link href="/estimation-ile-de-france">Estimation Île-de-France</Link></p>
       </div>
       <div className="seo-cta-block" style={{marginTop:"2.5rem"}}><Link href="/estimation" className="primary-btn">Démarrer mon estimation gratuite</Link></div>
     </main>

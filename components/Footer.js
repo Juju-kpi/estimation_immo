@@ -3,51 +3,90 @@ import Image from "next/image";
 import Link from "next/link";
 import { trackClick } from "./Tracker";
 import { Mail, Phone } from "lucide-react";
+import { PHONE, PHONE_DISPLAY, EMAIL, AGENT_NAME } from "../lib/site";
+
+const columns = [
+  {
+    title: "Estimer",
+    links: [
+      ["/estimation", "Estimation gratuite en ligne"],
+      ["/estimation-paris", "Estimation à Paris"],
+      ["/estimation-ile-de-france", "Estimation Île-de-France"],
+      ["/estimation-appartement", "Estimer un appartement"],
+      ["/prix-m2-paris", "Prix m² Paris 2026"],
+    ],
+  },
+  {
+    title: "Vendre",
+    links: [
+      ["/vendre-a-paris", "Vendre à Paris : le guide"],
+      ["/vendre-appartement-rapidement-paris", "Vendre rapidement"],
+      ["/vendre-appartement-succession-paris", "Vendre en succession"],
+      ["/vendre-appartement-divorce-paris", "Vendre lors d'un divorce"],
+      ["/vendre-maison-retraite-paris", "Vendre pour la retraite"],
+      ["/vendre-avant-achat-paris", "Vendre avant d'acheter"],
+    ],
+  },
+  {
+    title: "Secteurs",
+    links: [
+      ["/estimation-immobiliere/paris-16", "Paris 16e"],
+      ["/estimation-immobiliere/paris-17", "Paris 17e"],
+      ["/estimation-immobiliere/paris-15", "Paris 15e"],
+      ["/estimation-immobiliere/neuilly-sur-seine", "Neuilly-sur-Seine"],
+      ["/estimation-immobiliere/boulogne-billancourt", "Boulogne-Billancourt"],
+      ["/estimation-immobiliere/vincennes", "Vincennes"],
+      ["/estimation-immobiliere/versailles", "Versailles"],
+    ],
+  },
+  {
+    title: "Guides & services",
+    links: [
+      ["/diagnostic-immobilier-paris", "Diagnostics obligatoires"],
+      ["/frais-notaire-paris", "Frais de notaire"],
+      ["/chasseur-paris", "Chasseur immobilier"],
+      ["/agence-immobiliere-paris", "Notre approche"],
+      ["/nous", AGENT_NAME],
+      ["/contact", "Contact"],
+    ],
+  },
+];
 
 export default function Footer() {
   return (
     <footer className="footer" role="contentinfo">
-      <div className="footer-left">
+      <div className="footer-brand">
         <Link href="/" aria-label="SellMyHome Accueil">
-          <Image src="/logo.png" alt="SellMyHome — Agence immobilière Paris" width={140} height={90} priority />
+          <Image src="/logo.png" alt="SellMyHome — estimation immobilière Paris et Île-de-France" width={140} height={62} />
         </Link>
-      </div>
-      <div className="footer-center">
-        <div className="footer-intro-block">
-          <h3 className="footer-title">Nous contacter</h3>
-          <a href="mailto:contact@sellmyhome.fr" className="footer-contact-link">
-            <Mail size={14} style={{ verticalAlign: "-2px", marginRight: 6 }} />
-            contact@sellmyhome.fr
+        <p className="footer-pitch">
+          Estimation gratuite et vente accompagnée à Paris et en Île-de-France. Un seul interlocuteur, joignable directement.
+        </p>
+        <div className="footer-contact-card">
+          <h4>{AGENT_NAME}</h4>
+          <a href={`tel:${PHONE}`} className="footer-contact-link" onClick={() => trackClick("footer_tel")}>
+            <Phone size={14} /> {PHONE_DISPLAY}
           </a>
-          <div className="footer-contacts">
-            <div className="footer-contact-card">
-              <h4>Marie Houlier</h4>
-              <a href="tel:+33752049878" className="footer-contact-link">
-                <Phone size={14} style={{ verticalAlign: "-2px", marginRight: 6 }} />
-                07 52 04 98 78
-              </a>
-            </div>
-          </div>
+          <a href={`mailto:${EMAIL}`} className="footer-contact-link" onClick={() => trackClick("footer_mail")}>
+            <Mail size={14} /> {EMAIL}
+          </a>
         </div>
-        <nav aria-label="Liens utiles" className="footer-links footer-links-small">
-          <Link href="/" onClick={() => trackClick("footer_accueil")}>Accueil</Link>
-          <Link href="/estimation" onClick={() => trackClick("footer_estimation")}>Estimation gratuite</Link>
-          <Link href="/estimation-paris" onClick={() => trackClick("footer_est_paris")}>Estimation Paris</Link>
-          <Link href="/vendre-a-paris" onClick={() => trackClick("footer_vendre")}>Vendre à Paris</Link>
-          <Link href="/prix-m2-paris" onClick={() => trackClick("footer_prix")}>Prix m² Paris</Link>
-          <Link href="/chasseur-paris" onClick={() => trackClick("footer_chasseur")}>Chasseur immobilier</Link>
-          <Link href="/diagnostic-immobilier-paris" onClick={() => trackClick("footer_diagnostic")}>Diagnostics immobiliers</Link>
-          <Link href="/frais-notaire-paris" onClick={() => trackClick("footer_notaire")}>Frais de notaire</Link>
-          <Link href="/agence-immobiliere-paris" onClick={() => trackClick("footer_agence")}>Agence Paris</Link>
-          <Link href="/nous" onClick={() => trackClick("footer_nous")}>Marie Houlier</Link>
-          <Link href="/contact" onClick={() => trackClick("footer_contact")}>Contact</Link>
+        <Image src="/logo_leggett_svg.png" alt="Leggett Immobilier — réseau international partenaire" width={150} height={0} style={{ height: "auto" }} className="footer-leggett" />
+      </div>
+
+      {columns.map((col) => (
+        <nav key={col.title} className="footer-col" aria-label={col.title}>
+          <h3 className="footer-col-title">{col.title}</h3>
+          {col.links.map(([href, label]) => (
+            <Link key={href} href={href} onClick={() => trackClick(`footer_${href.split("/").pop() || "accueil"}`)}>
+              {label}
+            </Link>
+          ))}
         </nav>
-      </div>
-      <div className="footer-right">
-        <Image src="/logo_leggett_svg.png" alt="Leggett Immobilier — réseau international partenaire SellMyHome" width={180} height={0} style={{ height: "auto" }} priority />
-      </div>
+      ))}
+
       <div className="footer-bottom">
-        <p>© 2026 SellMyHome — Agence immobilière Paris, affiliée Leggett — Tous droits réservés</p>
+        <p>© 2026 SellMyHome — {AGENT_NAME}, conseillère immobilière affiliée Leggett · Paris &amp; Île-de-France</p>
       </div>
     </footer>
   );

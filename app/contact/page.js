@@ -1,16 +1,32 @@
+import ContactClient from "./ContactClient";
+import JsonLd, { breadcrumbSchema } from "../../components/JsonLd";
+import { SITE_URL, PHONE_DISPLAY, OG_IMAGE } from "../../lib/site";
+
 export const metadata = {
-  title: "Contact — Parlez à Marie Houlier",
-  description:
-    "Contactez Marie Houlier, votre experte immobilière à Paris. Décrivez votre projet de vente ou d'achat et recevez une réponse sous 24h. SellMyHome, agence affiliée Leggett.",
-  alternates: { canonical: "https://sellmyhome.fr/contact" },
+  title: "Contacter Marie Houlier — réponse sous 24h",
+  description: `Un projet de vente ou d'achat à Paris ou en Île-de-France ? Écrivez ou appelez Marie Houlier au ${PHONE_DISPLAY} : elle vous répond personnellement sous 24h.`,
+  alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
-    title: "Contact SellMyHome — Parlez à Marie",
-    description: "Contactez votre experte immobilière parisienne. Réponse sous 24h.",
-    url: "https://sellmyhome.fr/contact",
+    images: [OG_IMAGE],
+    title: "Contacter Marie Houlier | SellMyHome",
+    description: "Une vraie personne vous répond sous 24h. Paris & Île-de-France.",
+    url: `${SITE_URL}/contact`,
   },
 };
 
-import ContactClient from "./ContactClient";
+const contactPage = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  url: `${SITE_URL}/contact`,
+  about: { "@id": `${SITE_URL}/#agent` },
+};
+
 export default function Page() {
-  return <ContactClient />;
+  return (
+    <>
+      <JsonLd data={contactPage} />
+      <JsonLd data={breadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
+      <ContactClient />
+    </>
+  );
 }

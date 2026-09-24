@@ -1,15 +1,14 @@
 export const metadata = {
-  title: "Vendre son appartement pour la retraite à Paris — guide 2026",
-  description: "Vous partez en retraite et souhaitez vendre votre bien parisien ? Libérer du capital, financer une nouvelle vie, optimiser la fiscalité : guide complet par Marie Houlier, agente Leggett Paris.",
+  title: "Vendre son appartement parisien à la retraite",
+  description: "Retraite : vendez votre appartement parisien au meilleur prix, sans impôt sur la plus-value de la résidence principale, même à distance. Marie vous accompagne.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-maison-retraite-paris" },
-  openGraph: {
-    title: "Vendre appartement pour la retraite à Paris | SellMyHome",
-    description: "Vendre son bien parisien pour financer sa retraite : stratégie, fiscalité, timing. Marie Houlier vous accompagne.",
-    url: "https://sellmyhome.fr/vendre-maison-retraite-paris",
-  },
+  openGraph: { images: [OG_IMAGE], title: "Vendre son appartement parisien à la retraite | SellMyHome", description: "Retraite : vendez votre appartement parisien au meilleur prix, sans impôt sur la plus-value de la résidence principale, même à distance. Marie vous accompagne.", url: "https://sellmyhome.fr/vendre-maison-retraite-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Quelle fiscalité s'applique à la vente de sa résidence principale à la retraite ?", a: "La vente de votre résidence principale est totalement exonérée d'impôt sur la plus-value, quelle que soit la plus-value réalisée. Cette exonération s'applique dès lors que vous habitez effectivement le logement jusqu'à la vente (ou au maximum 12 mois avant si vous devez libérer les lieux pour entrer en établissement de retraite)." },
@@ -21,13 +20,14 @@ const faq = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-ret" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-ret" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre pour la retraite", item: "https://sellmyhome.fr/vendre-maison-retraite-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre pour la retraite", item: "https://sellmyhome.fr/vendre-maison-retraite-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb">
         <Link href="/">Accueil</Link> › <Link href="/vendre-a-paris">Vendre à Paris</Link> › <span>Vendre pour la retraite</span>
       </nav>
       <h1>Vendre son appartement parisien pour financer sa retraite</h1>
+      <Byline readingTime={5} />
       <p className="seo-intro">
         Après des années dans votre appartement parisien, vous souhaitez libérer du capital pour financer une nouvelle vie : résidence en province, maison avec jardin, établissement de retraite, ou tout simplement plus de sérénité financière. C'est souvent l'une des ventes les plus importantes de votre vie — Marie Houlier vous accompagne avec <strong>patience, transparence et expertise</strong>.
       </p>
@@ -59,6 +59,8 @@ export default function Page() {
         <li>Coordination avec le notaire de votre choix</li>
         <li>Point téléphonique hebdomadaire sur l'avancement de la vente</li>
       </ul>
+
+      <AdvisorBox source="vendre-maison-retraite-paris" />
 
       <h2>FAQ — Vendre pour la retraite à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

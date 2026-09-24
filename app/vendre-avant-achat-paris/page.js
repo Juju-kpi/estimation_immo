@@ -1,15 +1,14 @@
 export const metadata = {
-  title: "Vendre avant d'acheter à Paris — comment éviter les pièges 2026",
-  description: "Faut-il vendre avant d'acheter à Paris ? Prêt relais, timing, risques : guide complet pour coordonner votre vente et votre achat immobilier. Marie Houlier, agente Leggett Paris.",
+  title: "Vendre avant d'acheter à Paris : le bon timing",
+  description: "Vendre d'abord ou acheter d'abord à Paris ? Prêt relais, différé de jouissance, signatures le même jour : comment coordonner les deux projets sereinement.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-avant-achat-paris" },
-  openGraph: {
-    title: "Vendre avant d'acheter à Paris | SellMyHome",
-    description: "Coordonner vente et achat immobilier à Paris : prêt relais, timing, pièges à éviter. Guide 2026.",
-    url: "https://sellmyhome.fr/vendre-avant-achat-paris",
-  },
+  openGraph: { images: [OG_IMAGE], title: "Vendre avant d'acheter à Paris : le bon timing | SellMyHome", description: "Vendre d'abord ou acheter d'abord à Paris ? Prêt relais, différé de jouissance, signatures le même jour : comment coordonner les deux projets sereinement.", url: "https://sellmyhome.fr/vendre-avant-achat-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Faut-il vendre avant d'acheter ou acheter avant de vendre à Paris ?", a: "À Paris, il est généralement recommandé de vendre d'abord, ou au moins de lancer la vente simultanément à la recherche d'achat. Le marché parisien est compétitif : les vendeurs préfèrent des acheteurs qui n'ont pas de bien à vendre (pas de condition suspensive). Arriver avec un bien déjà vendu ou un prêt relais en place renforce considérablement votre position d'acheteur." },
@@ -28,13 +27,14 @@ const etapes = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-vaa" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-vaa" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre avant d'acheter", item: "https://sellmyhome.fr/vendre-avant-achat-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre avant d'acheter", item: "https://sellmyhome.fr/vendre-avant-achat-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb">
         <Link href="/">Accueil</Link> › <Link href="/vendre-a-paris">Vendre à Paris</Link> › <span>Vendre avant d'acheter</span>
       </nav>
       <h1>Vendre avant d'acheter à Paris — comment coordonner les deux projets</h1>
+      <Byline readingTime={5} />
       <p className="seo-intro">
         Vous êtes propriétaire à Paris et souhaitez acheter plus grand, changer de quartier ou quitter la capitale. La question du timing est cruciale : faut-il vendre d'abord et risquer de se retrouver sans logement, ou acheter d'abord et supporter deux crédits en parallèle ? Marie Houlier vous aide à <strong>coordonner les deux projets</strong> pour éviter les imprévus.
       </p>
@@ -68,6 +68,8 @@ export default function Page() {
         <li><strong>La location meublée temporaire</strong> — si vous ne trouvez pas immédiatement, une location meublée de courte durée (1 à 3 mois) est souvent moins stressante qu'on ne l'imagine.</li>
         <li><strong>La signature simultanée</strong> — dans les cas idéaux, les deux actes sont signés le même jour : vous cédez votre bien le matin et signez votre achat l'après-midi. Marie a l'expérience de ces coordinations complexes.</li>
       </ul>
+
+      <AdvisorBox source="vendre-avant-achat-paris" />
 
       <h2>FAQ — Vendre avant d'acheter à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

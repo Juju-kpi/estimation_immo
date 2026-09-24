@@ -4,6 +4,9 @@ import Footer from "../components/Footer";
 import { Fraunces, Public_Sans } from "next/font/google";
 import Script from "next/script";
 import Tracker from "../components/Tracker";
+import JsonLd from "../components/JsonLd";
+import { SITE_URL, AGENT_NAME, PHONE, EMAIL, YEARS_EXPERIENCE } from "../lib/site";
+import { IDF } from "../lib/locations";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -23,25 +26,25 @@ const publicSans = Public_Sans({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://sellmyhome.fr"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Estimation immobilière gratuite Paris | SellMyHome — Agence Leggett",
-    template: "%s | SellMyHome Paris",
+    default: "Estimation immobilière gratuite Paris & Île-de-France | SellMyHome",
+    template: "%s | SellMyHome",
   },
-  description: "SellMyHome : estimation immobilière gratuite à Paris, vente de bien immobilier avec accompagnement humain. Marie Houlier, agente Leggett, spécialiste Paris & Île-de-France depuis 15 ans. Réponse sous 24h.",
-  keywords: ["estimation immobilière Paris", "vente bien immobilier Paris", "vendre appartement Paris", "prix m2 Paris", "agent immobilier Paris", "chasseur immobilier Paris", "estimation gratuite Paris", "diagnostic immobilier Paris", "DPE Paris", "frais de notaire Paris", "vendre succession Paris", "vendre divorce Paris", "SellMyHome", "Leggett Paris"],
-  authors: [{ name: "Marie Houlier — SellMyHome" }],
+  description: `Estimation immobilière gratuite à Paris et en Île-de-France avec ${AGENT_NAME}, agente Leggett depuis ${YEARS_EXPERIENCE} ans. Un seul interlocuteur, rappel sous 24h.`,
+  applicationName: "SellMyHome",
+  authors: [{ name: `${AGENT_NAME} — SellMyHome`, url: `${SITE_URL}/nous` }],
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" } },
   openGraph: {
-    type: "website", locale: "fr_FR", url: "https://sellmyhome.fr", siteName: "SellMyHome",
-    title: "Estimation immobilière gratuite Paris | SellMyHome",
-    description: "Estimation gratuite et vente immobilière à Paris avec Marie Houlier, agente Leggett. Accompagnement humain, réseau international, réponse sous 24h.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "SellMyHome — Estimation immobilière Paris" }],
+    type: "website", locale: "fr_FR", url: SITE_URL, siteName: "SellMyHome",
+    title: "Estimation immobilière gratuite Paris & Île-de-France | SellMyHome",
+    description: `Estimation gratuite et vente accompagnée avec ${AGENT_NAME}, agente Leggett. Un seul interlocuteur, rappel sous 24h.`,
   },
-  twitter: { card: "summary_large_image", title: "Estimation immobilière gratuite Paris | SellMyHome", description: "Estimation gratuite à Paris, accompagnement humain de A à Z.", images: ["/og-image.jpg"] },
+  twitter: { card: "summary_large_image" },
   icons: {
     icon: [{ url: "/favicon.ico" }, { url: "/logo_moteur_recherche_48.png", sizes: "48x48", type: "image/png" }],
-    shortcut: "/favicon.ico", apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/logo_moteur_recherche_192.png", sizes: "192x192", type: "image/png" }],
   },
 };
 
@@ -51,41 +54,79 @@ export const viewport = {
   themeColor: "#203A63",
 };
 
-const schemas = {
-  org: { "@context": "https://schema.org", "@graph": [
-    { "@type": "Organization", "@id": "https://sellmyhome.fr/#organization", name: "SellMyHome", url: "https://sellmyhome.fr", logo: { "@type": "ImageObject", url: "https://sellmyhome.fr/logo.png" }, description: "Agence immobilière parisienne affiliée Leggett.", telephone: "+33752049878", email: "contact@sellmyhome.fr", address: { "@type": "PostalAddress", addressLocality: "Paris", addressRegion: "Île-de-France", addressCountry: "FR" } },
-    { "@type": "WebSite", "@id": "https://sellmyhome.fr/#website", name: "SellMyHome", url: "https://sellmyhome.fr", publisher: { "@id": "https://sellmyhome.fr/#organization" } },
-  ]},
-  agent: { "@context": "https://schema.org", "@type": "RealEstateAgent", "@id": "https://sellmyhome.fr/#agent", name: "SellMyHome", url: "https://sellmyhome.fr", telephone: "+33752049878", email: "contact@sellmyhome.fr", address: { "@type": "PostalAddress", streetAddress: "Paris", addressLocality: "Paris", addressRegion: "Île-de-France", postalCode: "75000", addressCountry: "FR" }, geo: { "@type": "GeoCoordinates", latitude: 48.8566, longitude: 2.3522 }, areaServed: [{ "@type": "City", name: "Paris" }], aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "47", bestRating: "5" } },
-  person: { "@context": "https://schema.org", "@type": "Person", name: "Marie Houlier", jobTitle: "Conseillère en immobilier — Agente Leggett", telephone: "+33752049878", email: "contact@sellmyhome.fr", worksFor: { "@id": "https://sellmyhome.fr/#organization" }, url: "https://sellmyhome.fr/nous" },
+const areaServed = [
+  { "@type": "City", name: "Paris" },
+  { "@type": "AdministrativeArea", name: "Île-de-France" },
+  ...IDF.map((c) => ({ "@type": "City", name: c.name })),
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "SellMyHome",
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+      description: "Site de mise en relation avec Marie Houlier, agente immobilière affiliée Leggett : estimation gratuite et vente accompagnée à Paris et en Île-de-France.",
+      telephone: PHONE,
+      email: EMAIL,
+      address: { "@type": "PostalAddress", addressLocality: "Paris", addressRegion: "Île-de-France", addressCountry: "FR" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "SellMyHome",
+      url: SITE_URL,
+      inLanguage: "fr-FR",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+    {
+      "@type": "RealEstateAgent",
+      "@id": `${SITE_URL}/#agent`,
+      name: "SellMyHome — Marie Houlier, agente Leggett",
+      url: SITE_URL,
+      image: `${SITE_URL}/marie_houlier.jpg`,
+      logo: `${SITE_URL}/logo.png`,
+      telephone: PHONE,
+      email: EMAIL,
+      priceRange: "Estimation gratuite",
+      address: { "@type": "PostalAddress", addressLocality: "Paris", addressRegion: "Île-de-France", postalCode: "75000", addressCountry: "FR" },
+      geo: { "@type": "GeoCoordinates", latitude: 48.8566, longitude: 2.3522 },
+      areaServed,
+      employee: { "@id": `${SITE_URL}/#marie` },
+      parentOrganization: { "@id": `${SITE_URL}/#organization` },
+      knowsAbout: ["Estimation immobilière", "Vente d'appartement", "Marché immobilier parisien", "Chasseur immobilier"],
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#marie`,
+      name: AGENT_NAME,
+      jobTitle: "Conseillère en immobilier — Agente Leggett",
+      image: `${SITE_URL}/marie_houlier.jpg`,
+      telephone: PHONE,
+      email: EMAIL,
+      url: `${SITE_URL}/nous`,
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      knowsLanguage: ["fr"],
+      knowsAbout: ["Immobilier Paris", "Immobilier Île-de-France", "Estimation immobilière", "Vente appartement Paris"],
+    },
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="fr" className={`${fraunces.variable} ${publicSans.variable}`}>
       <head>
-        {/* Preconnect aux origines critiques */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://nominatim.openstreetmap.org" />
-        {/* Preload LCP image — la photo de Marie sur la home */}
-        <link
-          rel="preload"
-          as="image"
-          href="/marie_houlier.jpg"
-          type="image/jpeg"
-          fetchpriority="high"
-        />
       </head>
       <body>
+        <JsonLd data={schema} />
         <Tracker />
         <Navbar />
         {children}
         <Footer />
-        <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas.org) }} />
-        <Script id="schema-agent" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas.agent) }} />
-        <Script id="schema-person" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas.person) }} />
         {/* GA chargé en afterInteractive = non-bloquant */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-JG8JD68V5T" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-JG8JD68V5T');`}</Script>

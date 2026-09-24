@@ -1,11 +1,14 @@
 export const metadata = {
-  title: "Diagnostic immobilier Paris — DPE, Carrez, amiante : guide complet 2026",
-  description: "Tous les diagnostics immobiliers obligatoires pour vendre à Paris : DPE, loi Carrez, amiante, plomb, électricité, gaz, ERP. Coûts, durées de validité, impact sur le prix de vente. Conseils de Marie Houlier, agente Leggett.",
+  title: "Diagnostics immobiliers pour vendre : liste 2026",
+  description: "DPE, Carrez, amiante, plomb, ERP : les diagnostics obligatoires pour vendre à Paris en 2026, leur coût, leur validité et leur impact réel sur le prix.",
   alternates: { canonical: "https://sellmyhome.fr/diagnostic-immobilier-paris" },
-  openGraph: { title: "Diagnostic immobilier Paris — DPE & diagnostics obligatoires | SellMyHome", description: "Guide complet des diagnostics immobiliers obligatoires à Paris : DPE, Carrez, amiante, plomb. Coûts et impact sur la vente.", url: "https://sellmyhome.fr/diagnostic-immobilier-paris" },
+  openGraph: { images: [OG_IMAGE], title: "Diagnostics immobiliers pour vendre : liste 2026 | SellMyHome", description: "DPE, Carrez, amiante, plomb, ERP : les diagnostics obligatoires pour vendre à Paris en 2026, leur coût, leur validité et leur impact réel sur le prix.", url: "https://sellmyhome.fr/diagnostic-immobilier-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 import { ShieldCheck, FileWarning, Ruler, Flame, Zap, Droplets, AlertTriangle } from "lucide-react";
 import Reveal from "../../components/Reveal";
 
@@ -74,11 +77,12 @@ const dpeClasses = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-diag" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-diag" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Diagnostic immobilier Paris", item: "https://sellmyhome.fr/diagnostic-immobilier-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Diagnostic immobilier Paris", item: "https://sellmyhome.fr/diagnostic-immobilier-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb"><Link href="/">Accueil</Link> › <span>Diagnostic immobilier Paris</span></nav>
       <h1>Diagnostic immobilier à Paris — DPE, Carrez, amiante : le guide complet</h1>
+      <Byline readingTime={6} />
       <p className="seo-intro">Avant de vendre un bien à Paris, un <strong>dossier de diagnostic technique (DDT)</strong> complet doit être constitué et annexé au compromis de vente. Ce guide détaille chaque diagnostic obligatoire, sa durée de validité, son coût indicatif et son impact réel sur votre projet de vente.</p>
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Estimer mon bien avant les diagnostics</Link></div>
 
@@ -129,6 +133,8 @@ export default function Page() {
 
       <h2>Comment SellMyHome vous accompagne sur les diagnostics</h2>
       <p>Marie Houlier coordonne l'ensemble du dossier de diagnostic technique avec des diagnostiqueurs certifiés intervenant rapidement sur Paris et l'Île-de-France. Vous n'avez aucune démarche à effectuer seul : prise de rendez-vous, suivi, et intégration des résultats dans la stratégie de prix et de mise en valeur de votre bien.</p>
+
+      <AdvisorBox source="diagnostic-immobilier-paris" />
 
       <h2>FAQ — Diagnostic immobilier Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

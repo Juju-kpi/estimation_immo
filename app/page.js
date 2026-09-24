@@ -1,8 +1,25 @@
 import HomeClient from "./HomeClient";
+import JsonLd, { faqSchema } from "../components/JsonLd";
+import { faqHome } from "./homeData";
+import { SITE_URL, OG_IMAGE } from "../lib/site";
+
 export const metadata = {
-  title: "Estimation immobilière gratuite Paris — Vente appartement & maison",
-  description: "Estimez gratuitement votre appartement ou maison à Paris avec Marie Houlier, agente Leggett depuis 40 ans. Vente immobilière Paris, accompagnement de A à Z, réponse sous 24h. Sans engagement.",
-  alternates: { canonical: "https://sellmyhome.fr" },
-  openGraph: { title: "Estimation immobilière gratuite Paris | SellMyHome", description: "Estimation gratuite + vente immobilière Paris avec accompagnement humain. Agente Leggett, 40 ans d'expérience.", url: "https://sellmyhome.fr", images: [{ url: "/og-image.jpg", width: 1200, height: 630 }] },
+  title: { absolute: "Estimation immobilière gratuite Paris & IDF | Rappel 24h" },
+  description: "Combien vaut votre bien ? Marie Houlier, agente Leggett, vous rappelle sous 24h avec une estimation gratuite et argumentée. Paris & IDF, sans engagement.",
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    images: [OG_IMAGE],
+    title: "Estimation immobilière gratuite Paris & Île-de-France | SellMyHome",
+    description: "Une vraie personne étudie votre bien et vous rappelle sous 24h. Estimation gratuite, vente accompagnée, réseau Leggett.",
+    url: SITE_URL,
+  },
 };
-export default function Home() { return <HomeClient />; }
+
+export default function Home() {
+  return (
+    <>
+      <JsonLd data={faqSchema(faqHome)} />
+      <HomeClient />
+    </>
+  );
+}

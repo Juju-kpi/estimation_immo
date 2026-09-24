@@ -1,15 +1,14 @@
 export const metadata = {
-  title: "Vendre un appartement en succession à Paris — guide complet 2026",
-  description: "Comment vendre un bien immobilier hérité à Paris ? Indivision, droits de succession, délais, notaire : guide complet par Marie Houlier, agente Leggett. Accompagnement discret et efficace.",
+  title: "Vendre un appartement hérité à Paris : guide",
+  description: "Succession à Paris : quand vendre un bien hérité, comment gérer l'indivision et la fiscalité ? Marie Houlier accompagne les héritiers avec discrétion.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-appartement-succession-paris" },
-  openGraph: {
-    title: "Vendre un appartement en succession à Paris | SellMyHome",
-    description: "Succession immobilière à Paris : indivision, fiscalité, délais. Guide complet et accompagnement personnalisé par Marie Houlier, agente Leggett.",
-    url: "https://sellmyhome.fr/vendre-appartement-succession-paris",
-  },
+  openGraph: { images: [OG_IMAGE], title: "Vendre un appartement hérité à Paris : guide | SellMyHome", description: "Succession à Paris : quand vendre un bien hérité, comment gérer l'indivision et la fiscalité ? Marie Houlier accompagne les héritiers avec discrétion.", url: "https://sellmyhome.fr/vendre-appartement-succession-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Peut-on vendre un appartement hérité avant le règlement de la succession ?", a: "Non. La vente d'un bien immobilier en succession ne peut intervenir qu'après l'acceptation de la succession et l'établissement de l'acte de notoriété. En pratique, un délai de 3 à 6 mois est souvent nécessaire avant de pouvoir signer un compromis de vente." },
@@ -29,13 +28,14 @@ const etapes = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-succ" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-succ" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre en succession", item: "https://sellmyhome.fr/vendre-appartement-succession-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre en succession", item: "https://sellmyhome.fr/vendre-appartement-succession-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb">
         <Link href="/">Accueil</Link> › <Link href="/vendre-a-paris">Vendre à Paris</Link> › <span>Succession</span>
       </nav>
       <h1>Vendre un appartement en succession à Paris — guide complet</h1>
+      <Byline readingTime={6} />
       <p className="seo-intro">
         Vous venez de perdre un proche et héritez d'un bien immobilier à Paris. Entre le chagrin, les démarches administratives et les questions entre héritiers, la vente d'un bien en succession est souvent l'une des étapes les plus délicates. Marie Houlier vous accompagne avec <strong>discrétion, patience et expertise</strong> — du règlement successoral jusqu'à la signature chez le notaire.
       </p>
@@ -77,6 +77,8 @@ export default function Page() {
       <h2>Pourquoi choisir Marie Houlier pour une vente en succession à Paris</h2>
       <p>Les ventes en succession demandent deux qualités rarement réunies chez un même interlocuteur : une excellente maîtrise du marché parisien pour valoriser le bien au juste prix, et une vraie sensibilité humaine pour accompagner des familles souvent en période de deuil.</p>
       <p>Marie travaille en étroite collaboration avec les notaires parisiens spécialisés en successions. Elle s'adapte aux contraintes de chaque famille — héritiers en province ou à l'étranger, délais de succession, contraintes fiscales — et prend en charge toute la logistique de la vente pour que vous n'ayez qu'à donner votre accord sur les décisions importantes.</p>
+
+      <AdvisorBox source="vendre-appartement-succession-paris" />
 
       <h2>FAQ — Vente en succession à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

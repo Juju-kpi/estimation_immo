@@ -1,11 +1,14 @@
 export const metadata = {
-  title: "Vendre son appartement à Paris — guide complet 2026",
-  description: "Comment vendre un appartement ou une maison à Paris en 2026 ? Guide complet : étapes, délais, frais, diagnostics, négociation. Accompagnement gratuit avec Marie Houlier, agente Leggett.",
+  title: "Vendre son appartement à Paris : guide 2026",
+  description: "Prix, diagnostics, visites, négociation, notaire : les 6 étapes pour vendre votre appartement à Paris en 2026, avec délais et frais réels expliqués.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-a-paris" },
-  openGraph: { title: "Vendre appartement Paris 2026 — Guide complet | SellMyHome", description: "Tout ce que vous devez savoir pour vendre votre bien immobilier à Paris. Étapes, délais, frais, conseils.", url: "https://sellmyhome.fr/vendre-a-paris" },
+  openGraph: { images: [OG_IMAGE], title: "Vendre son appartement à Paris : guide 2026 | SellMyHome", description: "Prix, diagnostics, visites, négociation, notaire : les 6 étapes pour vendre votre appartement à Paris en 2026, avec délais et frais réels expliqués.", url: "https://sellmyhome.fr/vendre-a-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Quelles sont les étapes pour vendre un appartement à Paris ?", a: "1) Estimation du bien, 2) Préparation du dossier et diagnostics obligatoires, 3) Mise en valeur et photos, 4) Diffusion de l'annonce, 5) Organisation des visites, 6) Réception et négociation des offres, 7) Signature du compromis de vente, 8) Levée des conditions suspensives, 9) Signature de l'acte authentique chez le notaire." },
@@ -26,13 +29,14 @@ const etapes = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-vap" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-vap" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }] }) }} />
-    <Script id="howto-vap" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "HowTo", name: "Comment vendre un appartement à Paris", step: etapes.map((e, i) => ({ "@type": "HowToStep", position: i+1, name: e.titre, text: e.desc })) }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }] }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "HowTo", name: "Comment vendre un appartement à Paris", step: etapes.map((e, i) => ({ "@type": "HowToStep", position: i+1, name: e.titre, text: e.desc })) }} />
     <main className="seo-page">
       <nav className="breadcrumb"><Link href="/">Accueil</Link> › <span>Vendre à Paris</span></nav>
       <h1>Vendre son appartement à Paris — Guide complet 2026</h1>
-      <p className="seo-intro"><strong>Vendre un bien immobilier à Paris</strong> est une décision majeure qui nécessite une préparation rigoureuse. Prix juste, diagnostics, mise en valeur, diffusion, négociation : chaque étape compte. Ce guide vous explique tout — et comment SellMyHome vous accompagne de A à Z, avec Marie Houlier, agente Leggett depuis 40 ans.</p>
+      <Byline readingTime={6} />
+      <p className="seo-intro"><strong>Vendre un bien immobilier à Paris</strong> est une décision majeure qui nécessite une préparation rigoureuse. Prix juste, diagnostics, mise en valeur, diffusion, négociation : chaque étape compte. Ce guide vous explique tout — et comment Marie Houlier, agente Leggett depuis 15 ans, vous accompagne personnellement de A à Z, à Paris comme en Île-de-France.</p>
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Estimer mon bien gratuitement avant de vendre</Link></div>
 
       <h2>Le marché immobilier parisien en 2026 : ce qu'il faut savoir avant de vendre</h2>
@@ -68,11 +72,13 @@ export default function Page() {
       <p>Pour fixer le bon prix, Marie Houlier analyse les transactions réelles dans votre secteur (base DVF des Notaires de France), compare votre bien avec des appartements similaires vendus dans les 6 derniers mois, et prend en compte les spécificités de votre bien (étage, DPE, état, vue). C'est une expertise que les outils automatiques ne peuvent pas reproduire.</p>
       <p>Consultez notre <Link href="/prix-m2-paris">tableau des prix au m² par arrondissement</Link> pour une première indication, puis obtenez une <Link href="/estimation-paris">estimation personnalisée gratuite</Link>.</p>
 
+      <AdvisorBox source="vendre-a-paris" />
+
       <h2>FAQ — Vendre un appartement à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>
 
       <div className="seo-internal-links">
-        <p>À lire aussi : <Link href="/estimation-paris">Estimation immobilière Paris</Link> · <Link href="/prix-m2-paris">Prix m² Paris 2026</Link> · <Link href="/chasseur-paris">Chasseur immobilier Paris</Link> · <Link href="/estimation-appartement">Estimation appartement</Link> · <Link href="/diagnostic-immobilier-paris">Diagnostics immobiliers</Link> · <Link href="/frais-notaire-paris">Frais de notaire Paris</Link></p>
+        <p>À lire aussi : <Link href="/estimation-paris">Estimation immobilière Paris</Link> · <Link href="/prix-m2-paris">Prix m² Paris 2026</Link> · <Link href="/chasseur-paris">Chasseur immobilier Paris</Link> · <Link href="/estimation-appartement">Estimation appartement</Link> · <Link href="/diagnostic-immobilier-paris">Diagnostics immobiliers</Link> · <Link href="/frais-notaire-paris">Frais de notaire Paris</Link> · <Link href="/estimation-ile-de-france">Vendre en Île-de-France</Link></p>
       </div>
       <div className="seo-cta-block" style={{marginTop:"2.5rem"}}><Link href="/estimation" className="primary-btn">Commencer par une estimation gratuite</Link></div>
     </main>

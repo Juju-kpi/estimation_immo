@@ -1,15 +1,14 @@
 export const metadata = {
-  title: "Vendre un appartement lors d'un divorce à Paris — guide 2026",
-  description: "Comment vendre le bien commun lors d'un divorce ou d'une séparation à Paris ? Régimes matrimoniaux, licitation, prestataire neutre. Marie Houlier accompagne les deux parties avec équité.",
+  title: "Vendre un appartement lors d'un divorce à Paris",
+  description: "Divorce ou séparation : comment vendre le bien commun à Paris ? Accord, régime matrimonial, partage du prix. Marie accompagne les deux parties, en neutralité.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-appartement-divorce-paris" },
-  openGraph: {
-    title: "Vendre appartement divorce Paris | SellMyHome",
-    description: "Vente immobilière lors d'un divorce à Paris : procédure, neutralité, équité. Marie Houlier accompagne les deux parties.",
-    url: "https://sellmyhome.fr/vendre-appartement-divorce-paris",
-  },
+  openGraph: { images: [OG_IMAGE], title: "Vendre un appartement lors d'un divorce à Paris | SellMyHome", description: "Divorce ou séparation : comment vendre le bien commun à Paris ? Accord, régime matrimonial, partage du prix. Marie accompagne les deux parties, en neutralité.", url: "https://sellmyhome.fr/vendre-appartement-divorce-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Les deux époux doivent-ils être d'accord pour vendre en cas de divorce ?", a: "En principe oui, les deux parties doivent signer le mandat de vente et l'acte de vente. En cas de désaccord total, un juge peut ordonner la licitation (vente aux enchères judiciaire), mais cette procédure est longue et le prix obtenu souvent inférieur au marché. Un accord amiable est toujours préférable." },
@@ -29,13 +28,14 @@ const etapes = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-div" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-div" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre lors d'un divorce", item: "https://sellmyhome.fr/vendre-appartement-divorce-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre lors d'un divorce", item: "https://sellmyhome.fr/vendre-appartement-divorce-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb">
         <Link href="/">Accueil</Link> › <Link href="/vendre-a-paris">Vendre à Paris</Link> › <span>Divorce &amp; séparation</span>
       </nav>
       <h1>Vendre un appartement lors d'un divorce à Paris</h1>
+      <Byline readingTime={6} />
       <p className="seo-intro">
         Un divorce ou une séparation implique souvent de vendre le bien immobilier commun. C'est une démarche délicate, qui demande neutralité, rigueur et discrétion. Marie Houlier intervient comme <strong>mandataire commun des deux parties</strong> — avec la même transparence et le même professionnalisme envers chacune, pour obtenir le meilleur prix dans les meilleures conditions.
       </p>
@@ -73,6 +73,8 @@ export default function Page() {
 
       <h2>Et pour les couples non mariés (PACS, concubinage) ?</h2>
       <p>Pour les partenaires pacsés, le régime de séparation de biens s'applique par défaut : chacun reprend sa quote-part du bien selon les proportions d'acquisition. Pour les concubins, le bien est en indivision : les mêmes règles qu'une indivision classique s'appliquent, nécessitant l'accord des deux parties pour vendre.</p>
+
+      <AdvisorBox source="vendre-appartement-divorce-paris" />
 
       <h2>FAQ — Vente lors d'un divorce à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

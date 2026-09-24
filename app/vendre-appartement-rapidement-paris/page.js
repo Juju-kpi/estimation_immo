@@ -1,15 +1,14 @@
 export const metadata = {
-  title: "Vendre son appartement rapidement à Paris — délais & stratégie 2026",
-  description: "Comment vendre vite à Paris sans sacrifier le prix ? Bonne estimation, réseau qualifié, biens off-market : Marie Houlier vend votre bien en 30 à 60 jours. Stratégie et conseils concrets.",
+  title: "Vendre vite son appartement à Paris sans brader",
+  description: "Vendre en 30 à 90 jours à Paris sans baisser le prix : bon prix de départ, photos, diffusion Leggett, acheteurs qualifiés. Délais réels par type de bien.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-appartement-rapidement-paris" },
-  openGraph: {
-    title: "Vendre rapidement appartement Paris | SellMyHome",
-    description: "Vendre vite à Paris sans brader : stratégie de prix, réseau qualifié, délais réalistes. Marie Houlier, agente Leggett.",
-    url: "https://sellmyhome.fr/vendre-appartement-rapidement-paris",
-  },
+  openGraph: { images: [OG_IMAGE], title: "Vendre vite son appartement à Paris sans brader | SellMyHome", description: "Vendre en 30 à 90 jours à Paris sans baisser le prix : bon prix de départ, photos, diffusion Leggett, acheteurs qualifiés. Délais réels par type de bien.", url: "https://sellmyhome.fr/vendre-appartement-rapidement-paris" },
 };
+import { OG_IMAGE } from "../../lib/site";
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "../../components/JsonLd";
+import AdvisorBox from "../../components/AdvisorBox";
+import { Byline } from "../../components/SeoBits";
 
 const faq = [
   { q: "Quel est le délai moyen pour vendre un appartement à Paris ?", a: "Pour un bien correctement estimé et bien présenté, le délai moyen est de 45 à 90 jours à Paris en 2026. Le délai le plus court observé avec SellMyHome est de 3 semaines pour un bien très bien placé, au prix du marché, dans un arrondissement demandé." },
@@ -29,13 +28,14 @@ const conseils = [
 
 export default function Page() {
   return (<>
-    <Script id="faq-rap" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    <Script id="bc-rap" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre rapidement", item: "https://sellmyhome.fr/vendre-appartement-rapidement-paris" }] }) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Vendre à Paris", item: "https://sellmyhome.fr/vendre-a-paris" }, { "@type": "ListItem", position: 3, name: "Vendre rapidement", item: "https://sellmyhome.fr/vendre-appartement-rapidement-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb">
         <Link href="/">Accueil</Link> › <Link href="/vendre-a-paris">Vendre à Paris</Link> › <span>Vendre rapidement</span>
       </nav>
       <h1>Vendre son appartement rapidement à Paris — sans brader le prix</h1>
+      <Byline readingTime={5} />
       <p className="seo-intro">
         Mutation professionnelle, besoin de liquidités, projet d'achat à financer : les raisons de vouloir vendre vite sont nombreuses. À Paris, un bien <strong>correctement estimé et bien présenté</strong> se vend en 45 à 90 jours. Voici comment y parvenir sans sacrifier le prix.
       </p>
@@ -80,6 +80,8 @@ export default function Page() {
         <li><strong>Dossier de diagnostic incomplet</strong> — un acheteur qui découvre un diagnostic manquant au compromis peut faire capoter la vente. <Link href="/diagnostic-immobilier-paris">Préparez votre dossier en amont</Link>.</li>
         <li><strong>Appartement mal présenté pour les photos</strong> — 3 jours de rangement et 2 heures de shooting professionnel peuvent faire gagner 3 semaines de délai de vente.</li>
       </ul>
+
+      <AdvisorBox source="vendre-appartement-rapidement-paris" />
 
       <h2>FAQ — Vendre rapidement à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>
