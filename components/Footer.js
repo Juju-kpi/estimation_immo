@@ -57,7 +57,7 @@ export default function Footer() {
     <footer className="footer" role="contentinfo">
       <div className="footer-brand">
         <Link href="/" aria-label="SellMyHome Accueil">
-          <Image src="/logo.png" alt="SellMyHome — estimation immobilière Paris et Île-de-France" width={140} height={62} />
+          <Image src="/logo_light.png" alt="SellMyHome — estimation immobilière Paris et Île-de-France" width={150} height={78} />
         </Link>
         <p className="footer-pitch">
           Estimation gratuite et vente accompagnée à Paris et en Île-de-France. Un seul interlocuteur, joignable directement.
@@ -71,7 +71,10 @@ export default function Footer() {
             <Mail size={14} /> {EMAIL}
           </a>
         </div>
-        <Image src="/logo_leggett_svg.png" alt="Leggett Immobilier — réseau international partenaire" width={150} height={0} style={{ height: "auto" }} className="footer-leggett" />
+        <div className="footer-partner">
+          <span>Réseau partenaire</span>
+          <Image src="/logo_leggett_svg.png" alt="Leggett International Real Estate — réseau partenaire" width={200} height={26} style={{ height: "auto" }} />
+        </div>
       </div>
 
       {columns.map((col) => (

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { trackClick } from "../components/Tracker";
 import Reveal from "../components/Reveal";
 import Counter from "../components/Counter";
@@ -170,6 +171,15 @@ const situations = [
 ];
 
 export default function HomeClient() {
+  const router = useRouter();
+  const [heroAddress, setHeroAddress] = useState("");
+  const startEstimation = (e) => {
+    e.preventDefault();
+    trackClick("hero_estimation");
+    if (window.gtag) window.gtag("event", "click_estimation", { event_category: "engagement", event_label: "homepage_hero" });
+    const a = heroAddress.trim();
+    router.push(a ? `/estimation?adresse=${encodeURIComponent(a)}` : "/estimation");
+  };
   const [showToast, setShowToast] = useState(false);
   const [activeService, setActiveService] = useState(0);
 
@@ -190,7 +200,6 @@ export default function HomeClient() {
         {/* ── HERO ── */}
         <section className="hero">
           <div className="hero-content">
-            <p className="hero-eyebrow">Agente Leggett · {YEARS_EXPERIENCE} ans d'expérience · Réponse sous 24h</p>
             <h1>
               <span className="hero-h1-kicker">Estimation immobilière gratuite à Paris &amp; en Île-de-France</span>
               Vendez votre bien au juste prix,
@@ -200,14 +209,23 @@ export default function HomeClient() {
               Ici, pas d'algorithme anonyme : une vraie personne étudie votre bien et vous rappelle.
               De l'estimation à la signature chez le notaire, un seul interlocuteur, aucune pression commerciale.
             </p>
+            <form className="hero-estimate" onSubmit={startEstimation} role="search" aria-label="Démarrer une estimation">
+              <label className="hero-estimate-field">
+                <MapPin size={18} aria-hidden="true" />
+                <span className="sr-only">Adresse de votre bien</span>
+                <input
+                  type="text"
+                  value={heroAddress}
+                  onChange={(e) => setHeroAddress(e.target.value)}
+                  placeholder="Adresse du bien à estimer"
+                  autoComplete="street-address"
+                />
+              </label>
+              <button type="submit">Estimer gratuitement</button>
+            </form>
             <div className="hero-cta-group">
-              <Link href="/estimation">
-                <button className="primary-btn hero-btn-main" onClick={() => { trackClick("hero_estimation"); if (window.gtag) window.gtag("event", "click_estimation", { event_category: "engagement", event_label: "homepage_hero" }); }}>
-                  Obtenir mon estimation gratuite
-                </button>
-              </Link>
               <a href={`tel:${PHONE}`} className="hero-secondary-cta" onClick={() => trackClick("hero_tel")}>
-                <PhoneCall size={16} /> Appeler Marie · {PHONE_DISPLAY}
+                <PhoneCall size={16} /> Ou appelez Marie · {PHONE_DISPLAY}
               </a>
             </div>
             <div className="hero-trust">

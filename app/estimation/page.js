@@ -2,7 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import { trackClick } from "../../components/Tracker";
 import { useRouter } from "next/navigation";
-import { PHONE_DISPLAY } from "../../lib/site";
+import Image from "next/image";
+import { ChevronDown, PhoneCall, CheckCircle2 } from "lucide-react";
+import { PHONE, PHONE_DISPLAY, AGENT_NAME, YEARS_EXPERIENCE } from "../../lib/site";
 import {
   FaMapMarkerAlt,
   FaBuilding,
@@ -52,6 +54,12 @@ export default function Estimation() {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
+  }, []);
+
+  // Adresse saisie dans le hero de l'accueil (/estimation?adresse=...)
+  useEffect(() => {
+    const adresse = new URLSearchParams(window.location.search).get("adresse");
+    if (adresse) setData((d) => ({ ...d, address: adresse.slice(0, 300) }));
   }, []);
 
   const debounceRef = useRef(null);
@@ -116,7 +124,9 @@ export default function Estimation() {
 <>
     
     <div style={styles.page} className="estimation-page">
+      <div className="estimation-layout">
       <div ref={wrapperRef} style={styles.container} className="estimation-container">
+        <p className="estimation-eyebrow">Gratuit · Sans engagement · 3 minutes</p>
         <h1 style={styles.title} className="estimation-title">
           Estimation immobilière gratuite
         </h1>
@@ -125,11 +135,13 @@ export default function Estimation() {
         </p>
 
         {/* Adresse avec autocomplete Nominatim amélioré */}
-        <div style={{ marginBottom: 15, position: "relative" }}>
+        <div style={{ marginBottom: 12, position: "relative" }}>
           <div style={styles.fieldContainer}>
             <FaMapMarkerAlt style={styles.icon} />
             <input
               type="text"
+              aria-label="Adresse du logement"
+              autoComplete="street-address"
               placeholder="Adresse du logement"
               value={data.address}
               onChange={(e) => {
@@ -160,11 +172,11 @@ export default function Estimation() {
         </div>
 
         <div
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}
           className="estimation-grid"
         >
           {/* COLONNE GAUCHE */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {/* TYPE DE BIEN */}
             <div style={{ position: "relative" }}>
               <div
@@ -175,8 +187,8 @@ export default function Estimation() {
                 <span
                   style={{
                     flex: 1,
-                    fontSize: 13,
-                    color: data.type ? "#000" : "#999",
+                    fontSize: 15,
+                    color: data.type ? "var(--color-text)" : "#8A949E",
                     minWidth: 0
                   }}
                 >
@@ -186,12 +198,12 @@ export default function Estimation() {
                   style={{
                     transform: openType ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "0.3s",
-                    color: "var(--color-primary)",
-                    fontSize: 12,
+                    color: "var(--color-secondary)",
+                    display: "flex",
                     flexShrink: 0
                   }}
                 >
-                  ▼
+                  <ChevronDown size={16} />
                 </div>
               </div>
 
@@ -238,8 +250,8 @@ export default function Estimation() {
                 <span
                   style={{
                     flex: 1,
-                    fontSize: 13,
-                    color: data.project ? "#000" : "#999",
+                    fontSize: 15,
+                    color: data.project ? "var(--color-text)" : "#8A949E",
                     minWidth: 0
                   }}
                 >
@@ -249,12 +261,12 @@ export default function Estimation() {
                   style={{
                     transform: open ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "0.3s",
-                    color: "var(--color-primary)",
-                    fontSize: 12,
+                    color: "var(--color-secondary)",
+                    display: "flex",
                     flexShrink: 0
                   }}
                 >
-                  ▼
+                  <ChevronDown size={16} />
                 </div>
               </div>
 
@@ -295,7 +307,7 @@ export default function Estimation() {
           </div>
 
           {/* COLONNE DROITE */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <Field
               icon={<FaUser />}
               placeholder="Nom et prénom"
@@ -388,8 +400,30 @@ export default function Estimation() {
 </div>
               </div>
 
+      <aside className="estimation-aside" aria-label="Ce qui se passe ensuite">
+        <div className="estimation-aside-agent">
+          <Image src="/marie_houlier.jpg" alt={`${AGENT_NAME}, agente Leggett`} width={72} height={72} quality={80} />
+          <div>
+            <p className="estimation-aside-name">{AGENT_NAME}</p>
+            <p className="estimation-aside-role">Agente Leggett · {YEARS_EXPERIENCE} ans d'expérience</p>
+          </div>
+        </div>
+        <p className="estimation-aside-title">Ce qui se passe après votre demande</p>
+        <ol className="estimation-steps">
+          <li><strong>J'étudie votre secteur</strong> — ventes réelles de votre rue, état du marché, spécificités de l'immeuble.</li>
+          <li><strong>Je vous rappelle sous 24h</strong> — une fourchette argumentée, expliquée de vive voix.</li>
+          <li><strong>Visite si vous le souhaitez</strong> — pour affiner avec ce que les données ne voient pas.</li>
+        </ol>
+        <ul className="estimation-aside-points">
+          <li><CheckCircle2 size={15} /> Aucune obligation de confier la vente</li>
+          <li><CheckCircle2 size={15} /> Vos données ne sont jamais revendues</li>
+        </ul>
+        <a href={`tel:${PHONE}`} className="estimation-aside-phone" onClick={() => trackClick("estimation_aside_tel")}>
+          <PhoneCall size={16} /> Préférez parler tout de suite ? {PHONE_DISPLAY}
+        </a>
+      </aside>
+      </div>
 
-            
       <style jsx>{`
         @keyframes fadeSlideIn {
           0% {
@@ -403,13 +437,13 @@ export default function Estimation() {
         }
 
         ul li:hover {
-          background: #f0f7ff;
-          border-left: 3px solid #0070f3;
+          background: #EEF3F1;
+          border-left: 3px solid #C98A6B;
         }
 
         .dropdownItem:hover {
-          background: #f0f8ff;
-          color: #0070f3;
+          background: #EEF3F1;
+          color: #203A63;
         }
 
         @media (max-width: 768px) {
@@ -429,7 +463,7 @@ export default function Estimation() {
 
           .estimation-grid {
             grid-template-columns: 1fr !important;
-            gap: 0 !important;
+            gap: 12px !important;
           }
 
           .estimation-title {
@@ -467,11 +501,12 @@ export default function Estimation() {
 // Champ simple avec icône
 function Field({ icon, placeholder, type = "text", value, onChange, error }) {
   return (
-    <div style={{ marginBottom: 15 }}>
+    <div style={{ marginBottom: 0 }}>
       <div style={styles.fieldContainer}>
         <div style={styles.icon}>{icon}</div>
         <input
           type={type}
+          aria-label={placeholder}
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -485,21 +520,18 @@ function Field({ icon, placeholder, type = "text", value, onChange, error }) {
 
 const styles = {
   page: {
-    minHeight: "90vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    minHeight: "80vh",
     background: "transparent",
-    padding: 10
+    padding: "40px 24px 56px"
   },
   container: {
     background: "#fff",
-    padding: 15,
+    padding: "32px 32px 28px",
     borderRadius: 16,
     width: "100%",
-    maxWidth: 800,
-    boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
-    animation: "fadeUp 0.8s ease"
+    border: "1px solid var(--color-line)",
+    boxShadow: "0 12px 32px rgba(32,58,99,0.08)",
+    animation: "fadeUp 0.6s ease"
   },
   grid: {
     display: "grid",
@@ -507,23 +539,26 @@ const styles = {
     gap: 15
   },
   title: {
-    textAlign: "center",
-    marginBottom: 5,
-    fontSize: 20
+    marginBottom: 6,
+    fontSize: 30,
+    color: "var(--color-secondary)",
+    lineHeight: 1.2
   },
   subtitle: {
-    textAlign: "center",
-    color: "#666",
-    marginBottom: 10
+    color: "var(--color-text-soft)",
+    fontSize: 14.5,
+    marginBottom: 22
   },
   fieldContainer: {
     display: "flex",
     alignItems: "center",
     gap: 10,
-    border: "1px solid #ddd",
+    border: "1px solid var(--color-line)",
     borderRadius: 10,
-    padding: "8px 10px",
-    background: "#fafafa",
+    padding: "0 14px",
+    minHeight: 50,
+    background: "#fff",
+    cursor: "text",
     transition: "0.3s",
     position: "relative",
     width: "100%",
@@ -533,12 +568,14 @@ const styles = {
     flex: 1,
     border: "none",
     background: "transparent",
-    fontSize: 13,
+    fontSize: 15,
+    color: "var(--color-text)",
     outline: "none",
-    minWidth: 0
+    minWidth: 0,
+    padding: "14px 0"
   },
   icon: {
-    color: "var(--color-primary)",
+    color: "var(--color-primary-dark)",
     fontSize: 16,
     flexShrink: 0
   },
@@ -553,23 +590,23 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: 10,
-    marginBottom: 15,
+    margin: "6px 0 18px",
     fontSize: 14,
-    color: "#555"
+    color: "var(--color-text-soft)"
   },
   submitBtn: {
-    width: "50%",
-    margin: "0 auto",
+    width: "100%",
     display: "block",
-    padding: 13,
-    fontSize: 15,
-    background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
+    padding: 16,
+    fontSize: 16,
+    fontWeight: 600,
+    background: "var(--color-secondary)",
     color: "white",
     border: "none",
     borderRadius: 10,
     cursor: "pointer",
     transition: "0.3s",
-    boxShadow: "var(--shadow-soft)"
+    boxShadow: "0 8px 20px rgba(32,58,99,0.18)"
   },
   submitBtnDisabled: {
     opacity: 0.65,
@@ -608,7 +645,7 @@ const styles = {
     transition: "all 0.2s ease",
   },
   suggestionItemHover: {
-    backgroundColor: "#f0f8ff",
+    backgroundColor: "#EEF3F1",
   },
   selectArrow: {
     position: "absolute",
