@@ -2,8 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { trackClick } from "../components/Tracker";
-import Script from "next/script";
 import Reveal from "../components/Reveal";
 import Counter from "../components/Counter";
 import {
@@ -29,22 +29,19 @@ import {
   Plane,
   TreePalm,
   Zap,
+  XCircle,
 } from "lucide-react";
-
-const faqHome = [
-  { q: "Comment estimer mon bien immobilier à Paris ?", a: "Remplissez notre formulaire gratuit en 3 minutes. Marie Houlier, experte du marché parisien depuis 15 ans, vous rappelle sous 24h avec une estimation précise basée sur les transactions réelles dans votre secteur." },
-  { q: "L'estimation immobilière est-elle vraiment gratuite ?", a: "Oui, totalement gratuite et sans engagement. SellMyHome ne facture aucun frais pour l'estimation. Notre rémunération intervient uniquement en cas de vente réussie, ce qui aligne nos intérêts avec les vôtres." },
-  { q: "Combien de temps faut-il pour vendre un appartement à Paris ?", a: "Pour un bien correctement estimé et bien présenté, le délai moyen est de 60 à 90 jours à Paris. Grâce au réseau international Leggett, SellMyHome touche aussi une clientèle d'acquéreurs étrangers qui peut accélérer la vente." },
-  { q: "SellMyHome couvre quels secteurs ?", a: "SellMyHome est spécialisé à Paris (tous arrondissements) et en Île-de-France, avec une expertise particulière dans les 6e, 7e, 8e, 15e, 16e et 17e arrondissements." },
-];
+import { faqHome } from "./homeData";
+import { YEARS_EXPERIENCE, PHONE, PHONE_DISPLAY, EMAIL } from "../lib/site";
+import { PARIS, IDF } from "../lib/locations";
 
 const services = [
   {
     icon: BarChart3,
     label: "Estimation",
     title: "Estimation immobilière gratuite",
-    desc: "Une fourchette de prix fiable basée sur les transactions réelles DVF et la connaissance terrain de Marie. Résultat sous 24h, sans engagement.",
-    points: ["Données marché actualisées", "Analyse arrondissement par arrondissement", "Comparaison avec transactions récentes"],
+    desc: "Une fourchette de prix fiable basée sur les transactions réelles DVF et la connaissance terrain de Marie, à Paris comme en Île-de-France. Résultat sous 24h, sans engagement.",
+    points: ["Données marché actualisées", "Analyse rue par rue, arrondissement par arrondissement", "Comparaison avec les ventes récentes"],
     cta: "Estimer mon bien",
     href: "/estimation",
     tag: "Gratuit",
@@ -53,11 +50,11 @@ const services = [
   {
     icon: HomeIcon,
     label: "Vente",
-    title: "Vente de bien immobilier à Paris",
+    title: "Vente de bien immobilier à Paris & IDF",
     desc: "De la mise en valeur photographique à la signature chez le notaire : Marie gère l'intégralité de votre vente avec rigueur et transparence.",
     points: ["Diffusion nationale + internationale Leggett", "Photos professionnelles incluses", "Suivi personnalisé jusqu'à la signature"],
     cta: "Vendre mon bien",
-    href: "/estimation",
+    href: "/vendre-a-paris",
     tag: "Accompagnement complet",
     track: "service_vente",
   },
@@ -75,7 +72,7 @@ const services = [
 ];
 
 const stats = [
-  { value: "15+", label: "ans d'expérience à Paris" },
+  { value: `${YEARS_EXPERIENCE}+`, label: "ans d'expérience à Paris" },
   { value: "24h", label: "délai de réponse garanti" },
   { value: "100%", label: "confidentiel & sans engagement" },
   { value: "Leggett", label: "réseau international" },
@@ -174,6 +171,15 @@ const situations = [
 ];
 
 export default function HomeClient() {
+  const router = useRouter();
+  const [heroAddress, setHeroAddress] = useState("");
+  const startEstimation = (e) => {
+    e.preventDefault();
+    trackClick("hero_estimation");
+    if (window.gtag) window.gtag("event", "click_estimation", { event_category: "engagement", event_label: "homepage_hero" });
+    const a = heroAddress.trim();
+    router.push(a ? `/estimation?adresse=${encodeURIComponent(a)}` : "/estimation");
+  };
   const [showToast, setShowToast] = useState(false);
   const [activeService, setActiveService] = useState(0);
 
@@ -188,35 +194,39 @@ export default function HomeClient() {
 
   return (
     <>
-      <Script id="faq-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org", "@type": "FAQPage",
-        mainEntity: faqHome.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-      }) }} />
-
       <main className="home">
         {showToast && <div className="toast">✓ Votre demande a bien été envoyée — Marie vous contacte sous 24h !</div>}
 
         {/* ── HERO ── */}
         <section className="hero">
           <div className="hero-content">
-            <p className="hero-eyebrow">Agente Leggett · Paris &amp; Île-de-France · Estimation gratuite</p>
             <h1>
-              Vendez votre bien à Paris<br />
-              <span className="hero-highlight">au juste prix, accompagné par Marie</span>
+              <span className="hero-h1-kicker">Estimation immobilière gratuite à Paris &amp; en Île-de-France</span>
+              Vendez votre bien au juste prix,
+              <span className="hero-highlight">accompagné par Marie</span>
             </h1>
             <p className="hero-sub">
-              De l'estimation à la signature chez le notaire — un seul interlocuteur,
-              une vraie connaissance du marché parisien, aucune pression commerciale.
+              Ici, pas d'algorithme anonyme : une vraie personne étudie votre bien et vous rappelle.
+              De l'estimation à la signature chez le notaire, un seul interlocuteur, aucune pression commerciale.
             </p>
+            <form className="hero-estimate" onSubmit={startEstimation} role="search" aria-label="Démarrer une estimation">
+              <label className="hero-estimate-field">
+                <MapPin size={18} aria-hidden="true" />
+                <span className="sr-only">Adresse de votre bien</span>
+                <input
+                  type="text"
+                  value={heroAddress}
+                  onChange={(e) => setHeroAddress(e.target.value)}
+                  placeholder="Adresse du bien à estimer"
+                  autoComplete="street-address"
+                />
+              </label>
+              <button type="submit">Estimer gratuitement</button>
+            </form>
             <div className="hero-cta-group">
-              <Link href="/estimation">
-                <button className="primary-btn hero-btn-main" onClick={() => { trackClick("hero_estimation"); if (window.gtag) window.gtag("event", "click_estimation", { event_category: "engagement", event_label: "homepage_hero" }); }}>
-                  Obtenir mon estimation gratuite
-                </button>
-              </Link>
-              <Link href="/nous" className="hero-secondary-cta">
-                Parler à Marie <ChevronRight size={16} />
-              </Link>
+              <a href={`tel:${PHONE}`} className="hero-secondary-cta" onClick={() => trackClick("hero_tel")}>
+                <PhoneCall size={16} /> Ou appelez Marie · {PHONE_DISPLAY}
+              </a>
             </div>
             <div className="hero-trust">
               <span><CheckCircle2 size={14} /> Gratuit &amp; sans engagement</span>
@@ -417,10 +427,10 @@ export default function HomeClient() {
               Marie Houlier
               <span className="section-title-underline" />
             </h2>
-            <p className="section-sub">15 ans de connaissance du marché parisien — un seul interlocuteur de bout en bout</p>
+            <p className="section-sub">{YEARS_EXPERIENCE} ans de connaissance du marché parisien — un seul interlocuteur de bout en bout</p>
           </Reveal>
           <Reveal delay={100} className="agent-single">
-            <Link href="/nous" className="agent-card agent-card-large" onClick={() => trackClick("marie_contact")}>
+            <div className="agent-card agent-card-large">
               <div className="agent-image marie">
                 <Image src="/marie_houlier.jpg"
                   alt="Marie Houlier, conseillère en immobilier spécialiste vente appartement Paris et Île-de-France, agente Leggett"
@@ -431,21 +441,59 @@ export default function HomeClient() {
               </div>
               <div className="agent-info">
                 <span className="agent-leggett-badge"><Globe2 size={12} /> Agente Leggett</span>
-                <h3>Marie Houlier</h3>
+                <h3><Link href="/nous" onClick={() => trackClick("marie_contact")}>Marie Houlier</Link></h3>
                 <p className="agent-tagline">Agente Leggett · Spécialiste Paris &amp; Île-de-France</p>
-                <p>Installée à Paris depuis plus de quinze ans, je mets à votre service ma connaissance fine du marché et des ambiances propres à chaque quartier. Estimation, vente, achat : je vous accompagne avec empathie et efficacité.</p>
+                <p>Depuis {YEARS_EXPERIENCE} ans, je mets à votre service ma connaissance fine du marché parisien et francilien, et des ambiances propres à chaque quartier. Estimation, vente, achat : je vous accompagne avec empathie et efficacité.</p>
                 <p>De la mise en valeur de votre bien à la diffusion internationale via Leggett, en passant par la négociation et la signature notariale — je gère tout, pour vous.</p>
                 <div className="agent-contact-block">
-                  <a href="tel:+33752049878" className="agent-phone-btn" onClick={(e) => e.stopPropagation()}>
-                    <PhoneCall size={15} /> 07 52 04 98 78
+                  <a href={`tel:${PHONE}`} className="agent-phone-btn" onClick={() => trackClick("marie_tel")}>
+                    <PhoneCall size={15} /> {PHONE_DISPLAY}
                   </a>
-                  <a href="mailto:contact@sellmyhome.fr" className="agent-mail-btn" onClick={(e) => e.stopPropagation()}>
-                    <Mail size={15} /> contact@sellmyhome.fr
+                  <a href={`mailto:${EMAIL}`} className="agent-mail-btn" onClick={() => trackClick("marie_mail")}>
+                    <Mail size={15} /> {EMAIL}
                   </a>
                 </div>
+                <Link href="/nous" className="agent-more-link" onClick={() => trackClick("marie_profil")}>
+                  Découvrir Marie et sa façon de travailler <ChevronRight size={15} />
+                </Link>
               </div>
-            </Link>
+            </div>
           </Reveal>
+        </section>
+
+        {/* ── HUMAIN VS SIMULATEUR ── */}
+        <section className="human-section" aria-label="Pourquoi un accompagnement humain">
+          <Reveal>
+            <p className="section-eyebrow">Ce que nous proposons</p>
+            <h2 className="section-title">
+              Un contact humain, pas un simulateur
+              <span className="section-title-underline" />
+            </h2>
+            <p className="section-sub">
+              SellMyHome est le site de Marie : son seul but est de vous mettre en relation directe avec elle,
+              pour un accompagnement personnalisé du premier appel jusqu'à la signature.
+            </p>
+          </Reveal>
+          <div className="human-container">
+            <Reveal className="human-card human-card-yes">
+              <h3>Avec Marie</h3>
+              <ul>
+                <li><CheckCircle2 size={17} /> Une personne qui vous rappelle sous 24h et répond à vos questions de vive voix</li>
+                <li><CheckCircle2 size={17} /> Une estimation qui tient compte de ce que les données ne voient pas : lumière, vue, calme, état de l'immeuble</li>
+                <li><CheckCircle2 size={17} /> Le même interlocuteur de l'estimation à l'acte chez le notaire</li>
+                <li><CheckCircle2 size={17} /> Vos coordonnées restent entre vous et elle</li>
+              </ul>
+            </Reveal>
+            <Reveal delay={100} className="human-card human-card-no">
+              <h3>Avec un simulateur en ligne seul</h3>
+              <ul>
+                <li><XCircle size={17} /> Une moyenne de quartier, sans visite ni prise en compte de votre étage ou de votre vue</li>
+                <li><XCircle size={17} /> Des écarts de 10 à 20 % fréquents sur les biens atypiques</li>
+                <li><XCircle size={17} /> Vos coordonnées parfois transmises à plusieurs agences</li>
+                <li><XCircle size={17} /> Personne pour vous conseiller sur la stratégie de vente</li>
+              </ul>
+            </Reveal>
+          </div>
         </section>
 
         {/* ── CONFIANCE ── */}
@@ -486,6 +534,42 @@ export default function HomeClient() {
           </section>
         </Reveal>
 
+        {/* ── SECTEURS ── */}
+        <section className="zones-section" aria-label="Secteurs d'intervention">
+          <div className="zones-container">
+            <Reveal>
+              <p className="section-eyebrow">Où intervient Marie</p>
+              <h2 className="section-title">
+                Estimation à Paris &amp; en Île-de-France
+                <span className="section-title-underline" />
+              </h2>
+              <p className="section-sub">Prix au m², quartiers, points de vigilance : choisissez votre secteur pour une lecture locale du marché.</p>
+            </Reveal>
+            <div className="zones-grid">
+              <div className="zones-col">
+                <h3>Paris, arrondissement par arrondissement</h3>
+                <p>Du Marais au 16e, chaque arrondissement a ses micro-marchés.</p>
+                <div className="zone-chips">
+                  {PARIS.map((z) => (
+                    <Link key={z.slug} href={`/estimation-immobiliere/${z.slug}`} className="zone-chip" onClick={() => trackClick(`zone_${z.slug}`)}>{z.name}</Link>
+                  ))}
+                </div>
+                <Link href="/estimation-paris" className="zones-more">Estimation à Paris →</Link>
+              </div>
+              <div className="zones-col">
+                <h3>Île-de-France</h3>
+                <p>Hauts-de-Seine, Val-de-Marne, est parisien et Yvelines.</p>
+                <div className="zone-chips">
+                  {IDF.map((z) => (
+                    <Link key={z.slug} href={`/estimation-immobiliere/${z.slug}`} className="zone-chip" onClick={() => trackClick(`zone_${z.slug}`)}>{z.name}</Link>
+                  ))}
+                </div>
+                <Link href="/estimation-ile-de-france" className="zones-more">Estimation en Île-de-France →</Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── FAQ ── */}
         <section className="faq-section" aria-label="Questions fréquentes">
           <div className="faq-container">
@@ -519,11 +603,14 @@ export default function HomeClient() {
             <div className="seo-links-grid">
               {[
                 { href: "/estimation-paris", icon: MapPin, title: "Estimation immobilière Paris", desc: "Par arrondissement, gratuit, sous 24h" },
+                { href: "/estimation-ile-de-france", icon: Globe2, title: "Estimation Île-de-France", desc: "Prix m² 2026 ville par ville" },
                 { href: "/prix-m2-paris", icon: TrendingUp, title: "Prix m² Paris 2026", desc: "Tableau complet par arrondissement" },
                 { href: "/vendre-a-paris", icon: HomeIcon, title: "Vendre à Paris", desc: "Guide complet de la vente immobilière" },
                 { href: "/chasseur-paris", icon: Search, title: "Chasseur immobilier Paris", desc: "Biens off-market, négociation incluse" },
                 { href: "/diagnostic-immobilier-paris", icon: ShieldCheck, title: "Diagnostics immobiliers", desc: "DPE, Carrez, amiante : ce qu'il faut savoir" },
-                { href: "/nous", icon: UserRound, title: "Marie Houlier", desc: "Votre experte immobilière à Paris" },
+                { href: "/frais-notaire-paris", icon: FileSignature, title: "Frais de notaire 2026", desc: "Calcul et exemples chiffrés" },
+                { href: "/estimation-appartement", icon: BarChart3, title: "Estimer un appartement", desc: "Les critères qui font le prix" },
+                { href: "/nous", icon: UserRound, title: "Marie Houlier", desc: "Votre interlocutrice à Paris & IDF" },
               ].map((l, i) => {
                 const Icon = l.icon;
                 return (

@@ -98,12 +98,14 @@ export async function POST(req) {
       <p><strong>Consentement au rappel:</strong> ${safe.callConsent}</p>
     `;
 
-    await resend.emails.send({
+    // Le SDK Resend ne lève pas d'exception en cas d'échec : il renvoie { data, error }
+    const { error: sendError } = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: "smh.redirection@gmail.com",
       subject: `Nouveau lead — ${safe.name} (${safe.type ?? "N/A"})`,
       html: emailHtml,
     });
+    if (sendError) throw new Error(`Resend: ${sendError.message}`);
 
     return NextResponse.json({ success: true });
 
