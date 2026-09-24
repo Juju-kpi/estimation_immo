@@ -1868,3 +1868,149 @@ details[open] .faq-question { color: var(--color-secondary); }
 .footer { padding-left: max(32px, calc((100% - 1200px) / 2)); padding-right: max(32px, calc((100% - 1200px) / 2)); }
 @media (max-width: 768px) { .footer { padding-left: 18px; padding-right: 18px; } }
 @media (max-width: 768px) { .estimation-grid > div { gap: 12px !important; } }
+
+/* ============================================================
+   v6 — AUDIT RESPONSIVE & ACCESSIBILITÉ (lisible par tous)
+   ============================================================ */
+:root {
+  --color-text-light: #62707C;      /* était #7D8894 : 3,6:1 → 5,1:1 */
+  --color-primary-dark: #466F8F;    /* était #5E88AA : 3,8:1 → 5,3:1 */
+  --color-accent-text: #9B5B3B;     /* terracotta lisible pour le texte (5,3:1) */
+}
+
+/* Bug : sur mobile/tablette la colonne des guides s'élargissait à la taille
+   des tableaux et coupait le texte à droite */
+@media (max-width: 1080px) {
+  .guide-shell { grid-template-columns: minmax(0, 1fr); }
+}
+.guide-main, .estimation-layout > * { min-width: 0; }
+.seo-byline, .breadcrumb { overflow-wrap: anywhere; }
+
+/* Textes terracotta : couleur foncée lisible (l'accent clair reste pour les filets et icônes) */
+.service-link, .agent-more-link, .etape-lien, .estimation-eyebrow, .etape-num,
+.zones-more, .advisor-eyebrow { color: var(--color-accent-text); }
+@media (max-width: 960px) { .nav-link.active { color: var(--color-accent-text); } }
+
+/* Tailles minimales : rien sous 12 px, texte courant ≥ 13 px sur mobile */
+.stat-label, .section-eyebrow, .sd-tag, .loc-stat-label, .aside-heading,
+.agent-leggett-badge, .service-badge, .footer-partner span, .footer-col-title { font-size: 12px; }
+.seo-table small { font-size: 12.5px; }
+@media (max-width: 768px) {
+  .stat-label { font-size: 12.5px; }
+  .dpe-bar { font-size: 12.5px; height: auto; min-height: 30px; padding: 4px 8px; }
+  .seo-link-card p { font-size: 13px; }
+  .seo-link-card strong { font-size: 14px; }
+  .situation-body p, .etape-desc, .quartier-card p { font-size: 14px; }
+  .footer-bottom { font-size: 12.5px; }
+}
+
+/* Zones tactiles ≥ 44 px sur écrans tactiles (tablette comprise) */
+@media (pointer: coarse) {
+  .zone-chip { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 14px; }
+  .etape-lien, .agent-more-link, .zones-more { display: inline-flex; align-items: center; min-height: 44px; }
+  .breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; }
+  .breadcrumb { margin-bottom: 8px; }
+  .agent-phone-btn, .agent-mail-btn, .aside-btn, .aside-btn-main, .service-tab,
+  .nav-link, .nav-cta, .estimation-aside-phone, .contact-phone-link, .contact-mail-link { min-height: 44px; }
+  .footer-col { gap: 0; }
+  .footer-col a { display: flex; align-items: center; min-height: 44px; }
+  .footer-contact-link { min-height: 44px; }
+  .aside-guides a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* Contact : sur mobile le formulaire passe avant le bloc « ce qui se passe ensuite » */
+.contact-next-block {
+  flex: 1 1 100%; background: var(--color-surface); border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg); padding: 24px 28px;
+}
+.contact-next-block h2 { font-size: 19px; color: var(--color-secondary); margin-bottom: 10px; }
+.contact-next-block ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.contact-next-block li { font-size: 15px; color: var(--color-text-soft); line-height: 1.6; }
+@media (max-width: 768px) { .contact-next-block { padding: 20px 18px; } }
+
+/* Focus clavier bien visible partout */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--color-accent); outline-offset: 2px;
+}
+
+/* ── Simulateur frais de notaire ── */
+.calc { margin: 28px 0 8px; border: 1px solid var(--color-line); border-radius: 16px; padding: 24px; background: var(--color-bg); }
+.calc-head { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+.calc-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--color-secondary); color: white; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.seo-page .calc-title { font-size: 21px; margin: 0; }
+.seo-page .calc-sub { font-size: 13.5px; margin: 2px 0 0; color: var(--color-text-soft); }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.calc-label { display: block; font-size: 13px; font-weight: 600; color: var(--color-secondary); margin-bottom: 6px; }
+.calc-price { display: flex; align-items: center; background: white; border: 1px solid var(--color-line); border-radius: 10px; padding: 0 14px; margin-bottom: 16px; }
+.calc-price:focus-within { border-color: var(--color-primary-dark); box-shadow: 0 0 0 3px rgba(70,111,143,0.15); }
+.calc-price input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-size: 20px; font-weight: 600; color: var(--color-secondary); padding: 12px 0; font-family: var(--font-body); }
+.calc-price span { font-size: 18px; color: var(--color-text-soft); font-weight: 600; }
+.calc-toggle { border: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+.calc-toggle legend { margin-bottom: 6px; }
+.calc-toggle label {
+  flex: 1 1 120px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; border: 1px solid var(--color-line); border-radius: 10px; background: white;
+  font-size: 14.5px; font-weight: 600; color: var(--color-text-soft); cursor: pointer;
+}
+.calc-toggle label.is-on { border-color: var(--color-secondary); color: var(--color-secondary); box-shadow: inset 0 0 0 1px var(--color-secondary); }
+.calc-toggle input { accent-color: var(--color-secondary); }
+.calc-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--color-text-soft); line-height: 1.5; cursor: pointer; }
+.calc-check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--color-secondary); flex-shrink: 0; }
+.calc-result { background: var(--color-secondary); color: white; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; }
+.seo-page .calc-total-label { color: rgba(255,255,255,0.78); font-size: 13px; margin: 0; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.seo-page .calc-total { color: white; font-family: var(--font-display); font-size: 38px; font-weight: 600; margin: 2px 0 0; line-height: 1.1; }
+.seo-page .calc-pct { color: #E7C3AF; font-size: 14px; margin: 4px 0 14px; }
+.calc-breakdown { margin: auto 0 0; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.calc-breakdown div { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; }
+.calc-breakdown dt { color: rgba(255,255,255,0.8); }
+.calc-breakdown dd { font-weight: 600; white-space: nowrap; }
+.seo-page .calc-note { font-size: 13px; margin: 14px 0 0; color: var(--color-text-soft); }
+.calc-note a { color: var(--color-secondary); font-weight: 600; text-decoration: underline; }
+@media (max-width: 640px) {
+  .calc { padding: 18px 14px; }
+  .calc-grid { grid-template-columns: 1fr; }
+  .seo-page .calc-total { font-size: 32px; }
+}
+.seo-page .seo-callout-inline { font-size: 14.5px; background: var(--color-light-blue); border-left: 3px solid var(--color-accent); border-radius: 8px; padding: 12px 16px; }
+@media (pointer: coarse) {
+  .agent-card h3 a, .sd-pill { display: inline-flex; align-items: center; min-height: 44px; }
+  .topbar-phone { padding: 10px 0; }
+}
+@media (max-width: 768px) {
+  .contact-direct a { width: 100%; justify-content: center; }
+}
+
+/* ── Correctifs v6b : composants dans les guides (spécificité > .guide-shell .seo-page p) ── */
+.calc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.calc-toggle { min-width: 0; }                    /* un fieldset refuse de rétrécir par défaut */
+.calc-price input { width: 100%; }
+.guide-shell .seo-page .calc .calc-title { font-size: 21px; margin: 0; }
+.guide-shell .seo-page .calc .calc-sub { font-size: 13.5px; margin: 2px 0 0; }
+.guide-shell .seo-page .calc .calc-total-label { font-size: 13px; margin: 0; color: rgba(255,255,255,0.78); }
+.guide-shell .seo-page .calc .calc-total { font-size: 38px; margin: 2px 0 0; color: white; line-height: 1.1; }
+.guide-shell .seo-page .calc .calc-pct { font-size: 14px; margin: 4px 0 14px; color: #E7C3AF; }
+.guide-shell .seo-page .calc .calc-note { font-size: 13.5px; margin: 14px 0 0; }
+.guide-shell .seo-page .advisor-box .advisor-eyebrow { font-size: 12px; margin: 0 0 4px; }
+.guide-shell .seo-page .advisor-box .advisor-title { font-size: 21px; margin: 0 0 8px; }
+.guide-shell .seo-page .advisor-box .advisor-text { font-size: 14.5px; margin: 0 0 10px; }
+.guide-shell .seo-page p.prix-source { font-size: 13px; line-height: 1.6; }
+.guide-shell .seo-page .quartier-card p { font-size: 14.5px; }
+@media (max-width: 640px) {
+  .calc-grid { grid-template-columns: minmax(0, 1fr); }
+  .guide-shell .seo-page .calc .calc-total { font-size: 32px; }
+  .calc-breakdown div { font-size: 13px; }
+}
+
+/* Hero : sur les petits téléphones, le champ d'adresse remonte au-dessus de la ligne de flottaison */
+@media (max-width: 400px), (max-height: 700px) and (max-width: 768px) {
+  .hero { padding: 16px 0 28px; }
+  .hero-content { padding-top: 16px; padding-bottom: 16px; }
+  .hero-h1-kicker { margin-bottom: 8px; }
+  .hero h1 { margin-bottom: 12px; }
+  .hero-sub { font-size: 14px; line-height: 1.55; margin-bottom: 18px; }
+}
+@media (max-width: 768px) {
+  .contact-text, .contact-form-section, .contact-next-block { min-width: 0; width: 100%; flex-basis: auto; }
+}
+@media (pointer: coarse) { .topbar-phone { min-height: 40px; } }
+@media (max-width: 768px) { .seo-cta-block a.primary-btn { margin-left: auto; margin-right: auto; text-align: center; } }

@@ -12,6 +12,8 @@ import { Byline, ZoneChips } from "../../../components/SeoBits";
 import { PARIS } from "../../../lib/locations";
 
 const faq = [
+  { q: "Comment estimer une maison à Paris ?", a: "Pour une maison, le prix au m² des appartements n'est pas un bon repère : il faut comparer avec les rares ventes de maisons du même secteur et tenir compte du terrain, de l'état, de l'exposition et des possibilités d'agrandissement. Marie réalise ces estimations au cas par cas, après une visite gratuite." },
+  { q: "Que recouvre « Paris Centre » pour une estimation ?", a: "Paris Centre regroupe administrativement les 1er, 2e, 3e et 4e arrondissements depuis 2020. Pour une estimation, chacun garde son micro-marché : le Marais, l'île Saint-Louis, Montorgueil ou le Palais-Royal n'ont pas les mêmes prix. Voir nos pages Paris 1er, 2e, 3e et 4e." },
   { q: "Comment se calcule une estimation immobilière à Paris ?", a: "L'estimation tient compte de la surface Carrez, de l'arrondissement et de la rue précise, de l'étage, de l'exposition, de l'état général, du DPE et des transactions récentes dans le même secteur (base DVF des Notaires de France). À Paris, deux biens identiques en surface peuvent varier de 20 à 30 % selon la rue." },
   { q: "L'estimation immobilière est-elle gratuite ?", a: "Oui, totalement gratuite et sans engagement. SellMyHome ne facture aucun frais pour l'estimation. Notre rémunération intervient uniquement en cas de vente réussie, ce qui aligne nos intérêts avec les vôtres." },
   { q: "Quelle est la différence entre une estimation en ligne et une visite physique ?", a: "L'estimation en ligne donne une fourchette de prix en quelques minutes. La visite physique de Marie prend en compte des éléments que les algorithmes ne voient pas : luminosité, qualité des finitions, bruit de rue, cachet de l'immeuble. Ces éléments peuvent faire varier le prix de 5 à 15 %." },
@@ -21,7 +23,7 @@ const faq = [
 ];
 
 const secteurs = [
-  { code: "1–4e", nom: "Centre historique & Marais", fourchette: "10 000 – 14 500 €/m²", note: "Forte demande internationale, immeubles anciens, Île Saint-Louis" },
+  { code: "Centre (1er–4e)", nom: "Centre historique & Marais", fourchette: "10 000 – 14 500 €/m²", note: "Forte demande internationale, immeubles anciens, Île Saint-Louis" },
   { code: "5–6e", nom: "Rive gauche prestige", fourchette: "10 500 – 16 000 €/m²", note: "Saint-Germain, Luxembourg — prix au sommet de Paris" },
   { code: "7–8e", nom: "Beaux quartiers Ouest", fourchette: "10 500 – 15 500 €/m²", note: "Invalides, Champs-Élysées, clientèle premium nationale et internationale" },
   { code: "9–11e", nom: "Paris central & bobo", fourchette: "8 800 – 12 500 €/m²", note: "Pigalle, Oberkampf — secteur dynamique" },
@@ -78,6 +80,9 @@ export default function Page() {
         <li><strong>Visite optionnelle</strong> — Marie visite pour affiner et prendre en compte les éléments qualitatifs.</li>
         <li><strong>Décision libre</strong> — aucune obligation de confier la vente après l'estimation.</li>
       </ol>
+
+      <h2>Estimer une maison à Paris</h2>
+      <p>Les maisons sont rares dans Paris intra-muros, ce qui rend les comparaisons délicates : villas privées du 16e et du 14e, maisons de la Butte-aux-Cailles, de la Mouzaïa ou de la Campagne à Paris. Leur valeur ne se déduit pas du prix au m² des appartements : surface du terrain, état, luminosité, calme de la villa et droits à construire comptent autant que la surface habitable. Une <strong>visite est indispensable</strong> ; Marie la propose gratuitement après un premier échange.</p>
 
       <h2>Les erreurs à éviter pour estimer son bien à Paris</h2>
       <p>Se baser sur les annonces en ligne est la principale erreur : les prix affichés ne reflètent pas les prix obtenus — l'écart peut dépasser 10 à 15 % sur certains secteurs parisiens. Faire appel à plusieurs agences simultanément dilue l'effort de vente et crée de la confusion chez les acheteurs.</p>

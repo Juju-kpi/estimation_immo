@@ -1,8 +1,8 @@
 export const metadata = {
-  title: "Diagnostics immobiliers pour vendre : liste 2026",
-  description: "DPE, Carrez, amiante, plomb, ERP : les diagnostics obligatoires pour vendre à Paris en 2026, leur coût, leur validité et leur impact réel sur le prix.",
+  title: "Diagnostic immobilier Paris : prix et liste 2026",
+  description: "Prix des diagnostics immobiliers à Paris en 2026 : DPE, loi Carrez, amiante, plomb, ERP. Tarifs, pack vente (300 à 600 €), validité et impact sur le prix.",
   alternates: { canonical: "https://sellmyhome.fr/diagnostic-immobilier-paris" },
-  openGraph: { images: [OG_IMAGE], title: "Diagnostics immobiliers pour vendre : liste 2026 | SellMyHome", description: "DPE, Carrez, amiante, plomb, ERP : les diagnostics obligatoires pour vendre à Paris en 2026, leur coût, leur validité et leur impact réel sur le prix.", url: "https://sellmyhome.fr/diagnostic-immobilier-paris" },
+  openGraph: { images: [OG_IMAGE], title: "Diagnostic immobilier Paris : prix et liste 2026 | SellMyHome", description: "Prix des diagnostics immobiliers à Paris en 2026 : DPE, loi Carrez, amiante, plomb, ERP. Tarifs, pack vente (300 à 600 €), validité et impact sur le prix.", url: "https://sellmyhome.fr/diagnostic-immobilier-paris" },
 };
 import { OG_IMAGE } from "../../../lib/site";
 import Link from "next/link";
@@ -13,8 +13,10 @@ import { ShieldCheck, FileWarning, Ruler, Flame, Zap, Droplets, AlertTriangle } 
 import Reveal from "../../../components/Reveal";
 
 const faq = [
+  { q: "Combien coûte un DPE à Paris ?", a: "Pour un appartement parisien, un DPE seul coûte généralement entre 100 et 250 €, selon la surface et le diagnostiqueur. Il est presque toujours moins cher commandé dans un pack avec les autres diagnostics de vente." },
+  { q: "Qui peut mesurer la surface loi Carrez à Paris et combien ça coûte ?", a: "Le mesurage loi Carrez peut être réalisé par un diagnostiqueur ou un géomètre ; en pratique, il est inclus dans le pack de diagnostics. Seul, il coûte en général 70 à 150 € pour un appartement parisien. Une erreur de plus de 5 % au détriment de l'acheteur l'autorise à demander une baisse de prix proportionnelle." },
   { q: "Quels sont les diagnostics immobiliers obligatoires pour vendre à Paris ?", a: "Pour vendre un bien à Paris, le dossier de diagnostic technique (DDT) doit comprendre : le DPE, le mesurage Loi Carrez (copropriété), le diagnostic amiante (avant juillet 1997), le constat de risque d'exposition au plomb (avant 1949), les diagnostics électricité et gaz (installations de plus de 15 ans), et l'état des risques et pollutions (ERP)." },
-  { q: "Combien coûte un diagnostic immobilier complet à Paris ?", a: "Pour un appartement parisien standard, le coût d'un dossier de diagnostic technique complet (DPE, Carrez, amiante, plomb, électricité, gaz, ERP) se situe généralement entre 250 et 500 €, selon la surface et l'ancienneté de l'immeuble. Les biens construits avant 1949 nécessitent davantage de diagnostics et coûtent donc plus cher." },
+  { q: "Combien coûte un diagnostic immobilier complet à Paris ?", a: "Pour un appartement parisien standard, le coût d'un dossier de diagnostic technique complet (DPE, Carrez, amiante, plomb, électricité, gaz, ERP) se situe généralement entre 300 et 600 € en pack, selon la surface et l'ancienneté de l'immeuble (comptez 15 à 20 % de plus qu'en province). Les biens construits avant 1949 nécessitent davantage de diagnostics et coûtent donc plus cher." },
   { q: "Le DPE peut-il bloquer la vente d'un appartement à Paris ?", a: "Le DPE ne bloque pas juridiquement une vente, mais un classement F ou G ('passoire thermique') doit obligatoirement être mentionné dans toutes les annonces et peut entraîner une décote significative du prix, ainsi que des restrictions de location pour l'acheteur. Les obligations de rénovation énergétique se renforcent chaque année." },
   { q: "Combien de temps est valable un DPE à Paris ?", a: "Depuis juillet 2021, le DPE est valable 10 ans. Attention : les DPE réalisés avant cette date selon l'ancienne méthode de calcul ont pu être invalidés par les réformes successives — il est recommandé de vérifier la validité de votre DPE avant toute mise en vente." },
   { q: "Qui peut réaliser les diagnostics immobiliers ?", a: "Tous les diagnostics doivent être réalisés par un diagnostiqueur certifié, disposant d'une assurance responsabilité civile professionnelle en cours de validité. SellMyHome peut vous mettre en relation avec des diagnostiqueurs de confiance intervenant rapidement sur Paris." },
@@ -81,7 +83,7 @@ export default function Page() {
     <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Accueil", item: "https://sellmyhome.fr" }, { "@type": "ListItem", position: 2, name: "Diagnostic immobilier Paris", item: "https://sellmyhome.fr/diagnostic-immobilier-paris" }] }} />
     <main className="seo-page">
       <nav className="breadcrumb"><Link href="/">Accueil</Link> › <span>Diagnostic immobilier Paris</span></nav>
-      <h1>Diagnostic immobilier à Paris — DPE, Carrez, amiante : le guide complet</h1>
+      <h1>Diagnostic immobilier à Paris : prix, liste et validité (DPE, Carrez, amiante)</h1>
       <Byline readingTime={6} />
       <p className="seo-intro">Avant de vendre un bien à Paris, un <strong>dossier de diagnostic technique (DDT)</strong> complet doit être constitué et annexé au compromis de vente. Ce guide détaille chaque diagnostic obligatoire, sa durée de validité, son coût indicatif et son impact réel sur votre projet de vente.</p>
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Estimer mon bien avant les diagnostics</Link></div>
@@ -106,6 +108,24 @@ export default function Page() {
           </Reveal>
         );
       })}
+
+      <h2>Prix des diagnostics immobiliers à Paris en 2026</h2>
+      <p>Les diagnostiqueurs fixent librement leurs tarifs ; à Paris, ils sont en moyenne 15 à 20 % plus élevés qu'en province. Voici les fourchettes constatées pour un appartement :</p>
+      <div className="seo-table-wrapper">
+        <table className="seo-table">
+          <thead><tr><th>Diagnostic</th><th>Prix indicatif à Paris</th><th>Quand est-il obligatoire ?</th></tr></thead>
+          <tbody>
+            <tr><td><strong>DPE</strong></td><td>100 – 250 €</td><td>Toujours</td></tr>
+            <tr><td><strong>Mesurage loi Carrez</strong></td><td>70 – 150 €</td><td>Lot de copropriété</td></tr>
+            <tr><td><strong>Amiante</strong></td><td>90 – 200 €</td><td>Permis avant juillet 1997</td></tr>
+            <tr><td><strong>Plomb (CREP)</strong></td><td>100 – 250 €</td><td>Construction avant 1949</td></tr>
+            <tr><td><strong>Électricité / Gaz</strong></td><td>80 – 150 € chacun</td><td>Installation de plus de 15 ans</td></tr>
+            <tr><td><strong>État des risques (ERP)</strong></td><td>0 – 30 €</td><td>Toujours (moins de 6 mois)</td></tr>
+            <tr><td><strong>Pack vente appartement</strong></td><td><strong>300 – 600 €</strong></td><td>Selon l'âge et la surface</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="prix-source">Fourchettes indicatives constatées en 2026 à Paris ; demandez toujours un devis pour un pack complet. Marie peut vous orienter vers des diagnostiqueurs certifiés qui interviennent rapidement.</p>
 
       <h2>Le DPE en détail — comprendre les classes énergétiques</h2>
       <p>Le Diagnostic de Performance Énergétique attribue une lettre de A à G selon la consommation énergétique annuelle du logement. À Paris, où le bâti ancien domine, les classes D et E sont les plus fréquentes. Voici la grille de lecture :</p>

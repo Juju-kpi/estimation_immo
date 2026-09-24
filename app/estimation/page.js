@@ -107,6 +107,7 @@ export default function Estimation() {
       const json = await res.json().catch(() => ({}));
 
       if (res.ok && json.success) {
+        if (window.gtag) window.gtag("event", "generate_lead", { form: "estimation", property_type: data.type || "non précisé" });
         localStorage.setItem("showSuccessToast", "true");
         router.push("/");
         return; // on garde le bouton désactivé pendant la redirection
@@ -188,7 +189,7 @@ export default function Estimation() {
                   style={{
                     flex: 1,
                     fontSize: 15,
-                    color: data.type ? "var(--color-text)" : "#8A949E",
+                    color: data.type ? "var(--color-text)" : "#6B7580",
                     minWidth: 0
                   }}
                 >
@@ -235,6 +236,7 @@ export default function Estimation() {
               icon={<FaRulerCombined />}
               placeholder="Surface (m²)"
               type="number"
+              inputMode="numeric"
               value={data.surface}
               onChange={(val) => setData({ ...data, surface: val })}
               error={errors.surface}
@@ -251,7 +253,7 @@ export default function Estimation() {
                   style={{
                     flex: 1,
                     fontSize: 15,
-                    color: data.project ? "var(--color-text)" : "#8A949E",
+                    color: data.project ? "var(--color-text)" : "#6B7580",
                     minWidth: 0
                   }}
                 >
@@ -299,6 +301,7 @@ export default function Estimation() {
                 icon={<FaBuilding />}
                 placeholder="Étage"
                 type="number"
+                inputMode="numeric"
                 value={data.floor}
                 onChange={(val) => setData({ ...data, floor: val })}
                 error={errors.floor}
@@ -311,6 +314,7 @@ export default function Estimation() {
             <Field
               icon={<FaUser />}
               placeholder="Nom et prénom"
+              autoComplete="name"
               value={data.name}
               onChange={(val) => setData({ ...data, name: val })}
               error={errors.name}
@@ -318,6 +322,9 @@ export default function Estimation() {
             <Field
               icon={<FaEnvelope />}
               placeholder="Email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
               value={data.email}
               onChange={(val) => setData({ ...data, email: val })}
               error={errors.email}
@@ -325,6 +332,9 @@ export default function Estimation() {
             <Field
               icon={<FaPhone />}
               placeholder="Téléphone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
               value={data.phone}
               onChange={(val) => setData({ ...data, phone: val })}
               error={errors.phone}
@@ -499,7 +509,7 @@ export default function Estimation() {
 }
 
 // Champ simple avec icône
-function Field({ icon, placeholder, type = "text", value, onChange, error }) {
+function Field({ icon, placeholder, type = "text", value, onChange, error, autoComplete, inputMode }) {
   return (
     <div style={{ marginBottom: 0 }}>
       <div style={styles.fieldContainer}>
@@ -507,6 +517,8 @@ function Field({ icon, placeholder, type = "text", value, onChange, error }) {
         <input
           type={type}
           aria-label={placeholder}
+          autoComplete={autoComplete}
+          inputMode={inputMode}
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -714,7 +726,7 @@ seoSubtitle: {
   fontSize: 15,
   marginTop: 10,
   marginBottom: 5,
-  color: "var(--color-primary)",
+  color: "var(--color-secondary)",
 },
 
 seoText: {

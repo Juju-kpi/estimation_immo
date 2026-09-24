@@ -25,6 +25,7 @@ export default function ContactClient() {
       const data = await res.json();
       if (data.success) {
         setStatus("success");
+        if (window.gtag) window.gtag("event", "generate_lead", { form: "contact" });
         setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus("error");
@@ -50,14 +51,6 @@ export default function ContactClient() {
           <div className="contact-direct">
             <a href={`tel:${PHONE}`} className="contact-phone-link" onClick={() => trackClick("contact_tel")}><Phone size={16} /> {PHONE_DISPLAY}</a>
             <a href={`mailto:${EMAIL}`} className="contact-mail-link" onClick={() => trackClick("contact_mail")}><Mail size={16} /> {EMAIL}</a>
-          </div>
-          <div className="contact-next">
-            <h2>Ce qui se passe ensuite</h2>
-            <ol>
-              <li>Marie lit votre message et vous rappelle (ou vous répond par email) sous 24h.</li>
-              <li>Vous faites le point ensemble sur votre projet, vos délais et vos questions.</li>
-              <li>Si vous le souhaitez, elle vous propose une estimation gratuite ou une visite. Sans engagement.</li>
-            </ol>
           </div>
         </Reveal>
 
@@ -91,6 +84,15 @@ export default function ContactClient() {
             {status === "error" && <p className="error-msg">Erreur, veuillez réessayer.</p>}
           </form>
         </Reveal>
+
+        <section className="contact-next-block" aria-label="Ce qui se passe ensuite">
+          <h2>Ce qui se passe ensuite</h2>
+          <ol>
+            <li>Marie lit votre message et vous rappelle (ou vous répond par email) sous 24h.</li>
+            <li>Vous faites le point ensemble sur votre projet, vos délais et vos questions.</li>
+            <li>Si vous le souhaitez, elle vous propose une estimation gratuite ou une visite. Sans engagement.</li>
+          </ol>
+        </section>
       </div>
     </main>
   );

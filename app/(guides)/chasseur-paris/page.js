@@ -8,7 +8,8 @@ import { OG_IMAGE } from "../../../lib/site";
 import Link from "next/link";
 import JsonLd from "../../../components/JsonLd";
 import AdvisorBox from "../../../components/AdvisorBox";
-import { Byline } from "../../../components/SeoBits";
+import { Byline, ZoneChips } from "../../../components/SeoBits";
+import { PARIS, IDF } from "../../../lib/locations";
 
 const faq = [
   { q: "Qu'est-ce qu'un chasseur immobilier à Paris ?", a: "Un chasseur immobilier est un professionnel mandaté exclusivement par l'acheteur pour trouver le bien correspondant à ses critères. Contrairement à l'agent du vendeur, le chasseur défend uniquement vos intérêts : il a accès à des biens off-market, organise les visites et négocie le prix en votre nom." },
@@ -53,6 +54,10 @@ export default function Page() {
         ))}
       </div>
 
+      <h2>Combien coûte un chasseur pour un bien de prestige (2 à 3 M€) ?</h2>
+      <p>La rémunération d'un chasseur est généralement comprise entre <strong>1 et 3 % du prix d'achat</strong>, payable uniquement si l'achat se conclut. Pour un bien à 3 millions d'euros, cela représente un ordre de grandeur de 30 000 à 90 000 € ; sur les budgets élevés, un pourcentage dégressif ou un forfait est souvent négocié. À mettre en regard de la négociation obtenue : sur ce type de bien, quelques points de remise représentent bien plus que les honoraires.</p>
+      <p>Pour anticiper le coût total, pensez aussi aux <Link href="/frais-notaire-paris">frais de notaire à Paris</Link> (environ 8 % dans l'ancien).</p>
+
       <h2>Nos secteurs d'expertise à Paris</h2>
       <p>SellMyHome intervient dans l'ensemble des 20 arrondissements de Paris, avec une expertise particulière dans :</p>
       <ul className="seo-list">
@@ -67,6 +72,10 @@ export default function Page() {
       <p>Grâce au réseau Leggett, Marie a également accès à des acquéreurs et vendeurs internationaux, ce qui peut ouvrir des opportunités off-market supplémentaires.</p>
 
       <AdvisorBox source="chasseur-paris" />
+
+      <h2>Où cherchez-vous ?</h2>
+      <p>Prix au m², quartiers et points de vigilance, secteur par secteur :</p>
+      <ZoneChips zones={[...PARIS, ...IDF]} label="Secteurs de recherche" />
 
       <h2>FAQ — Chasseur immobilier Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>

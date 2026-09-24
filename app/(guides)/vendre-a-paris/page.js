@@ -1,8 +1,8 @@
 export const metadata = {
-  title: "Vendre son appartement à Paris : guide 2026",
-  description: "Prix, diagnostics, visites, négociation, notaire : les 6 étapes pour vendre votre appartement à Paris en 2026, avec délais et frais réels expliqués.",
+  title: "Vendre son bien à Paris : le guide 2026",
+  description: "Vendre son appartement ou sa maison à Paris en 2026 : prix, diagnostics, promesse de vente, négociation, notaire. Les étapes, délais et frais réels expliqués.",
   alternates: { canonical: "https://sellmyhome.fr/vendre-a-paris" },
-  openGraph: { images: [OG_IMAGE], title: "Vendre son appartement à Paris : guide 2026 | SellMyHome", description: "Prix, diagnostics, visites, négociation, notaire : les 6 étapes pour vendre votre appartement à Paris en 2026, avec délais et frais réels expliqués.", url: "https://sellmyhome.fr/vendre-a-paris" },
+  openGraph: { images: [OG_IMAGE], title: "Vendre son bien à Paris : le guide 2026 | SellMyHome", description: "Vendre son appartement ou sa maison à Paris en 2026 : prix, diagnostics, promesse de vente, négociation, notaire. Les étapes, délais et frais réels expliqués.", url: "https://sellmyhome.fr/vendre-a-paris" },
 };
 import { OG_IMAGE } from "../../../lib/site";
 import Link from "next/link";
@@ -11,10 +11,11 @@ import AdvisorBox from "../../../components/AdvisorBox";
 import { Byline } from "../../../components/SeoBits";
 
 const faq = [
+  { q: "Quelle est la différence entre une promesse et un compromis de vente à Paris ?", a: "Dans la promesse unilatérale, seul le vendeur s'engage à vendre ; l'acheteur dispose d'une option et verse une indemnité d'immobilisation (souvent 10 %). Dans le compromis, vendeur et acheteur s'engagent tous les deux. Dans les deux cas, l'acheteur bénéficie d'un délai de rétractation de 10 jours." },
   { q: "Quelles sont les étapes pour vendre un appartement à Paris ?", a: "1) Estimation du bien, 2) Préparation du dossier et diagnostics obligatoires, 3) Mise en valeur et photos, 4) Diffusion de l'annonce, 5) Organisation des visites, 6) Réception et négociation des offres, 7) Signature du compromis de vente, 8) Levée des conditions suspensives, 9) Signature de l'acte authentique chez le notaire." },
   { q: "Combien de temps faut-il pour vendre un appartement à Paris ?", a: "En 2026, le délai moyen est de 60 à 90 jours pour un bien correctement estimé et bien présenté. Un bien surestimé peut rester 6 à 12 mois sur le marché. Le délai entre le compromis et l'acte notarié est généralement de 2 à 3 mois supplémentaires." },
   { q: "Quels sont les diagnostics obligatoires pour vendre à Paris ?", a: "Les diagnostics obligatoires sont : DPE (performance énergétique), Carrez (surface), amiante (avant 1997), plomb (avant 1949), électricité et gaz (plus de 15 ans), termites selon la zone, assainissement, état des risques et pollutions (ERP). Le dossier de diagnostic technique (DDT) doit être fourni à la signature du compromis. Voir notre page sur les diagnostics immobiliers." },
-  { q: "Quels sont les frais pour vendre un appartement à Paris ?", a: "Le vendeur paie : les honoraires d'agence (si mandat agence), les diagnostics (environ 250 à 500 €), éventuellement les frais de mainlevée d'hypothèque. Les frais de notaire (environ 7 à 8 % dans l'ancien) sont à la charge de l'acheteur. L'impôt sur la plus-value s'applique si le bien n'est pas votre résidence principale." },
+  { q: "Quels sont les frais pour vendre un appartement à Paris ?", a: "Le vendeur paie : les honoraires d'agence (si mandat agence), les diagnostics (environ 300 à 600 € en pack), éventuellement les frais de mainlevée d'hypothèque. Les frais de notaire (environ 8 % dans l'ancien à Paris) sont à la charge de l'acheteur. L'impôt sur la plus-value s'applique si le bien n'est pas votre résidence principale." },
   { q: "Dois-je passer par une agence pour vendre mon appartement à Paris ?", a: "Non, la vente entre particuliers est possible. Cependant, dans un marché parisien compétitif, une agente comme Marie Houlier apporte : une estimation juste, une mise en valeur professionnelle, un réseau d'acheteurs (dont international via Leggett), et une gestion complète des visites et négociations. Les biens vendus via agence se vendent statistiquement plus vite et à meilleur prix." },
 ];
 
@@ -34,7 +35,7 @@ export default function Page() {
     <JsonLd data={{ "@context": "https://schema.org", "@type": "HowTo", name: "Comment vendre un appartement à Paris", step: etapes.map((e, i) => ({ "@type": "HowToStep", position: i+1, name: e.titre, text: e.desc })) }} />
     <main className="seo-page">
       <nav className="breadcrumb"><Link href="/">Accueil</Link> › <span>Vendre à Paris</span></nav>
-      <h1>Vendre son appartement à Paris — Guide complet 2026</h1>
+      <h1>Vendre son bien à Paris (appartement ou maison) : le guide 2026</h1>
       <Byline readingTime={6} />
       <p className="seo-intro"><strong>Vendre un bien immobilier à Paris</strong> est une décision majeure qui nécessite une préparation rigoureuse. Prix juste, diagnostics, mise en valeur, diffusion, négociation : chaque étape compte. Ce guide vous explique tout — et comment Marie Houlier, agente Leggett depuis 15 ans, vous accompagne personnellement de A à Z, à Paris comme en Île-de-France.</p>
       <div className="seo-cta-block"><Link href="/estimation" className="primary-btn">Estimer mon bien gratuitement avant de vendre</Link></div>
@@ -65,7 +66,7 @@ export default function Page() {
         <li><strong>Électricité et gaz</strong> — pour les installations de plus de 15 ans.</li>
         <li><strong>ERP (État des Risques et Pollutions)</strong> — obligatoire partout, valable 6 mois.</li>
       </ul>
-      <p>Le coût total des diagnostics est généralement de 250 à 500 € à Paris. SellMyHome peut vous recommander des diagnostiqueurs certifiés.</p>
+      <p>Le coût total des diagnostics est généralement de 300 à 600 € à Paris (voir le <Link href="/diagnostic-immobilier-paris">détail des prix</Link>). SellMyHome peut vous recommander des diagnostiqueurs certifiés.</p>
 
       <h2>Comment fixer le bon prix de vente à Paris ?</h2>
       <p>La fixation du prix est l'étape la plus critique. Un bien 5 % trop cher reçoit 50 % de demandes de visite en moins. Un bien bien positionné dès le premier jour génère de la concurrence entre acheteurs — ce qui peut conduire à des offres au prix, voire au-dessus.</p>
@@ -74,7 +75,18 @@ export default function Page() {
 
       <AdvisorBox source="vendre-a-paris" />
 
-      <h2>FAQ — Vendre un appartement à Paris</h2>
+      <h2>Promesse ou compromis de vente : ce que l'on signe à Paris</h2>
+      <p>Une fois l'offre acceptée, vendeur et acheteur signent un avant-contrat. À Paris, on rencontre les deux formes : la <strong>promesse unilatérale de vente</strong> (le vendeur s'engage, l'acheteur verse en général une indemnité d'immobilisation d'environ 10 %) et le <strong>compromis de vente</strong> (les deux parties s'engagent, avec un dépôt de garantie de 5 à 10 %). La promesse est très souvent signée chez le notaire.</p>
+      <p>L'acheteur dispose ensuite d'un délai de rétractation de 10 jours, puis les conditions suspensives (en particulier l'obtention du prêt) doivent être levées. Comptez généralement <strong>2 à 3 mois entre l'avant-contrat et l'acte authentique</strong>. Marie coordonne ces étapes avec les notaires des deux parties pour sécuriser votre vente.</p>
+
+      <h2>Vendre une maison à Paris</h2>
+      <p>Les maisons sont rares dans Paris intra-muros : villas du 16e, du 14e ou du 19e, maisons de la Butte-aux-Cailles ou de la Mouzaïa, pavillons du 20e. Cette rareté attire une clientèle motivée, mais chaque maison est unique : le prix au m² des appartements ne s'applique pas. Terrain, état, exposition, calme et possibilités d'extension doivent être estimés au cas par cas, avec une visite.</p>
+      <p>Même logique en proche banlieue, où les maisons sont plus nombreuses : consultez nos pages <Link href="/estimation-immobiliere/saint-cloud">Saint-Cloud</Link>, <Link href="/estimation-immobiliere/rueil-malmaison">Rueil-Malmaison</Link>, <Link href="/estimation-immobiliere/montreuil">Montreuil</Link> ou <Link href="/estimation-immobiliere/nogent-sur-marne">Nogent-sur-Marne</Link>.</p>
+
+      <h2>Vendre un appartement de luxe à Paris</h2>
+      <p>Pour un bien d'exception (grand appartement haussmannien, vue sur Seine ou sur la Tour Eiffel, hôtel particulier), la stratégie change : discrétion, présentation soignée, visites très qualifiées et accès à une clientèle internationale. Grâce au réseau Leggett, Marie présente votre bien à des acquéreurs étrangers en plus des portails français, et peut organiser une commercialisation confidentielle (off-market) si vous le souhaitez.</p>
+
+      <h2>FAQ — Vendre un bien à Paris</h2>
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>
 
       <div className="seo-internal-links">

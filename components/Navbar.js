@@ -20,8 +20,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Ferme le menu mobile à chaque changement de page
+  // Ferme le menu mobile à chaque changement de page, et avec la touche Échap
   useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const trackEstimation = () => {
     trackClick("nav_estimation");

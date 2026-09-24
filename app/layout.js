@@ -68,6 +68,7 @@ const schema = {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: "SellMyHome",
+      alternateName: ["Sell My Home", "sellmyhome.fr"],
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
       description: "Site de mise en relation avec Marie Houlier, agente immobilière affiliée Leggett : estimation gratuite et vente accompagnée à Paris et en Île-de-France.",
@@ -79,6 +80,7 @@ const schema = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       name: "SellMyHome",
+      alternateName: ["Sell My Home", "sellmyhome.fr"],
       url: SITE_URL,
       inLanguage: "fr-FR",
       publisher: { "@id": `${SITE_URL}/#organization` },
@@ -131,7 +133,7 @@ export default function RootLayout({ children }) {
         <MobileCtaBar />
         {/* GA chargé en afterInteractive = non-bloquant */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-JG8JD68V5T" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-JG8JD68V5T');`}</Script>
+        <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-JG8JD68V5T');document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"],a[href^="mailto:"]');if(a&&window.gtag){gtag('event',a.href.indexOf('tel:')===0?'click_to_call':'click_to_email',{page_path:location.pathname});}});`}</Script>
       </body>
     </html>
   );

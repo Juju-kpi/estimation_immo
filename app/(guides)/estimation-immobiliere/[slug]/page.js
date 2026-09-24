@@ -115,6 +115,12 @@ export default async function Page({ params }) {
         <h1>Estimation immobilière {inName(loc)}</h1>
         <Byline readingTime={4} />
         <p className="seo-intro">{loc.intro}</p>
+        {["paris-1", "paris-2", "paris-3", "paris-4"].includes(loc.slug) && (
+          <p className="seo-callout-inline">
+            Le {shortName(loc)} fait partie de <strong>Paris Centre</strong>, qui regroupe les 1er, 2e, 3e et 4e
+            arrondissements depuis 2020 ; chacun conserve son propre marché immobilier.
+          </p>
+        )}
 
         <div className="loc-stats">
           <div className="loc-stat">
