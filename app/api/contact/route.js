@@ -69,7 +69,8 @@ export async function POST(req) {
     const safeEmail = escapeHtml(email.trim());
     const safeMessage = escapeHtml(message.trim()).replace(/\n/g, "<br/>");
 
-    await resend.emails.send({
+    // Le SDK Resend ne lève pas d'exception en cas d'échec : il renvoie { data, error }
+    const { error: sendError } = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: "smh.redirection@gmail.com",
       subject: `Message de ${safeName} — SellMyHome`,
@@ -79,6 +80,7 @@ export async function POST(req) {
         <p><strong>Message:</strong><br/>${safeMessage}</p>
       `,
     });
+    if (sendError) throw new Error(`Resend: ${sendError.message}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

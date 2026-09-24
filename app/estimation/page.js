@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { trackClick } from "../../components/Tracker";
 import { useRouter } from "next/navigation";
+import { PHONE_DISPLAY } from "../../lib/site";
 import {
   FaMapMarkerAlt,
   FaBuilding,
@@ -11,6 +12,8 @@ import {
   FaEnvelope,
   FaPhone
 } from "react-icons/fa";
+
+const FALLBACK_ERROR = `Une erreur est survenue, réessayez ou appelez Marie au ${PHONE_DISPLAY}.`;
 
 export default function Estimation() {
   const router = useRouter();
@@ -29,6 +32,8 @@ export default function Estimation() {
   });
 
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [open, setOpen] = useState(false);
   const [openType, setOpenType] = useState(false);
@@ -81,10 +86,30 @@ export default function Estimation() {
     }
 
     setErrors(newErrors);
-if (Object.keys(newErrors).length > 0) return; 
-await fetch("/api/lead", { method: "POST", body: JSON.stringify(data), });
-localStorage.setItem("showSuccessToast", "true"); 
-router.push("/"); };
+    setSubmitError("");
+    if (Object.keys(newErrors).length > 0) return;
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (res.ok && json.success) {
+        localStorage.setItem("showSuccessToast", "true");
+        router.push("/");
+        return; // on garde le bouton désactivé pendant la redirection
+      }
+      // 4xx : message précis du serveur (validation, limite d'envois) ; 5xx : proposer d'appeler Marie
+      setSubmitError(res.status < 500 && json.error ? json.error : FALLBACK_ERROR);
+    } catch {
+      setSubmitError(FALLBACK_ERROR);
+    }
+    setSubmitting(false);
+  };
 
   return (
 
@@ -305,15 +330,24 @@ router.push("/"); };
         </label>
 
         <button
-          style={styles.submitBtn}
+          style={submitting ? { ...styles.submitBtn, ...styles.submitBtnDisabled } : styles.submitBtn}
           className="estimation-submit"
-           onClick={() => {
-    trackClick("formulaire_envoyé");
-    handleSubmit();
-  }}
+          disabled={submitting}
+          aria-busy={submitting}
+          onClick={() => {
+            if (submitting) return;
+            trackClick("formulaire_envoyé");
+            handleSubmit();
+          }}
         >
-          Envoyer ma demande
+          {submitting ? "Envoi en cours…" : "Envoyer ma demande"}
         </button>
+
+        {submitError && (
+          <p role="alert" style={styles.submitError}>
+            {submitError}
+          </p>
+        )}
 
 <div style={styles.seoContainer} className="seo-container">
   <h2 style={styles.seoTitle}>
@@ -536,6 +570,21 @@ const styles = {
     cursor: "pointer",
     transition: "0.3s",
     boxShadow: "var(--shadow-soft)"
+  },
+  submitBtnDisabled: {
+    opacity: 0.65,
+    cursor: "wait"
+  },
+  submitError: {
+    color: "#B5503F",
+    background: "#FBEFEC",
+    border: "1px solid rgba(181,80,63,0.25)",
+    borderRadius: 10,
+    padding: "10px 14px",
+    fontSize: 14,
+    textAlign: "center",
+    maxWidth: 520,
+    margin: "12px auto 0"
   },
   submitBtnHover: {
     transform: "translateY(-2px)"
