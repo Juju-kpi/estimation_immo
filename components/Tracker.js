@@ -80,8 +80,15 @@ export default function Tracker() {
         }
       };
 
+      // Suivi des clics déclaré en HTML (data-track="nom") : utilisable depuis les composants serveur
+      const handleTrackedClick = (e) => {
+        const el = e.target.closest && e.target.closest("[data-track]");
+        if (el) trackClick(el.getAttribute("data-track"));
+      };
+
       window.addEventListener("beforeunload", handleUnload);
       document.addEventListener("visibilitychange", handleVisibility);
+      document.addEventListener("click", handleTrackedClick);
 
       // Envoi de secours après 25 min si l'onglet reste ouvert sans action
       const timeout = setTimeout(() => {
@@ -95,6 +102,7 @@ export default function Tracker() {
       return () => {
         window.removeEventListener("beforeunload", handleUnload);
         document.removeEventListener("visibilitychange", handleVisibility);
+        document.removeEventListener("click", handleTrackedClick);
         clearTimeout(timeout);
       };
     }

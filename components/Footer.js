@@ -25,6 +25,10 @@ const columns = [
       ["/vendre-appartement-divorce-paris", "Vendre lors d'un divorce"],
       ["/vendre-maison-retraite-paris", "Vendre pour la retraite"],
       ["/vendre-avant-achat-paris", "Vendre avant d'acheter"],
+      ["/vendre-appartement-indivision-paris", "Vendre en indivision"],
+      ["/vendre-appartement-loue-paris", "Vendre un bien loué"],
+      ["/vendre-passoire-thermique-paris", "Vendre un DPE F ou G"],
+      ["/vendre-appartement-paris-depuis-etranger", "Vendre depuis l'étranger"],
     ],
   },
   {

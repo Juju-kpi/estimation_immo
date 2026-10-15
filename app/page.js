@@ -1,4 +1,4 @@
-import HomeClient from "./HomeClient";
+import HomeContent from "./HomeContent";
 import JsonLd, { faqSchema } from "../components/JsonLd";
 import { faqHome } from "./homeData";
 import { SITE_URL, OG_IMAGE } from "../lib/site";
@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <JsonLd data={faqSchema(faqHome)} />
-      <HomeClient />
+      <HomeContent />
     </>
   );
 }

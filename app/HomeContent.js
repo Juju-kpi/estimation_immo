@@ -1,10 +1,11 @@
-"use client";
+// Accueil rendu côté serveur : seuls le formulaire du hero, les onglets de services,
+// le toast, les compteurs et les animations d'apparition s'exécutent dans le navigateur.
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { trackClick } from "../components/Tracker";
 import Reveal from "../components/Reveal";
+import HeroEstimateForm from "../components/home/HeroEstimateForm";
+import HomeToast from "../components/home/HomeToast";
+import ServicesTabs from "../components/home/ServicesTabs";
 import Counter from "../components/Counter";
 import {
   BarChart3,
@@ -29,47 +30,12 @@ import {
   Plane,
   TreePalm,
   Zap,
+  KeyRound,
   XCircle,
 } from "lucide-react";
 import { faqHome } from "./homeData";
 import { YEARS_EXPERIENCE, PHONE, PHONE_DISPLAY, EMAIL } from "../lib/site";
 import { PARIS, IDF } from "../lib/locations";
-
-const services = [
-  {
-    icon: BarChart3,
-    label: "Estimation",
-    title: "Estimation immobilière gratuite",
-    desc: "Une fourchette de prix fiable basée sur les transactions réelles DVF et la connaissance terrain de Marie, à Paris comme en Île-de-France. Résultat sous 24h, sans engagement.",
-    points: ["Données marché actualisées", "Analyse rue par rue, arrondissement par arrondissement", "Comparaison avec les ventes récentes"],
-    cta: "Estimer mon bien",
-    href: "/estimation",
-    tag: "Gratuit",
-    track: "service_estimation",
-  },
-  {
-    icon: HomeIcon,
-    label: "Vente",
-    title: "Vente de bien immobilier à Paris & IDF",
-    desc: "De la mise en valeur photographique à la signature chez le notaire : Marie gère l'intégralité de votre vente avec rigueur et transparence.",
-    points: ["Diffusion nationale + internationale Leggett", "Photos professionnelles incluses", "Suivi personnalisé jusqu'à la signature"],
-    cta: "Vendre mon bien",
-    href: "/vendre-a-paris",
-    tag: "Accompagnement complet",
-    track: "service_vente",
-  },
-  {
-    icon: Search,
-    label: "Recherche",
-    title: "Chasseur immobilier Paris",
-    desc: "Marie chasse pour vous : accès aux biens off-market, visites organisées, négociation incluse. Vous gagnez du temps et achetez au bon prix.",
-    points: ["Biens off-market exclusifs", "Négociation dans votre intérêt", "Accompagnement notaire inclus"],
-    cta: "Lancer ma recherche",
-    href: "/chasseur-paris",
-    tag: "Sur-mesure",
-    track: "service_chasseur",
-  },
-];
 
 const stats = [
   { value: `${YEARS_EXPERIENCE}+`, label: "ans d'expérience à Paris" },
@@ -168,37 +134,40 @@ const situations = [
     href: "/vendre-appartement-rapidement-paris",
     track: "situation_urgent",
   },
+  {
+    icon: KeyRound,
+    titre: "Appartement loué",
+    desc: "Vendre avec le locataire en place ou donner congé pour vendre libre ? Marie chiffre les deux options pour que vous choisissiez en connaissance de cause.",
+    href: "/vendre-appartement-loue-paris",
+    track: "situation_loue",
+  },
+  {
+    icon: Globe2,
+    titre: "Vous vivez à l'étranger",
+    desc: "Expatrié en Suisse, au Royaume-Uni ou ailleurs : Marie gère la vente de votre appartement parisien à distance, des visites jusqu'à la signature par procuration.",
+    href: "/vendre-appartement-paris-depuis-etranger",
+    track: "situation_etranger",
+  },
 ];
 
-export default function HomeClient() {
-  const router = useRouter();
-  const [heroAddress, setHeroAddress] = useState("");
-  const startEstimation = (e) => {
-    e.preventDefault();
-    trackClick("hero_estimation");
-    if (window.gtag) window.gtag("event", "click_estimation", { event_category: "engagement", event_label: "homepage_hero" });
-    const a = heroAddress.trim();
-    router.push(a ? `/estimation?adresse=${encodeURIComponent(a)}` : "/estimation");
-  };
-  const [showToast, setShowToast] = useState(false);
-  const [activeService, setActiveService] = useState(0);
-
-  useEffect(() => {
-    const shouldShow = localStorage.getItem("showSuccessToast");
-    if (shouldShow) {
-      setShowToast(true);
-      localStorage.removeItem("showSuccessToast");
-      setTimeout(() => setShowToast(false), 10000);
-    }
-  }, []);
-
+export default function HomeContent() {
   return (
     <>
       <main className="home">
-        {showToast && <div className="toast">✓ Votre demande a bien été envoyée — Marie vous contacte sous 24h !</div>}
+        <HomeToast />
 
         {/* ── HERO ── */}
         <section className="hero">
+          <Image
+            src="/appart_bg.jpg"
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            quality={70}
+            sizes="100vw"
+            className="hero-bg"
+          />
           <div className="hero-content">
             <h1>
               <span className="hero-h1-kicker">Estimation immobilière gratuite à Paris &amp; en Île-de-France</span>
@@ -209,22 +178,9 @@ export default function HomeClient() {
               Ici, pas d'algorithme anonyme : une vraie personne étudie votre bien et vous rappelle.
               De l'estimation à la signature chez le notaire, un seul interlocuteur, aucune pression commerciale.
             </p>
-            <form className="hero-estimate" onSubmit={startEstimation} role="search" aria-label="Démarrer une estimation">
-              <label className="hero-estimate-field">
-                <MapPin size={18} aria-hidden="true" />
-                <span className="sr-only">Adresse de votre bien</span>
-                <input
-                  type="text"
-                  value={heroAddress}
-                  onChange={(e) => setHeroAddress(e.target.value)}
-                  placeholder="Adresse du bien à estimer"
-                  autoComplete="street-address"
-                />
-              </label>
-              <button type="submit">Estimer gratuitement</button>
-            </form>
+            <HeroEstimateForm />
             <div className="hero-cta-group">
-              <a href={`tel:${PHONE}`} className="hero-secondary-cta" onClick={() => trackClick("hero_tel")}>
+              <a href={`tel:${PHONE}`} className="hero-secondary-cta" data-track="hero_tel">
                 <PhoneCall size={16} /> Ou appelez Marie · {PHONE_DISPLAY}
               </a>
             </div>
@@ -271,7 +227,7 @@ export default function HomeClient() {
                     <Link
                       href={s.href}
                       className="situation-card"
-                      onClick={() => trackClick(s.track)}
+                      data-track={s.track}
                     >
                       <span className="situation-icon"><Icon size={24} /></span>
                       <div className="situation-body">
@@ -286,7 +242,7 @@ export default function HomeClient() {
             </div>
             <Reveal delay={100}>
               <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
-                <Link href="/estimation" className="primary-btn" onClick={() => trackClick("situations_cta")}>
+                <Link href="/estimation" className="primary-btn" data-track="situations_cta">
                   Obtenir mon estimation gratuite
                 </Link>
               </div>
@@ -306,76 +262,7 @@ export default function HomeClient() {
               <p className="section-sub">Vente, estimation, recherche — un seul interlocuteur du début à la fin</p>
             </Reveal>
 
-            <Reveal delay={100}>
-              <div className="service-tabs" role="tablist">
-                {services.map((s, i) => {
-                  const Icon = s.icon;
-                  return (
-                    <button key={i} role="tab" aria-selected={activeService === i}
-                      className={`service-tab${activeService === i ? " active" : ""}`}
-                      onClick={() => setActiveService(i)}>
-                      <Icon size={17} aria-hidden="true" />
-                      <span>{s.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </Reveal>
-
-            <div className="service-panel" role="tabpanel">
-              {services.map((s, i) => {
-                const Icon = s.icon;
-                return (
-                  <div key={i} className={`service-detail${activeService === i ? " visible" : ""}`}>
-                    <div className="sd-left">
-                      <span className="sd-tag">{s.tag}</span>
-                      <h3 className="sd-title">{s.title}</h3>
-                      <p className="sd-desc">{s.desc}</p>
-                      <ul className="sd-points">
-                        {s.points.map((p, j) => (
-                          <li key={j}><span className="sd-check"><CheckCircle2 size={16} /></span>{p}</li>
-                        ))}
-                      </ul>
-                      <Link href={s.href} className="primary-btn sd-cta" onClick={() => trackClick(s.track)}>
-                        {s.cta} <ChevronRight size={16} style={{ verticalAlign: "-3px" }} />
-                      </Link>
-                    </div>
-                    <div className="sd-right">
-                      <div className="sd-visual">
-                        <div className="sd-icon-large"><Icon size={52} strokeWidth={1.25} /></div>
-                        <div className="sd-links">
-                          <Link href="/estimation-paris" className="sd-pill">Estimation Paris</Link>
-                          <Link href="/prix-m2-paris" className="sd-pill">Prix m² Paris</Link>
-                          <Link href="/chasseur-paris" className="sd-pill">Chasseur immobilier</Link>
-                          <Link href="/vendre-a-paris" className="sd-pill">Vendre à Paris</Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="services-grid">
-              {services.map((s, i) => {
-                const Icon = s.icon;
-                return (
-                  <Reveal key={i} delay={i * 80}>
-                    <Link href={s.href}
-                      className={`service-card${activeService === i ? " service-card-active" : ""}`}
-                      onClick={() => { setActiveService(i); trackClick(s.track); }}>
-                      <div className="service-card-header">
-                        <span className="icon-badge"><Icon size={22} /></span>
-                        <span className="service-badge">{s.tag}</span>
-                      </div>
-                      <h3>{s.title}</h3>
-                      <p>{s.desc}</p>
-                      <span className="service-link">{s.cta} →</span>
-                    </Link>
-                  </Reveal>
-                );
-              })}
-            </div>
+            <ServicesTabs />
           </div>
         </section>
 
@@ -411,7 +298,7 @@ export default function HomeClient() {
             </div>
             <Reveal delay={200}>
               <div className="timeline-cta">
-                <Link href="/estimation" className="primary-btn" onClick={() => trackClick("timeline_cta")}>
+                <Link href="/estimation" className="primary-btn" data-track="timeline_cta">
                   Commencer — c'est gratuit
                 </Link>
               </div>
@@ -435,25 +322,24 @@ export default function HomeClient() {
                 <Image src="/marie_houlier.jpg"
                   alt="Marie Houlier, conseillère en immobilier spécialiste vente appartement Paris et Île-de-France, agente Leggett"
                   fill
-                  quality={85}
-                  priority
-                  sizes="(max-width: 768px) 100vw, 260px" />
+                  quality={80}
+                  sizes="(max-width: 768px) 92vw, 300px" />
               </div>
               <div className="agent-info">
                 <span className="agent-leggett-badge"><Globe2 size={12} /> Agente Leggett</span>
-                <h3><Link href="/nous" onClick={() => trackClick("marie_contact")}>Marie Houlier</Link></h3>
+                <h3><Link href="/nous" data-track="marie_contact">Marie Houlier</Link></h3>
                 <p className="agent-tagline">Agente Leggett · Spécialiste Paris &amp; Île-de-France</p>
                 <p>Depuis {YEARS_EXPERIENCE} ans, je mets à votre service ma connaissance fine du marché parisien et francilien, et des ambiances propres à chaque quartier. Estimation, vente, achat : je vous accompagne avec empathie et efficacité.</p>
                 <p>De la mise en valeur de votre bien à la diffusion internationale via Leggett, en passant par la négociation et la signature notariale — je gère tout, pour vous.</p>
                 <div className="agent-contact-block">
-                  <a href={`tel:${PHONE}`} className="agent-phone-btn" onClick={() => trackClick("marie_tel")}>
+                  <a href={`tel:${PHONE}`} className="agent-phone-btn" data-track="marie_tel">
                     <PhoneCall size={15} /> {PHONE_DISPLAY}
                   </a>
-                  <a href={`mailto:${EMAIL}`} className="agent-mail-btn" onClick={() => trackClick("marie_mail")}>
+                  <a href={`mailto:${EMAIL}`} className="agent-mail-btn" data-track="marie_mail">
                     <Mail size={15} /> {EMAIL}
                   </a>
                 </div>
-                <Link href="/nous" className="agent-more-link" onClick={() => trackClick("marie_profil")}>
+                <Link href="/nous" className="agent-more-link" data-track="marie_profil">
                   Découvrir Marie et sa façon de travailler <ChevronRight size={15} />
                 </Link>
               </div>
@@ -526,7 +412,7 @@ export default function HomeClient() {
             <div className="mid-cta-box">
               <h2>Votre bien vaut combien aujourd'hui ?</h2>
               <p>Une estimation précise, gratuite, réalisée par Marie sous 24h. Sans engagement, sans démarchage.</p>
-              <Link href="/estimation" className="primary-btn" onClick={() => trackClick("mid_cta")}>
+              <Link href="/estimation" className="primary-btn" data-track="mid_cta">
                 Obtenir mon estimation gratuite
               </Link>
               <span className="mid-cta-note">Gratuit · Confidentiel · Sans engagement</span>
@@ -551,7 +437,7 @@ export default function HomeClient() {
                 <p>Du Marais au 16e, chaque arrondissement a ses micro-marchés.</p>
                 <div className="zone-chips">
                   {PARIS.map((z) => (
-                    <Link key={z.slug} href={`/estimation-immobiliere/${z.slug}`} className="zone-chip" onClick={() => trackClick(`zone_${z.slug}`)}>{z.name}</Link>
+                    <Link key={z.slug} href={`/estimation-immobiliere/${z.slug}`} className="zone-chip" data-track={`zone_${z.slug}`}>{z.name}</Link>
                   ))}
                 </div>
                 <Link href="/estimation-paris" className="zones-more">Estimation à Paris →</Link>
@@ -561,7 +447,7 @@ export default function HomeClient() {
                 <p>Hauts-de-Seine, Val-de-Marne, est parisien et Yvelines.</p>
                 <div className="zone-chips">
                   {IDF.map((z) => (
-                    <Link key={z.slug} href={`/estimation-immobiliere/${z.slug}`} className="zone-chip" onClick={() => trackClick(`zone_${z.slug}`)}>{z.name}</Link>
+                    <Link key={z.slug} href={`/estimation-immobiliere/${z.slug}`} className="zone-chip" data-track={`zone_${z.slug}`}>{z.name}</Link>
                   ))}
                 </div>
                 <Link href="/estimation-ile-de-france" className="zones-more">Estimation en Île-de-France →</Link>
@@ -589,7 +475,7 @@ export default function HomeClient() {
               ))}
             </div>
             <div style={{ textAlign: "center", marginTop: "2rem" }}>
-              <Link href="/estimation" className="btn" onClick={() => trackClick("faq_cta")}>
+              <Link href="/estimation" className="btn" data-track="faq_cta">
                 Obtenir mon estimation gratuite
               </Link>
             </div>
