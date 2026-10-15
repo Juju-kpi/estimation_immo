@@ -2014,3 +2014,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 @media (pointer: coarse) { .topbar-phone { min-height: 40px; } }
 @media (max-width: 768px) { .seo-cta-block a.primary-btn { margin-left: auto; margin-right: auto; text-align: center; } }
+
+/* ── v7 — Performance accueil : la photo du hero est une <Image priority> (LCP préchargé,
+   tailles adaptées au mobile, AVIF/WebP) et non plus une image de fond CSS découverte tard ── */
+.hero { background: #203A63; }
+.hero .hero-bg { object-fit: cover; object-position: center; z-index: 0; }
+.hero::before, .hero::after { z-index: 1; }
+.hero-content { z-index: 3; animation: none; }

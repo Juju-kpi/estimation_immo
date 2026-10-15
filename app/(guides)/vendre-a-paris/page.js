@@ -75,6 +75,17 @@ export default function Page() {
 
       <AdvisorBox source="vendre-a-paris" />
 
+      <h2>Votre situation est particulière ?</h2>
+      <p>Chaque vente a son contexte. Nos guides détaillent les démarches, les délais et les points de vigilance :</p>
+      <ul className="seo-list">
+        <li><Link href="/vendre-appartement-succession-paris"><strong>Succession</strong></Link> et <Link href="/vendre-appartement-indivision-paris"><strong>indivision</strong></Link> — vendre un bien hérité ou détenu à plusieurs, même sans accord de tous.</li>
+        <li><Link href="/vendre-appartement-divorce-paris"><strong>Divorce ou séparation</strong></Link> — vendre le bien commun en toute neutralité.</li>
+        <li><Link href="/vendre-appartement-loue-paris"><strong>Appartement loué</strong></Link> — vendre occupé ou donner congé pour vendre libre.</li>
+        <li><Link href="/vendre-passoire-thermique-paris"><strong>DPE F ou G</strong></Link> — vendre une passoire thermique au bon prix.</li>
+        <li><Link href="/vendre-appartement-paris-depuis-etranger"><strong>Depuis l'étranger</strong></Link> — vendre à distance, procuration et fiscalité des non-résidents.</li>
+        <li><Link href="/vendre-appartement-rapidement-paris"><strong>Vendre vite</strong></Link>, <Link href="/vendre-avant-achat-paris"><strong>vendre avant d'acheter</strong></Link> ou <Link href="/vendre-maison-retraite-paris"><strong>vendre pour la retraite</strong></Link>.</li>
+      </ul>
+
       <h2>Promesse ou compromis de vente : ce que l'on signe à Paris</h2>
       <p>Une fois l'offre acceptée, vendeur et acheteur signent un avant-contrat. À Paris, on rencontre les deux formes : la <strong>promesse unilatérale de vente</strong> (le vendeur s'engage, l'acheteur verse en général une indemnité d'immobilisation d'environ 10 %) et le <strong>compromis de vente</strong> (les deux parties s'engagent, avec un dépôt de garantie de 5 à 10 %). La promesse est très souvent signée chez le notaire.</p>
       <p>L'acheteur dispose ensuite d'un délai de rétractation de 10 jours, puis les conditions suspensives (en particulier l'obtention du prêt) doivent être levées. Comptez généralement <strong>2 à 3 mois entre l'avant-contrat et l'acte authentique</strong>. Marie coordonne ces étapes avec les notaires des deux parties pour sécuriser votre vente.</p>

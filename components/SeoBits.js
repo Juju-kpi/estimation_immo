@@ -2,12 +2,12 @@ import Link from "next/link";
 import { AGENT_NAME, UPDATED_LABEL, YEARS_EXPERIENCE } from "../lib/site";
 
 // Ligne auteur + fraîcheur sous le H1 des guides (signal E-E-A-T)
-export function Byline({ readingTime }) {
+export function Byline({ readingTime, updated = UPDATED_LABEL }) {
   return (
     <p className="seo-byline">
       Par <Link href="/nous">{AGENT_NAME}</Link>, agente Leggett · {YEARS_EXPERIENCE} ans d'expérience à Paris
       <span aria-hidden="true"> · </span>
-      Mis à jour en {UPDATED_LABEL}
+      Mis à jour en {updated}
       {readingTime ? <><span aria-hidden="true"> · </span>{readingTime} min de lecture</> : null}
     </p>
   );

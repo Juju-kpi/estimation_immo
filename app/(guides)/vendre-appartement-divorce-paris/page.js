@@ -80,7 +80,7 @@ export default function Page() {
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>
 
       <div className="seo-internal-links">
-        <p>À lire aussi : <Link href="/vendre-a-paris">Guide complet pour vendre à Paris</Link> · <Link href="/estimation-paris">Estimation immobilière gratuite</Link> · <Link href="/frais-notaire-paris">Frais de notaire Paris</Link> · <Link href="/vendre-appartement-succession-paris">Vendre en succession</Link></p>
+        <p>À lire aussi : <Link href="/vendre-a-paris">Guide complet pour vendre à Paris</Link> · <Link href="/estimation-paris">Estimation immobilière gratuite</Link> · <Link href="/frais-notaire-paris">Frais de notaire Paris</Link> · <Link href="/vendre-appartement-succession-paris">Vendre en succession</Link> · <Link href="/vendre-appartement-indivision-paris">Vendre en indivision</Link></p>
       </div>
       <div className="seo-cta-block" style={{ marginTop: "2.5rem" }}>
         <Link href="/contact" className="primary-btn">Contacter Marie pour ma situation</Link>

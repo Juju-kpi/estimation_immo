@@ -160,7 +160,7 @@ export default function Page() {
       <div className="faq-seo-list">{faq.map((f, i) => <details key={i} className="faq-item"><summary className="faq-question">{f.q}</summary><p className="faq-answer">{f.a}</p></details>)}</div>
 
       <div className="seo-internal-links">
-        <p>À lire aussi : <Link href="/vendre-a-paris">Vendre un appartement à Paris — guide complet</Link> · <Link href="/estimation-paris">Estimation immobilière gratuite à Paris</Link> · <Link href="/frais-notaire-paris">Frais de notaire à Paris</Link> · <Link href="/prix-m2-paris">Prix m² Paris 2026</Link></p>
+        <p>À lire aussi : <Link href="/vendre-a-paris">Vendre un appartement à Paris — guide complet</Link> · <Link href="/estimation-paris">Estimation immobilière gratuite à Paris</Link> · <Link href="/frais-notaire-paris">Frais de notaire à Paris</Link> · <Link href="/vendre-passoire-thermique-paris">Vendre un DPE F ou G</Link> · <Link href="/prix-m2-paris">Prix m² Paris 2026</Link></p>
       </div>
       <div className="seo-cta-block" style={{marginTop:"2.5rem"}}><Link href="/estimation" className="primary-btn">Démarrer mon estimation gratuite</Link></div>
     </main>
